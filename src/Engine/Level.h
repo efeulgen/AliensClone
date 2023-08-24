@@ -15,8 +15,19 @@ protected:
       class Player *player = nullptr;
       int levelIndex;
 
+      int windowWidth;
+      int windowHeight;
+
+      const char *levelBackground;
+      const char *levelGroud;
+
 public:
-      Level() {}
+      Level(int index, int w, int h)
+      {
+            levelIndex = index;
+            windowWidth = w;
+            windowHeight = h;
+      }
       virtual ~Level() {}
       virtual void SetupLevel() = 0;
 
@@ -40,6 +51,26 @@ public:
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
 
+            // *****************************************************************************************************************************
+            // ************************* dummy ground, background & pillars ****************************************************************
+            SDL_SetRenderDrawColor(renderer, 189, 169, 157, 255);
+            SDL_Rect backgroundRect = {0, 0, windowWidth, windowHeight};
+            SDL_RenderFillRect(renderer, &backgroundRect);
+
+            SDL_SetRenderDrawColor(renderer, 74, 65, 59, 255);
+            SDL_Rect groundRect = {0, windowHeight * 5 / 7, windowWidth, windowHeight};
+            SDL_RenderFillRect(renderer, &groundRect);
+
+            SDL_Rect dummyPillarRect;
+            for (int i = 1; i < 5; i++)
+            {
+                  SDL_SetRenderDrawColor(renderer, 80, 80, 120, 255);
+                  dummyPillarRect = {i * 500, windowHeight * 2 / 5, 50, 250};
+                  SDL_RenderFillRect(renderer, &dummyPillarRect);
+            }
+            // *****************************************************************************************************************************
+            // *****************************************************************************************************************************
+
             for (auto obj : gameObjects)
             {
                   obj->RenderGameObject(renderer);
@@ -56,7 +87,7 @@ public:
                   obj = nullptr;
             }
             gameObjects.clear();
-            std::cout << "Level " << levelIndex << " GameObject list is cleared." << std::endl;
+            std::cout << "\033[1;33mLevel " << levelIndex << " GameObject list is cleared.\033[0m" << std::endl;
       }
 
       virtual void InstantiateGameObject(GameObject *obj)

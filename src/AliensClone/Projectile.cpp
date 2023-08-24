@@ -3,7 +3,7 @@
 
 Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t) : GameObject(pos, vel, rSize), type{t}
 {
-      Logger::Logg("Projectile Constructor");
+      // Logger::Logg("Projectile Constructor");
 
       switch (type)
       {
@@ -20,7 +20,7 @@ Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t
 
 Projectile::~Projectile()
 {
-      Logger::Logg("Projectile Destructor");
+      // Logger::Logg("Projectile Destructor");
 }
 
 void Projectile::InitGameObject()

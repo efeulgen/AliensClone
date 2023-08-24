@@ -1,11 +1,9 @@
 
 #include "LevelZero.h"
 
-LevelZero::LevelZero()
+LevelZero::LevelZero(int index, int w, int h) : Level(index, w, h)
 {
       Logger::Logg("LevelZero Constructor");
-
-      levelIndex = 0;
 }
 
 LevelZero::~LevelZero()
@@ -16,6 +14,6 @@ LevelZero::~LevelZero()
 void LevelZero::SetupLevel()
 {
       // player
-      player = new Player(glm::vec2(300, 300), glm::vec2(600.0, 600.0), 128, this);
+      player = new Player(glm::vec2(300, 500), glm::vec2(600.0, 600.0), 128, this, windowWidth, windowHeight);
       gameObjects.push_back(player);
 }

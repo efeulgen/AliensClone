@@ -19,12 +19,17 @@ void Game::Init()
             return;
       }
 
-      window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_BORDERLESS);
+      SDL_DisplayMode displayMode;
+      SDL_GetCurrentDisplayMode(0, &displayMode);
+      windowWidth = displayMode.w;
+      windowHeight = displayMode.h;
+      window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_BORDERLESS);
       if (!window)
       {
             Logger::Err("SDL_Window creation fails.");
             return;
       }
+      SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
       renderer = SDL_CreateRenderer(window, -1, 0);
       if (!renderer)

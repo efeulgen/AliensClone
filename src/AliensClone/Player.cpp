@@ -1,12 +1,11 @@
 
 #include "Player.h"
 
-Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level) : GameObject(pos, vel, rSize)
+Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int h) : GameObject(pos, vel, rSize), currentLevel{level}, windowWidth{w}, windowHeight{h}
 {
       Logger::Logg("Player Constructor");
 
       imgFilePath = "./assets/sprites/Player.png";
-      currentLevel = level;
 
       canFire = true;
       fireCounter = 0.0;
@@ -34,6 +33,16 @@ void Player::UpdateGameObject(double deltaTime)
                   canFire = true;
                   fireCounter = 0.0;
             }
+      }
+
+      // bound checking
+      if (transform.position.y < windowHeight * 2 / 3)
+      {
+            transform.position.y = windowHeight * 2 / 3;
+      }
+      if (transform.position.y > windowHeight - rectSize)
+      {
+            transform.position.y = windowHeight - rectSize;
       }
 }
 

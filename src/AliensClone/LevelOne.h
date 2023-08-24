@@ -7,7 +7,7 @@
 class LevelOne : public Level
 {
 public:
-      LevelOne();
+      LevelOne(int index, int w, int h);
       ~LevelOne();
 
       void SetupLevel() override;

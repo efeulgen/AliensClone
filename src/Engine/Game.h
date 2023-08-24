@@ -19,6 +19,8 @@ protected:
 
       SDL_Window *window;
       SDL_Renderer *renderer;
+      int windowWidth;
+      int windowHeight;
 
       std::vector<Level *> levels;
       int activeLevelIndex = 0;
@@ -32,6 +34,10 @@ public:
       void Destroy();
       void LoadNextLevel();
       virtual void SetupLevels() {}
+
+      // getters & setters
+      int GetWindowWidth() const { return windowWidth; }
+      int GetWindowHeight() const { return windowHeight; }
 };
 
 #endif

@@ -17,8 +17,11 @@ private:
       bool canFire;
       double fireCounter;
 
+      int windowWidth;
+      int windowHeight;
+
 public:
-      Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level);
+      Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int h);
       ~Player();
 
       void InitGameObject() override;
