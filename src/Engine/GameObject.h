@@ -21,29 +21,32 @@ protected:
       Transform transform;
       glm::vec2 velocity = glm::vec2(0.0, 0.0);
       const char *imgFilePath = nullptr;
+      bool isFlipped = false;
+      int rectSize;
 
 public:
-      GameObject()
+      GameObject() {}
+      GameObject(glm::vec2 pos, glm::vec2 vel, int rSize = 64)
       {
+            transform.position = pos;
+            velocity = vel;
+            rectSize = rSize;
       }
       virtual ~GameObject() {}
-
       virtual void InitGameObject() = 0;
       virtual void UpdateGameObject(double deltaTime) = 0;
+
       virtual void RenderGameObject(SDL_Renderer *renderer)
       {
             SDL_Surface *surf = IMG_Load(imgFilePath);
             SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
             SDL_FreeSurface(surf);
-            rect = {static_cast<int>(transform.position.x), static_cast<int>(transform.position.y), 64, 64}; // change 64 later
+            rect = {static_cast<int>(transform.position.x), static_cast<int>(transform.position.y), rectSize, rectSize};
             SDL_RenderCopy(renderer, tex, NULL, &rect);
             SDL_DestroyTexture(tex);
       }
 
-      void DestroyGameObject()
-      {
-            delete this;
-      }
+      void DestroyGameObject() { delete this; }
 
       // getters & setters
       SDL_Rect GetRect() const { return rect; }

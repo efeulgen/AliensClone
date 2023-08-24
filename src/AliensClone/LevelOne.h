@@ -11,8 +11,6 @@ public:
       ~LevelOne();
 
       void SetupLevel() override;
-      void UpdateLevel(double deltaTime) override;
-      void RenderLevel(SDL_Renderer *renderer) override;
 };
 
 #endif

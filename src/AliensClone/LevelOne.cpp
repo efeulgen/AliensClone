@@ -14,11 +14,3 @@ LevelOne::~LevelOne()
 void LevelOne::SetupLevel()
 {
 }
-
-void LevelOne::UpdateLevel(double deltaTime)
-{
-}
-
-void LevelOne::RenderLevel(SDL_Renderer *renderer)
-{
-}

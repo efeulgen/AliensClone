@@ -13,15 +13,17 @@ private:
 
 public:
       Player();
+      Player(glm::vec2 pos, glm::vec2 vel);
       ~Player();
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
 
-      void MoveForward();
-      void MoveBackward();
-      void MoveUp();
-      void MoveDown();
+      void ProcessPlayerInput(double deltaTime);
+      void MoveForward(double deltaTime);
+      void MoveBackward(double deltaTime);
+      void MoveUp(double deltaTime);
+      void MoveDown(double deltaTime);
       void Fire();
 };
 

@@ -3,6 +3,7 @@
 #define LEVELZERO_H
 
 #include "../Engine/Level.h"
+#include "Player.h"
 
 class LevelZero : public Level
 {
@@ -11,8 +12,6 @@ public:
       ~LevelZero();
 
       void SetupLevel() override;
-      void UpdateLevel(double deltaTime) override;
-      void RenderLevel(SDL_Renderer *renderer) override;
 };
 
 #endif

@@ -13,12 +13,7 @@ LevelZero::~LevelZero()
 
 void LevelZero::SetupLevel()
 {
-}
-
-void LevelZero::UpdateLevel(double deltaTime)
-{
-}
-
-void LevelZero::RenderLevel(SDL_Renderer *renderer)
-{
+      // player
+      player = new Player(glm::vec2(300, 300), glm::vec2(5.0, 5.0));
+      gameObjects.push_back(player);
 }
