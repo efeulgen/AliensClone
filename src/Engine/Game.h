@@ -14,15 +14,14 @@ const int MILLISECS_PER_FRAME = 1000 / FPS;
 class Game
 {
 protected:
-      bool isRunning;
-      double deltaTime;
-      int millisecsPreviousFrame;
+      bool isRunning = false;
+      int millisecsPreviousFrame = 0;
 
       SDL_Window *window;
       SDL_Renderer *renderer;
 
       std::vector<Level *> levels;
-      int activeLevelIndex;
+      int activeLevelIndex = 0;
 
 public:
       Game();

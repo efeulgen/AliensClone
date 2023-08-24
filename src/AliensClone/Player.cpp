@@ -1,19 +1,15 @@
 
 #include "Player.h"
 
-Player::Player()
+Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level) : GameObject(pos, vel, rSize)
 {
-      Logger::Logg("Player Default Constructor");
+      Logger::Logg("Player Constructor");
 
       imgFilePath = "./assets/sprites/Player.png";
-      velocity = glm::vec2(5.0, 5.0);
-}
+      currentLevel = level;
 
-Player::Player(glm::vec2 pos, glm::vec2 vel) : GameObject(pos, vel)
-{
-      Logger::Logg("Player Overloaded Constructor");
-
-      imgFilePath = "./assets/sprites/Player.png";
+      canFire = true;
+      fireCounter = 0.0;
 }
 
 Player::~Player()
@@ -28,6 +24,17 @@ void Player::InitGameObject()
 void Player::UpdateGameObject(double deltaTime)
 {
       ProcessPlayerInput(deltaTime);
+
+      // fire
+      if (!canFire)
+      {
+            fireCounter += deltaTime;
+            if (fireCounter > FIRE_RATE)
+            {
+                  canFire = true;
+                  fireCounter = 0.0;
+            }
+      }
 }
 
 void Player::ProcessPlayerInput(double deltaTime)
@@ -49,16 +56,23 @@ void Player::ProcessPlayerInput(double deltaTime)
       {
             MoveDown(deltaTime);
       }
+      if (keyboardState[SDL_SCANCODE_RETURN] && canFire)
+      {
+            Fire();
+            canFire = false;
+      }
 }
 
 void Player::MoveForward(double deltaTime)
 {
       transform.position.x += velocity.x * deltaTime;
+      isFlipped = false;
 }
 
 void Player::MoveBackward(double deltaTime)
 {
       transform.position.x -= velocity.x * deltaTime;
+      isFlipped = true;
 }
 
 void Player::MoveUp(double deltaTime)
@@ -73,4 +87,13 @@ void Player::MoveDown(double deltaTime)
 
 void Player::Fire()
 {
+      double speed = 2000.0;
+      glm::vec2 vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
+      glm::vec2 offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
+      currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 32, ProjectileType::PT_PlayerProjectile));
+}
+
+void Player::Crouch()
+{
+      std::cout << "Player crouches" << std::endl;
 }

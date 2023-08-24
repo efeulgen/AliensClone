@@ -17,21 +17,26 @@ struct Transform
 class GameObject
 {
 protected:
-      SDL_Rect rect = {0, 0, 0, 0};
       Transform transform;
       glm::vec2 velocity = glm::vec2(0.0, 0.0);
+      int rectSize = 0;
       const char *imgFilePath = nullptr;
+
       bool isFlipped = false;
-      int rectSize;
+      bool canBeDestroyed = false;
+
+private:
+      SDL_Rect rect = {0, 0, 0, 0};
 
 public:
       GameObject() {}
-      GameObject(glm::vec2 pos, glm::vec2 vel, int rSize = 64)
+      GameObject(glm::vec2 pos, glm::vec2 vel, int rSize)
       {
             transform.position = pos;
             velocity = vel;
             rectSize = rSize;
       }
+
       virtual ~GameObject() {}
       virtual void InitGameObject() = 0;
       virtual void UpdateGameObject(double deltaTime) = 0;
@@ -42,7 +47,15 @@ public:
             SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
             SDL_FreeSurface(surf);
             rect = {static_cast<int>(transform.position.x), static_cast<int>(transform.position.y), rectSize, rectSize};
-            SDL_RenderCopy(renderer, tex, NULL, &rect);
+            if (isFlipped)
+            {
+                  SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
+                  SDL_RenderCopyEx(renderer, tex, NULL, &rect, 0.0, NULL, flip);
+            }
+            else
+            {
+                  SDL_RenderCopy(renderer, tex, NULL, &rect);
+            }
             SDL_DestroyTexture(tex);
       }
 
@@ -51,6 +64,7 @@ public:
       // getters & setters
       SDL_Rect GetRect() const { return rect; }
       Transform GetTransform() const { return transform; }
+      bool GetCanBeDestroyed() const { return canBeDestroyed; }
 };
 
 #endif

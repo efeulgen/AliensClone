@@ -4,11 +4,6 @@
 Game::Game()
 {
       Logger::Logg("Game Constructor");
-
-      isRunning = false;
-      deltaTime = 0.0;
-      millisecsPreviousFrame = 0;
-      activeLevelIndex = 0;
 }
 
 Game::~Game()
@@ -39,6 +34,8 @@ void Game::Init()
             return;
       }
 
+      SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+
       // setup game
       isRunning = true;
       SetupLevels();
@@ -47,19 +44,21 @@ void Game::Init()
 void Game::Display()
 {
       // *****************************************************************************************************************************
-      // ************************* deltaTime *****************************************************************************************
-      int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
-      if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME)
-      {
-            SDL_Delay(timeToWait);
-      }
-      deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0;
-      millisecsPreviousFrame = SDL_GetTicks();
-
-      // *****************************************************************************************************************************
       levels[activeLevelIndex]->SetupLevel();
       while (isRunning)
       {
+            // *****************************************************************************************************************************
+            // ************************* deltaTime *****************************************************************************************
+            int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
+            if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME)
+            {
+                  SDL_Delay(timeToWait);
+            }
+            double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0;
+            millisecsPreviousFrame = SDL_GetTicks();
+
+            // *****************************************************************************************************************************
+            // ************************* game loop *****************************************************************************************
             ProcessInput();
             levels[activeLevelIndex]->UpdateLevel(deltaTime);
             levels[activeLevelIndex]->RenderLevel(renderer);
@@ -96,9 +95,14 @@ void Game::Destroy()
       {
             for (auto level : levels)
             {
+                  if (!level->GetIsLevelGameObjectListIsClear())
+                  {
+                        level->ClearLevelGameObjects();
+                  }
                   delete level;
                   level = nullptr;
             }
+            levels.clear();
       }
 
       SDL_DestroyRenderer(renderer);

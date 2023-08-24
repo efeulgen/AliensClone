@@ -16,7 +16,7 @@ private:
       ProjectileType type;
 
 public:
-      Projectile(glm::vec2 pos, glm::vec2 vel, ProjectileType t);
+      Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t);
       ~Projectile();
 
       void InitGameObject() override;

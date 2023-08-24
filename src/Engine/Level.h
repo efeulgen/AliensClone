@@ -13,6 +13,7 @@ protected:
       std::vector<GameObject *> gameObjects;
       bool isLevelComplete = false;
       class Player *player = nullptr;
+      int levelIndex;
 
 public:
       Level() {}
@@ -23,6 +24,13 @@ public:
       {
             for (auto obj : gameObjects)
             {
+                  if (obj->GetCanBeDestroyed())
+                  {
+                        gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), obj), gameObjects.end());
+                        obj->DestroyGameObject();
+                        obj = nullptr;
+                        break;
+                  }
                   obj->UpdateGameObject(deltaTime);
             }
       }
@@ -40,8 +48,25 @@ public:
             SDL_RenderPresent(renderer);
       }
 
+      virtual void ClearLevelGameObjects()
+      {
+            for (auto obj : gameObjects)
+            {
+                  obj->DestroyGameObject();
+                  obj = nullptr;
+            }
+            gameObjects.clear();
+            std::cout << "Level " << levelIndex << " GameObject list is cleared." << std::endl;
+      }
+
+      virtual void InstantiateGameObject(GameObject *obj)
+      {
+            gameObjects.push_back(obj);
+      }
+
       // getters & setters
       bool GetIsLevelComplete() const { return isLevelComplete; }
+      bool GetIsLevelGameObjectListIsClear() const { return gameObjects.empty(); }
 };
 
 #endif
