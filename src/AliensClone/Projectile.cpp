@@ -34,6 +34,12 @@ void Projectile::UpdateGameObject(double deltaTime)
       transform.position.x += velocity.x * deltaTime;
       transform.position.y += velocity.y * deltaTime;
 
+      if (type == ProjectileType::PT_Flamethrower)
+      {
+            transform.scale.x += deltaTime * 10;
+            transform.scale.y += deltaTime * 10;
+      }
+
       if (transform.position.x > 2000.0 || transform.position.x < -100.0)
       {
             canBeDestroyed = true;

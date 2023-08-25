@@ -4,6 +4,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <glm/glm.hpp>
 #include "Logger/Logger.h"
 
@@ -46,7 +47,10 @@ public:
             SDL_Surface *surf = IMG_Load(imgFilePath);
             SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
             SDL_FreeSurface(surf);
-            rect = {static_cast<int>(transform.position.x), static_cast<int>(transform.position.y), rectSize, rectSize};
+            rect = {static_cast<int>(transform.position.x),
+                    static_cast<int>(transform.position.y),
+                    static_cast<int>(rectSize * transform.scale.x),
+                    static_cast<int>(rectSize * transform.scale.y)};
             if (isFlipped)
             {
                   SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;

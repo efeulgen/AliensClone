@@ -19,6 +19,11 @@ void Game::Init()
             return;
       }
 
+      if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+      {
+            Logger::Err("SDL_Mixer initialization fails.");
+      }
+
       SDL_DisplayMode displayMode;
       SDL_GetCurrentDisplayMode(0, &displayMode);
       windowWidth = displayMode.w;

@@ -9,11 +9,19 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
       fireCounter = LASERBLASTER_FIRE_RATE;
       canFire = true;
+
+      laserBlasterSound = Mix_LoadWAV("./audio/dummy_PlayerLaserBlasterSound.wav");
+      flamethrowerSound = Mix_LoadWAV("./audio/dummy_PlayerFlamethrowerSound.wav");
+      trippleShotSound = Mix_LoadMUS("./audio/dummy_PlayerTrippleShotSound.mp3");
 }
 
 Player::~Player()
 {
       Logger::Logg("Player Destructor");
+
+      Mix_FreeChunk(laserBlasterSound);
+      Mix_FreeChunk(flamethrowerSound);
+      Mix_FreeMusic(trippleShotSound);
 }
 
 void Player::InitGameObject()
@@ -82,6 +90,19 @@ void Player::ProcessPlayerInput(double deltaTime)
       {
             Fire();
             canFire = false;
+            if (weaponMode == PlayerWeaponMode::PWM_Flamethrower && !isFiringFlamethrower)
+            {
+                  isFiringFlamethrower = true;
+                  flamethrowerChannel = Mix_PlayChannel(-1, flamethrowerSound, 0);
+            }
+      }
+      if (!keyboardState[SDL_SCANCODE_RETURN])
+      {
+            isFiringFlamethrower = false;
+            if (weaponMode == PlayerWeaponMode::PWM_Flamethrower)
+            {
+                  Mix_HaltChannel(flamethrowerChannel);
+            }
       }
       if (keyboardState[SDL_SCANCODE_1])
       {
@@ -137,6 +158,7 @@ void Player::Fire()
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
             offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
             currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 32, ProjectileType::PT_LaserBlast));
+            laserBlasterChannel = Mix_PlayChannel(-1, laserBlasterSound, 0);
             break;
       case PlayerWeaponMode::PWM_Flamethrower:
             speed = 1500.0;
