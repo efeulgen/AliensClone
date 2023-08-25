@@ -14,6 +14,6 @@ LevelZero::~LevelZero()
 void LevelZero::SetupLevel()
 {
       // player
-      player = new Player(glm::vec2(300, 500), glm::vec2(600.0, 600.0), 128, this, windowWidth, windowHeight);
+      player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
       gameObjects.push_back(player);
 }

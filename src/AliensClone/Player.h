@@ -7,12 +7,22 @@
 #include "../Engine/Level.h"
 #include "Projectile.h"
 
-const double FIRE_RATE = 0.25;
+const double LASERBLASTER_FIRE_RATE = 0.25;
+const double FLAMETHROWER_FIRE_RATE = 0.05;
+const double TRIPPLESHOT_FIRE_RATE = 3.5;
+
+enum PlayerWeaponMode
+{
+      PWM_LaserBlaster,
+      PWM_Flamethrower,
+      PWM_TrippleShot
+};
 
 class Player : public GameObject
 {
 private:
       Level *currentLevel = nullptr;
+      PlayerWeaponMode weaponMode;
 
       bool canFire;
       double fireCounter;

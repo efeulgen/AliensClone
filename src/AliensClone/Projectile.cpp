@@ -7,11 +7,13 @@ Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t
 
       switch (type)
       {
-      case ProjectileType::PT_PlayerProjectile:
-            imgFilePath = "./assets/sprites/PlayerProjectile.png";
+      case ProjectileType::PT_LaserBlast:
+            imgFilePath = "./assets/sprites/Player/Projectiles/PlayerLaserBlasterProjectile.png";
+            damageAmount = 5;
             break;
-      case ProjectileType::PT_AlienProjectile:
-            imgFilePath = "./assets/sprites/PlayerProjectile.png";
+      case ProjectileType::PT_Flamethrower:
+            imgFilePath = "./assets/sprites/Player/Projectiles/PlayerFlamethrowerProjectile.png";
+            damageAmount = 1;
             break;
       default:
             break;

@@ -6,14 +6,16 @@
 
 enum ProjectileType
 {
-      PT_PlayerProjectile,
-      PT_AlienProjectile
+      PT_LaserBlast,
+      PT_Flamethrower,
+      PT_TrippleShot
 };
 
 class Projectile : public GameObject
 {
 private:
       ProjectileType type;
+      double damageAmount;
 
 public:
       Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t);
