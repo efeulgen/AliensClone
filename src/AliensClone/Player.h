@@ -51,7 +51,7 @@ public:
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback() override;
+      void CollisionCallback(GameObject *otherObj) override;
 
       void ProcessPlayerInput(double deltaTime);
       void MoveForward(double deltaTime);

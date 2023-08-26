@@ -3,7 +3,10 @@ INCLUDE_PATH = -I"libs"
 SRC = src/*.cpp \
       src/Engine/*.cpp \
       src/Engine/Logger/*.cpp \
-      src/AliensClone/*.cpp
+      src/AliensClone/*.cpp \
+      src/AliensClone/Enemies/*.cpp \
+      src/AliensClone/Pickups/*.cpp
+
 
 ######################################################################################################
 ######################################################################################################

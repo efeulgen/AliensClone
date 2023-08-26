@@ -2,17 +2,17 @@
 #ifndef FACEHUGGER_H
 #define FACEHUGGER_H
 
-#include "../Engine/GameObject.h"
+#include "../../Engine/GameObject.h"
 
 class Facehugger : public GameObject
 {
 public:
-      Facehugger();
+      Facehugger(glm::vec2 pos, glm::vec2 vel, int rSize);
       ~Facehugger();
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback() override;
+      void CollisionCallback(GameObject *otherObj) override;
 };
 
 #endif

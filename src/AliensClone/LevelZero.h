@@ -4,6 +4,7 @@
 
 #include "../Engine/Level.h"
 #include "Player.h"
+#include "Pickups/Pickup.h"
 
 class LevelZero : public Level
 {

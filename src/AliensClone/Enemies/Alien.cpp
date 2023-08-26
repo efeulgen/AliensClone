@@ -1,9 +1,11 @@
 
 #include "Alien.h"
 
-Alien::Alien()
+Alien::Alien(glm::vec2 pos, glm::vec2 vel, int rSize) : GameObject(pos, vel, rSize)
 {
       Logger::Logg("Alien Constructor");
+
+      gameObjectTag = "Alien";
 }
 
 Alien::~Alien()
@@ -23,6 +25,6 @@ void Alien::Attack()
 {
 }
 
-void Alien::CollisionCallback()
+void Alien::CollisionCallback(GameObject *otherObj)
 {
 }

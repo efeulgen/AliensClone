@@ -7,12 +7,12 @@
 class Alien : public GameObject
 {
 public:
-      Alien();
+      Alien(glm::vec2 pos, glm::vec2 vel, int rSize);
       ~Alien();
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback() override;
+      void CollisionCallback(GameObject *otherObj) override;
 
       void Attack();
 };

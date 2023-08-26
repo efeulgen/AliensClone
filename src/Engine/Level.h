@@ -45,6 +45,7 @@ public:
                   }
                   obj->UpdateGameObject(deltaTime);
 
+                  // collision detection
                   for (auto collider : gameObjects)
                   {
                         if (obj == collider)
@@ -53,7 +54,7 @@ public:
                         }
                         else
                         {
-                              obj->CheckCollision(collider->GetRect());
+                              obj->CheckCollision(collider->GetRect(), collider);
                         }
                   }
             }

@@ -20,12 +20,12 @@ private:
       Player *refToPlayer;
 
 public:
-      Pickup();
+      Pickup(glm::vec2 pos, int rSize, PickupType t);
       ~Pickup();
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback() override;
+      void CollisionCallback(GameObject *otherObj) override;
 };
 
 #endif

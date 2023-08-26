@@ -1,9 +1,11 @@
 
 #include "Projectile.h"
 
-Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t) : GameObject(pos, vel, rSize), type{t}
+Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t, bool flip) : GameObject(pos, vel, rSize), type{t}
 {
       // Logger::Logg("Projectile Constructor");
+
+      isFlipped = flip;
 
       switch (type)
       {
@@ -38,6 +40,7 @@ void Projectile::UpdateGameObject(double deltaTime)
       {
             transform.scale.x += deltaTime * 10;
             transform.scale.y += deltaTime * 10;
+            transform.position.y -= deltaTime * 200;
       }
 
       if (transform.position.x > 2000.0 || transform.position.x < -100.0)
@@ -46,6 +49,6 @@ void Projectile::UpdateGameObject(double deltaTime)
       }
 }
 
-void Projectile::CollisionCallback()
+void Projectile::CollisionCallback(GameObject *otherObj)
 {
 }

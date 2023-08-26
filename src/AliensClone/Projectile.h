@@ -18,12 +18,12 @@ private:
       double damageAmount;
 
 public:
-      Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t);
+      Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t, bool flip);
       ~Projectile();
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback() override;
+      void CollisionCallback(GameObject *otherObj) override;
 };
 
 #endif
