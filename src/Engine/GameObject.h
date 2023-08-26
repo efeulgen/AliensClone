@@ -40,6 +40,7 @@ public:
 
       virtual ~GameObject() {}
       virtual void InitGameObject() = 0;
+      virtual void CollisionCallback() = 0;
       virtual void UpdateGameObject(double deltaTime) = 0;
 
       virtual void RenderGameObject(SDL_Renderer *renderer)
@@ -61,6 +62,14 @@ public:
                   SDL_RenderCopy(renderer, tex, NULL, &rect);
             }
             SDL_DestroyTexture(tex);
+      }
+
+      void CheckCollision(SDL_Rect other)
+      {
+            if (SDL_HasIntersection(&rect, &other))
+            {
+                  CollisionCallback();
+            }
       }
 
       void DestroyGameObject() { delete this; }

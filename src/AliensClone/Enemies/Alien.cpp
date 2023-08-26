@@ -22,3 +22,7 @@ void Alien::UpdateGameObject(double deltaTime)
 void Alien::Attack()
 {
 }
+
+void Alien::CollisionCallback()
+{
+}

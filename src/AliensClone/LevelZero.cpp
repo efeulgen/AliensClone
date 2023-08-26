@@ -4,6 +4,8 @@
 LevelZero::LevelZero(int index, int w, int h) : Level(index, w, h)
 {
       Logger::Logg("LevelZero Constructor");
+
+      levelBackgroundPath = "./assets/sprites/Background_1.png";
 }
 
 LevelZero::~LevelZero()

@@ -45,3 +45,7 @@ void Projectile::UpdateGameObject(double deltaTime)
             canBeDestroyed = true;
       }
 }
+
+void Projectile::CollisionCallback()
+{
+}

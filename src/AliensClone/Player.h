@@ -31,6 +31,12 @@ private:
       int windowWidth;
       int windowHeight;
 
+      // stats
+      int health = 100;
+      int laserBlasterAmmo = 30;
+      int flamethrowerAmmo = 100;
+      int trippleShotAmmo = 10;
+
       // audio
       Mix_Chunk *laserBlasterSound = nullptr;
       Mix_Chunk *flamethrowerSound = nullptr;
@@ -45,6 +51,7 @@ public:
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
+      void CollisionCallback() override;
 
       void ProcessPlayerInput(double deltaTime);
       void MoveForward(double deltaTime);
@@ -53,6 +60,10 @@ public:
       void MoveDown(double deltaTime);
       void Fire();
       void Crouch();
+      void HealPlayer();
+      void IncreaseLaserBlasterAmmo();
+      void IncreaseFlamethrowerAmmo();
+      void IncreaseTrippleShotAmmo();
 };
 
 #endif

@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "Logger/Logger.h"
 #include "GameObject.h"
 
@@ -18,8 +19,8 @@ protected:
       int windowWidth;
       int windowHeight;
 
-      const char *levelBackground;
-      const char *levelGroud;
+      const char *levelBackgroundPath;
+      int backgroundXPosition = 0;
 
 public:
       Level(int index, int w, int h)
@@ -43,6 +44,18 @@ public:
                         break;
                   }
                   obj->UpdateGameObject(deltaTime);
+
+                  for (auto collider : gameObjects)
+                  {
+                        if (obj == collider)
+                        {
+                              continue;
+                        }
+                        else
+                        {
+                              obj->CheckCollision(collider->GetRect());
+                        }
+                  }
             }
       }
 
@@ -52,24 +65,19 @@ public:
             SDL_RenderClear(renderer);
 
             // *****************************************************************************************************************************
-            // ************************* dummy ground, background & pillars ****************************************************************
-            SDL_SetRenderDrawColor(renderer, 189, 169, 157, 255);
-            SDL_Rect backgroundRect = {0, 0, windowWidth, windowHeight};
-            SDL_RenderFillRect(renderer, &backgroundRect);
+            // ************************* background ****************************************************************************************
+            SDL_Surface *surf = IMG_Load(levelBackgroundPath);
+            SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
+            SDL_Rect rect1 = {backgroundXPosition, 0, windowWidth, windowHeight};
+            SDL_RenderCopy(renderer, tex, NULL, &rect1);
+            SDL_Rect rect2 = {backgroundXPosition + windowWidth, 0, windowWidth, windowHeight};
+            SDL_RenderCopy(renderer, tex, NULL, &rect2);
+            SDL_DestroyTexture(tex);
 
-            SDL_SetRenderDrawColor(renderer, 74, 65, 59, 255);
-            SDL_Rect groundRect = {0, windowHeight * 5 / 7, windowWidth, windowHeight};
-            SDL_RenderFillRect(renderer, &groundRect);
-
-            SDL_Rect dummyPillarRect;
-            for (int i = 1; i < 5; i++)
+            if (backgroundXPosition <= -windowWidth)
             {
-                  SDL_SetRenderDrawColor(renderer, 80, 80, 120, 255);
-                  dummyPillarRect = {i * 500, windowHeight * 2 / 5, 50, 250};
-                  SDL_RenderFillRect(renderer, &dummyPillarRect);
+                  backgroundXPosition = 0;
             }
-            // *****************************************************************************************************************************
-            // *****************************************************************************************************************************
 
             for (auto obj : gameObjects)
             {
@@ -93,6 +101,11 @@ public:
       virtual void InstantiateGameObject(GameObject *obj)
       {
             gameObjects.push_back(obj);
+      }
+
+      virtual void ShifBackground(double shiftValue, double deltaTime)
+      {
+            backgroundXPosition -= shiftValue * deltaTime;
       }
 
       // getters & setters

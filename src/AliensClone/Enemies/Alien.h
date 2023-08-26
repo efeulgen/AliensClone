@@ -12,6 +12,7 @@ public:
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
+      void CollisionCallback() override;
 
       void Attack();
 };

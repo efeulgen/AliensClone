@@ -9,6 +9,10 @@ class Facehugger : public GameObject
 public:
       Facehugger();
       ~Facehugger();
+
+      void InitGameObject() override;
+      void UpdateGameObject(double deltaTime) override;
+      void CollisionCallback() override;
 };
 
 #endif

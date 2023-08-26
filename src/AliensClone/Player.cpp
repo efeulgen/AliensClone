@@ -56,6 +56,13 @@ void Player::UpdateGameObject(double deltaTime)
             }
       }
 
+      // shift level background
+      if (transform.position.x > windowWidth / 2)
+      {
+            currentLevel->ShifBackground(600.0, deltaTime);
+            transform.position.x = windowWidth / 2;
+      }
+
       // bound checking
       if (transform.position.y < windowHeight / 2)
       {
@@ -65,6 +72,10 @@ void Player::UpdateGameObject(double deltaTime)
       {
             transform.position.y = windowHeight - rectSize;
       }
+}
+
+void Player::CollisionCallback()
+{
 }
 
 void Player::ProcessPlayerInput(double deltaTime)
@@ -178,4 +189,29 @@ void Player::Fire()
 void Player::Crouch()
 {
       std::cout << "Player crouches" << std::endl;
+}
+
+void Player::HealPlayer()
+{
+      health += 10;
+      if (health > 100)
+      {
+            health = 100;
+      }
+}
+
+void Player::IncreaseLaserBlasterAmmo()
+{
+      std::cout << "Increase LaserBlaster Ammo" << std::endl;
+      laserBlasterAmmo += 30;
+}
+
+void Player::IncreaseFlamethrowerAmmo()
+{
+      flamethrowerAmmo += 50;
+}
+
+void Player::IncreaseTrippleShotAmmo()
+{
+      trippleShotAmmo += 2;
 }
