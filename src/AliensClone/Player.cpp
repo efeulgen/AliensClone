@@ -10,6 +10,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
       fireCounter = LASERBLASTER_FIRE_RATE;
       canFire = true;
       gameObjectTag = "Player";
+      globalX = pos.x;
 
       laserBlasterSound = Mix_LoadWAV("./audio/dummy_PlayerLaserBlasterSound.wav");
       // flamethrowerSound = Mix_LoadWAV("./audio/dummy_PlayerFlamethrowerSound.wav");
@@ -57,14 +58,6 @@ void Player::UpdateGameObject(double deltaTime)
                   }
             }
       }
-
-      // shift level background
-      if (transform.position.x > windowWidth / 2)
-      {
-            currentLevel->ShifBackground(600.0, deltaTime);
-            transform.position.x = windowWidth / 2;
-      }
-
       // bound checking
       if (transform.position.y < windowHeight / 2)
       {
@@ -73,6 +66,11 @@ void Player::UpdateGameObject(double deltaTime)
       if (transform.position.y > windowHeight - rectSize)
       {
             transform.position.y = windowHeight - rectSize;
+      }
+      if (transform.position.x < 0)
+      {
+            transform.position.x = 0;
+            globalX = 0;
       }
 }
 
@@ -140,13 +138,27 @@ void Player::ProcessPlayerInput(double deltaTime)
 void Player::MoveForward(double deltaTime)
 {
       transform.position.x += velocity.x * deltaTime;
+      globalX += velocity.x * deltaTime;
       isFlipped = false;
+
+      if (globalX > windowWidth / 2 && globalX < windowWidth * 10)
+      {
+            currentLevel->ShifBackground(600.0, deltaTime);
+            transform.position.x = windowWidth / 2;
+      }
 }
 
 void Player::MoveBackward(double deltaTime)
 {
       transform.position.x -= velocity.x * deltaTime;
+      globalX -= velocity.x * deltaTime;
       isFlipped = true;
+
+      if (globalX > windowWidth / 2 && globalX < windowWidth * 10)
+      {
+            currentLevel->ShifBackground(-600.0, deltaTime);
+            transform.position.x = windowWidth / 2;
+      }
 }
 
 void Player::MoveUp(double deltaTime)

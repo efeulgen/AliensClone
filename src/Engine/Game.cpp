@@ -24,6 +24,8 @@ void Game::Init()
             Logger::Err("SDL_Mixer initialization fails.");
       }
 
+      TTF_Init();
+
       SDL_DisplayMode displayMode;
       SDL_GetCurrentDisplayMode(0, &displayMode);
       windowWidth = displayMode.w;
@@ -91,6 +93,10 @@ void Game::ProcessInput()
             }
             if (event.type == SDL_KEYDOWN)
             {
+                  if (activeLevelIndex == 0)
+                  {
+                        LoadNextLevel();
+                  }
                   if (event.key.keysym.sym == SDLK_ESCAPE)
                   {
                         isRunning = false;
@@ -122,5 +128,11 @@ void Game::Destroy()
 
 void Game::LoadNextLevel()
 {
-      std::cout << "Load Next Level" << std::endl;
+      levels[activeLevelIndex]->ClearLevelGameObjects();
+      delete levels[activeLevelIndex];
+      levels[activeLevelIndex] = nullptr;
+
+      activeLevelIndex++;
+
+      levels[activeLevelIndex]->SetupLevel();
 }

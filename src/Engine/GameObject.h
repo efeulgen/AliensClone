@@ -79,6 +79,11 @@ public:
             }
       }
 
+      void ShiftGameObject(double shiftValue, double deltaTime)
+      {
+            transform.position.x -= shiftValue * deltaTime;
+      }
+
       void DestroyGameObject() { delete this; }
 
       // getters & setters

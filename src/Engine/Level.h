@@ -8,6 +8,11 @@
 #include "Logger/Logger.h"
 #include "GameObject.h"
 
+#include "Managers/AudioManager.h"
+#include "Managers/GameManager.h"
+#include "Managers/SpawnManager.h"
+#include "Managers/UIManager.h"
+
 class Level
 {
 protected:
@@ -21,6 +26,11 @@ protected:
 
       const char *levelBackgroundPath;
       int backgroundXPosition = 0;
+
+      AudioManager *audioManager = nullptr;
+      GameManager *gameManager = nullptr;
+      SpawnManager *spawnManager = nullptr;
+      UIManager *uiManager = nullptr;
 
 public:
       Level(int index, int w, int h)
@@ -73,9 +83,11 @@ public:
             SDL_RenderCopy(renderer, tex, NULL, &rect1);
             SDL_Rect rect2 = {backgroundXPosition + windowWidth, 0, windowWidth, windowHeight};
             SDL_RenderCopy(renderer, tex, NULL, &rect2);
+            SDL_Rect rect3 = {backgroundXPosition - windowWidth, 0, windowWidth, windowHeight};
+            SDL_RenderCopy(renderer, tex, NULL, &rect3);
             SDL_DestroyTexture(tex);
 
-            if (backgroundXPosition <= -windowWidth)
+            if (backgroundXPosition <= -windowWidth || backgroundXPosition >= windowWidth)
             {
                   backgroundXPosition = 0;
             }
@@ -97,6 +109,27 @@ public:
             }
             gameObjects.clear();
             std::cout << "\033[1;33mLevel " << levelIndex << " GameObject list is cleared.\033[0m" << std::endl;
+
+            if (audioManager)
+            {
+                  delete audioManager;
+                  audioManager = nullptr;
+            }
+            if (gameManager)
+            {
+                  delete gameManager;
+                  gameManager = nullptr;
+            }
+            if (spawnManager)
+            {
+                  delete spawnManager;
+                  spawnManager = nullptr;
+            }
+            if (uiManager)
+            {
+                  delete uiManager;
+                  uiManager = nullptr;
+            }
       }
 
       virtual void InstantiateGameObject(GameObject *obj)
@@ -107,6 +140,14 @@ public:
       virtual void ShifBackground(double shiftValue, double deltaTime)
       {
             backgroundXPosition -= shiftValue * deltaTime;
+            for (auto obj : gameObjects)
+            {
+                  if (obj->GetGameObjectTag() == "Player")
+                  {
+                        continue;
+                  }
+                  obj->ShiftGameObject(shiftValue, deltaTime);
+            }
       }
 
       // getters & setters

@@ -31,6 +31,8 @@ private:
       int windowWidth;
       int windowHeight;
 
+      double globalX;
+
       // stats
       int health = 100;
       int laserBlasterAmmo = 30;

@@ -3,8 +3,9 @@
 #define ALIENSCLONEGAME_H
 
 #include "../Engine/Game.h"
-#include "LevelZero.h"
-#include "LevelOne.h"
+#include "Levels/MainMenu.h"
+#include "Levels/LevelOne.h"
+#include "Levels/LevelTwo.h"
 
 class AliensCloneGame : public Game
 {

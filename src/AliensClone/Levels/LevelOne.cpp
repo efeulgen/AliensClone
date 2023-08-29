@@ -1,19 +1,19 @@
 
-#include "LevelZero.h"
+#include "LevelOne.h"
 
-LevelZero::LevelZero(int index, int w, int h) : Level(index, w, h)
+LevelOne::LevelOne(int index, int w, int h) : Level(index, w, h)
 {
-      Logger::Logg("LevelZero Constructor");
+      Logger::Logg("LevelOne Constructor");
 
       levelBackgroundPath = "./assets/sprites/Background_1.png";
 }
 
-LevelZero::~LevelZero()
+LevelOne::~LevelOne()
 {
-      Logger::Logg("LevelZero Destructor");
+      Logger::Logg("LevelOne Destructor");
 }
 
-void LevelZero::SetupLevel()
+void LevelOne::SetupLevel()
 {
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);

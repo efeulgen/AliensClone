@@ -1,8 +1,10 @@
 
-#ifndef LEVELONE_H
-#define LEVELONE_H
+#ifndef LEVELZERO_H
+#define LEVELZERO_H
 
-#include "../Engine/Level.h"
+#include "../../Engine/Level.h"
+#include "../Player.h"
+#include "../Pickups/Pickup.h"
 
 class LevelOne : public Level
 {
