@@ -25,6 +25,10 @@ void LevelManager::LoadMainMenu()
 {
       levels[activeLevelIndex]->ClearLevelGameObjects();
       levels[activeLevelIndex]->ClearLevelManagers();
+      for (auto level : levels)
+      {
+            level->SetIsLevelComplete(false);
+      }
 
       activeLevelIndex = 0;
 

@@ -1,7 +1,7 @@
 
 #include "MainMenu.h"
 
-MainMenu::MainMenu(int index, int w, int h) : Level(index, w, h)
+MainMenu::MainMenu(int index, int w, int h, int len, bool isFinal) : Level(index, w, h, len, isFinal)
 {
       Logger::Logg("MainMenu Constructor");
 }

@@ -65,6 +65,12 @@ void Player::UpdateGameObject(double deltaTime)
             transform.position.x = 0;
             globalX = 0;
       }
+
+      // finish level
+      if (globalX > currentLevel->GetLevelLength() + windowWidth / 2)
+      {
+            currentLevel->SetIsLevelComplete(true);
+      }
 }
 
 void Player::CollisionCallback(GameObject *otherObj)
@@ -134,7 +140,7 @@ void Player::MoveForward(double deltaTime)
       globalX += velocity.x * deltaTime;
       isFlipped = false;
 
-      if (globalX > windowWidth / 2 && globalX < windowWidth * 10)
+      if (globalX > windowWidth / 2 && globalX < currentLevel->GetLevelLength())
       {
             currentLevel->ShifBackground(600.0, deltaTime);
             transform.position.x = windowWidth / 2;
@@ -147,7 +153,7 @@ void Player::MoveBackward(double deltaTime)
       globalX -= velocity.x * deltaTime;
       isFlipped = true;
 
-      if (globalX > windowWidth / 2 && globalX < windowWidth * 10)
+      if (globalX > windowWidth / 2 && globalX < currentLevel->GetLevelLength())
       {
             currentLevel->ShifBackground(-600.0, deltaTime);
             transform.position.x = windowWidth / 2;

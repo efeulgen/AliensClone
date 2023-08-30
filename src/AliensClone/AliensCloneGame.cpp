@@ -13,7 +13,7 @@ AliensCloneGame::~AliensCloneGame()
 
 void AliensCloneGame::CreateLevels()
 {
-      levelManager->AddLevel(new MainMenu(0, windowWidth, windowHeight));
-      levelManager->AddLevel(new LevelOne(1, windowWidth, windowHeight));
-      levelManager->AddLevel(new LevelTwo(2, windowWidth, windowHeight));
+      levelManager->AddLevel(new MainMenu(0, windowWidth, windowHeight, 0));
+      levelManager->AddLevel(new LevelOne(1, windowWidth, windowHeight, 15000));
+      levelManager->AddLevel(new LevelTwo(2, windowWidth, windowHeight, 15000, true));
 }

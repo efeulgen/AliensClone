@@ -1,7 +1,7 @@
 
 #include "LevelOne.h"
 
-LevelOne::LevelOne(int index, int w, int h) : Level(index, w, h)
+LevelOne::LevelOne(int index, int w, int h, int len, bool isFinal) : Level(index, w, h, len, isFinal)
 {
       Logger::Logg("LevelOne Constructor");
 

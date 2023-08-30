@@ -1,9 +1,11 @@
 
 #include "LevelTwo.h"
 
-LevelTwo::LevelTwo(int index, int w, int h) : Level(index, w, h)
+LevelTwo::LevelTwo(int index, int w, int h, int len, bool isFinal) : Level(index, w, h, len, isFinal)
 {
       Logger::Logg("LevelTwo Constructor");
+
+      levelBackgroundPath = "./assets/sprites/Background_2.png";
 }
 
 LevelTwo::~LevelTwo()
@@ -13,7 +15,9 @@ LevelTwo::~LevelTwo()
 
 void LevelTwo::SetupLevel()
 {
-      // setup game objects
+      // player
+      player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
+      gameObjects.push_back(player);
 
       Level::SetupLevel();
 }

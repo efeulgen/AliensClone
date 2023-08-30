@@ -83,7 +83,14 @@ void Game::Display()
 
             if (levelManager->GetCurrentLevel()->GetIsLevelComplete())
             {
-                  levelManager->LoadNextLevel();
+                  if (levelManager->GetCurrentLevel()->GetIsFinalLevel())
+                  {
+                        levelManager->LoadMainMenu();
+                  }
+                  else
+                  {
+                        levelManager->LoadNextLevel();
+                  }
             }
       }
 }

@@ -13,11 +13,15 @@
 
 class Level
 {
+private:
+      int levelIndex;
+
 protected:
       std::vector<GameObject *> gameObjects;
       bool isLevelComplete = false;
+      bool isFinalLevel = false;
       class Player *player = nullptr;
-      int levelIndex;
+      int levelLength;
 
       int windowWidth;
       int windowHeight;
@@ -30,19 +34,23 @@ protected:
       UIManager *uiManager = nullptr;
 
 public:
-      Level(int index, int w, int h)
+      Level(int index, int w, int h, int len, bool isFinal = false)
       {
             levelIndex = index;
             windowWidth = w;
             windowHeight = h;
+            levelLength = len;
+            isFinalLevel = isFinal;
       }
       virtual ~Level() {}
       virtual void SetupLevel()
       {
+            // managers
             audioManager = new AudioManager();
             spawnManager = new SpawnManager();
             uiManager = new UIManager(windowWidth, windowHeight);
 
+            // init game objects
             for (auto obj : gameObjects)
             {
                   obj->InitGameObject();
@@ -160,7 +168,11 @@ public:
 
       // getters & setters
       bool GetIsLevelComplete() const { return isLevelComplete; }
+      void SetIsLevelComplete(bool value) { isLevelComplete = value; }
+
+      bool GetIsFinalLevel() const { return isFinalLevel; }
       bool GetIsLevelGameObjectListIsClear() const { return gameObjects.empty(); }
+      int GetLevelLength() const { return levelLength; }
 
       AudioManager *GetAudioManager() { return audioManager; }
       SpawnManager *GetSpawnManager() { return spawnManager; }

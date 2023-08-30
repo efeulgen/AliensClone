@@ -3,11 +3,12 @@
 #define LEVELONE_H
 
 #include "../../Engine/Level.h"
+#include "../Player.h"
 
 class LevelTwo : public Level
 {
 public:
-      LevelTwo(int index, int w, int h);
+      LevelTwo(int index, int w, int h, int len, bool isFinal = false);
       ~LevelTwo();
 
       void SetupLevel() override;

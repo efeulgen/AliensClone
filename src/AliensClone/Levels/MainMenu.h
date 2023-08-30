@@ -8,7 +8,7 @@
 class MainMenu : public Level
 {
 public:
-      MainMenu(int index, int w, int h);
+      MainMenu(int index, int w, int h, int len, bool isFinal = false);
       ~MainMenu();
 
       void SetupLevel() override;
