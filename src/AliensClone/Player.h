@@ -39,14 +39,6 @@ private:
       int flamethrowerAmmo = 100;
       int trippleShotAmmo = 10;
 
-      // audio
-      Mix_Chunk *laserBlasterSound = nullptr;
-      Mix_Chunk *flamethrowerSound = nullptr;
-      Mix_Music *trippleShotSound = nullptr;
-      int laserBlasterChannel;
-      int flamethrowerChannel;
-      int trippleShotChannel;
-
 public:
       Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int h);
       ~Player();

@@ -5,9 +5,12 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
 #include <glm/glm.hpp>
 #include "Logger/Logger.h"
+#include "Managers/AudioManager.h"
+#include "Managers/LevelManager.h"
+#include "Managers/SpawnManager.h"
+#include "Managers/UIManager.h"
 
 struct Transform
 {

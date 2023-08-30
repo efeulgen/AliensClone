@@ -11,24 +11,17 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
       canFire = true;
       gameObjectTag = "Player";
       globalX = pos.x;
-
-      laserBlasterSound = Mix_LoadWAV("./audio/dummy_PlayerLaserBlasterSound.wav");
-      // flamethrowerSound = Mix_LoadWAV("./audio/dummy_PlayerFlamethrowerSound.wav");
-      flamethrowerSound = Mix_LoadWAV("./audio/flame.wav");
-      trippleShotSound = Mix_LoadMUS("./audio/dummy_PlayerTrippleShotSound.mp3");
 }
 
 Player::~Player()
 {
       Logger::Logg("Player Destructor");
-
-      Mix_FreeChunk(laserBlasterSound);
-      Mix_FreeChunk(flamethrowerSound);
-      Mix_FreeMusic(trippleShotSound);
 }
 
 void Player::InitGameObject()
 {
+      currentLevel->GetAudioManager()->AddChunk("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
+      currentLevel->GetAudioManager()->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
 }
 
 void Player::UpdateGameObject(double deltaTime)
@@ -103,8 +96,8 @@ void Player::ProcessPlayerInput(double deltaTime)
             canFire = false;
             if (weaponMode == PlayerWeaponMode::PWM_Flamethrower && !isFiringFlamethrower)
             {
+                  currentLevel->GetAudioManager()->PlaySFX(1);
                   isFiringFlamethrower = true;
-                  flamethrowerChannel = Mix_PlayChannel(-1, flamethrowerSound, 0);
             }
       }
       if (!keyboardState[SDL_SCANCODE_RETURN])
@@ -112,7 +105,7 @@ void Player::ProcessPlayerInput(double deltaTime)
             isFiringFlamethrower = false;
             if (weaponMode == PlayerWeaponMode::PWM_Flamethrower)
             {
-                  Mix_HaltChannel(flamethrowerChannel);
+                  currentLevel->GetAudioManager()->StopSFX(1);
             }
       }
       if (keyboardState[SDL_SCANCODE_1])
@@ -183,14 +176,9 @@ void Player::Fire()
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
             offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
             currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 32, ProjectileType::PT_LaserBlast, isFlipped));
-            laserBlasterChannel = Mix_PlayChannel(-1, laserBlasterSound, 0);
+            currentLevel->GetAudioManager()->PlaySFX(0);
             break;
       case PlayerWeaponMode::PWM_Flamethrower:
-            if (!isFiringFlamethrower)
-            {
-                  SDL_Delay(500);
-            }
-
             speed = 1500.0;
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
             offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);

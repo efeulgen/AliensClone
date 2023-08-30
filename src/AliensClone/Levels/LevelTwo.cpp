@@ -13,4 +13,9 @@ LevelTwo::~LevelTwo()
 
 void LevelTwo::SetupLevel()
 {
+      // setup managers
+
+      // setup player
+
+      Level::SetupLevel();
 }

@@ -22,7 +22,7 @@ public:
 
       void RenderImage(SDL_Renderer *renderer, const char *imgFilePath, glm::vec2 pos = glm::vec2(-1, -1));
       void RenderText(SDL_Renderer *renderer, const std::string &text, Uint8 r, Uint8 g, Uint8 b, glm::vec2 textPos = glm::vec2(-1, -1));
-      void RenderUI();
+      void RenderUI(SDL_Renderer *renderer, int health, int ammo);
 };
 
 #endif

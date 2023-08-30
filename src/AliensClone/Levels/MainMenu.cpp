@@ -13,6 +13,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::SetupLevel()
 {
+      // setup managers
       uiManager = new UIManager(windowWidth, windowHeight);
 }
 

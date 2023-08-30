@@ -41,6 +41,8 @@ void UIManager::RenderText(SDL_Renderer *renderer, const std::string &text, Uint
       SDL_DestroyTexture(tex);
 }
 
-void UIManager::RenderUI()
+void UIManager::RenderUI(SDL_Renderer *renderer, int health, int ammo)
 {
+      RenderText(renderer, "Health : " + std::to_string(health), 255, 255, 255, glm::vec2(100, 100));
+      RenderText(renderer, "Ammo : " + std::to_string(ammo), 255, 255, 255, glm::vec2(100, 200));
 }

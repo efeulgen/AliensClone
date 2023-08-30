@@ -9,7 +9,7 @@
 #include "GameObject.h"
 
 #include "Managers/AudioManager.h"
-#include "Managers/GameManager.h"
+#include "Managers/LevelManager.h"
 #include "Managers/SpawnManager.h"
 #include "Managers/UIManager.h"
 
@@ -28,7 +28,7 @@ protected:
       int backgroundXPosition = 0;
 
       AudioManager *audioManager = nullptr;
-      GameManager *gameManager = nullptr;
+      LevelManager *levelManager = nullptr;
       SpawnManager *spawnManager = nullptr;
       UIManager *uiManager = nullptr;
 
@@ -40,7 +40,13 @@ public:
             windowHeight = h;
       }
       virtual ~Level() {}
-      virtual void SetupLevel() = 0;
+      virtual void SetupLevel()
+      {
+            for (auto obj : gameObjects)
+            {
+                  obj->InitGameObject();
+            }
+      }
 
       virtual void UpdateLevel(double deltaTime)
       {
@@ -100,7 +106,7 @@ public:
             SDL_RenderPresent(renderer);
       }
 
-      virtual void ClearLevelGameObjects()
+      virtual void ClearLevel()
       {
             for (auto obj : gameObjects)
             {
@@ -114,21 +120,25 @@ public:
             {
                   delete audioManager;
                   audioManager = nullptr;
+                  std::cout << "\033[1;33mLevel " << levelIndex << " AudioManager is deleted.\033[0m" << std::endl;
             }
-            if (gameManager)
+            if (levelManager)
             {
-                  delete gameManager;
-                  gameManager = nullptr;
+                  delete levelManager;
+                  levelManager = nullptr;
+                  std::cout << "\033[1;33mLevel " << levelIndex << " LevelManager is deleted.\033[0m" << std::endl;
             }
             if (spawnManager)
             {
                   delete spawnManager;
                   spawnManager = nullptr;
+                  std::cout << "\033[1;33mLevel " << levelIndex << " SpawnManager is deleted.\033[0m" << std::endl;
             }
             if (uiManager)
             {
                   delete uiManager;
                   uiManager = nullptr;
+                  std::cout << "\033[1;33mLevel " << levelIndex << " UIManager is deleted.\033[0m" << std::endl;
             }
       }
 
@@ -153,6 +163,11 @@ public:
       // getters & setters
       bool GetIsLevelComplete() const { return isLevelComplete; }
       bool GetIsLevelGameObjectListIsClear() const { return gameObjects.empty(); }
+
+      AudioManager *GetAudioManager() { return audioManager; }
+      LevelManager *GetLevelManager() { return levelManager; }
+      SpawnManager *GetSpawnManager() { return spawnManager; }
+      UIManager *GetUIManager() { return uiManager; }
 };
 
 #endif

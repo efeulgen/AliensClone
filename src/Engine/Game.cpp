@@ -96,6 +96,7 @@ void Game::ProcessInput()
                   if (activeLevelIndex == 0)
                   {
                         LoadNextLevel();
+                        SDL_Delay(200);
                   }
                   if (event.key.keysym.sym == SDLK_ESCAPE)
                   {
@@ -111,9 +112,11 @@ void Game::Destroy()
       {
             for (auto level : levels)
             {
+                  if (!level)
+                        continue;
                   if (!level->GetIsLevelGameObjectListIsClear())
                   {
-                        level->ClearLevelGameObjects();
+                        level->ClearLevel();
                   }
                   delete level;
                   level = nullptr;
@@ -128,7 +131,7 @@ void Game::Destroy()
 
 void Game::LoadNextLevel()
 {
-      levels[activeLevelIndex]->ClearLevelGameObjects();
+      levels[activeLevelIndex]->ClearLevel();
       delete levels[activeLevelIndex];
       levels[activeLevelIndex] = nullptr;
 
