@@ -13,7 +13,7 @@ public:
       AliensCloneGame();
       ~AliensCloneGame();
 
-      void SetupLevels() override;
+      void CreateLevels() override;
 };
 
 #endif

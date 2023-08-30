@@ -8,6 +8,8 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 #include "Logger/Logger.h"
+#include "Managers/GameManager.h"
+#include "Managers/LevelManager.h"
 #include "Level.h"
 
 const int FPS = 60;
@@ -15,31 +17,34 @@ const int MILLISECS_PER_FRAME = 1000 / FPS;
 
 class Game
 {
-protected:
-      bool isRunning = false;
+private:
       int millisecsPreviousFrame = 0;
 
+protected:
       SDL_Window *window;
       SDL_Renderer *renderer;
       int windowWidth;
       int windowHeight;
 
-      std::vector<Level *> levels;
-      int activeLevelIndex = 0;
+      GameManager *gameManager = nullptr;
+      LevelManager *levelManager = nullptr;
 
 public:
       Game();
       ~Game();
       void Init();
+      void SetupGame();
       void Display();
       void ProcessInput();
       void Destroy();
-      void LoadNextLevel();
-      virtual void SetupLevels() {}
+      virtual void CreateLevels() {}
 
       // getters & setters
       int GetWindowWidth() const { return windowWidth; }
       int GetWindowHeight() const { return windowHeight; }
+
+      GameManager *GetGameManager() { return gameManager; }
+      LevelManager *GetLevelManager() { return levelManager; }
 };
 
 #endif

@@ -11,9 +11,9 @@ AliensCloneGame::~AliensCloneGame()
       Logger::Logg("AliensCloneGame Destructor");
 }
 
-void AliensCloneGame::SetupLevels()
+void AliensCloneGame::CreateLevels()
 {
-      levels.push_back(new MainMenu(0, windowWidth, windowHeight));
-      levels.push_back(new LevelOne(1, windowWidth, windowHeight));
-      levels.push_back(new LevelTwo(2, windowWidth, windowHeight));
+      levelManager->AddLevel(new MainMenu(0, windowWidth, windowHeight));
+      levelManager->AddLevel(new LevelOne(1, windowWidth, windowHeight));
+      levelManager->AddLevel(new LevelTwo(2, windowWidth, windowHeight));
 }

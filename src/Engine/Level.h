@@ -7,9 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include "Logger/Logger.h"
 #include "GameObject.h"
-
 #include "Managers/AudioManager.h"
-#include "Managers/LevelManager.h"
 #include "Managers/SpawnManager.h"
 #include "Managers/UIManager.h"
 
@@ -28,7 +26,6 @@ protected:
       int backgroundXPosition = 0;
 
       AudioManager *audioManager = nullptr;
-      LevelManager *levelManager = nullptr;
       SpawnManager *spawnManager = nullptr;
       UIManager *uiManager = nullptr;
 
@@ -42,6 +39,10 @@ public:
       virtual ~Level() {}
       virtual void SetupLevel()
       {
+            audioManager = new AudioManager();
+            spawnManager = new SpawnManager();
+            uiManager = new UIManager(windowWidth, windowHeight);
+
             for (auto obj : gameObjects)
             {
                   obj->InitGameObject();
@@ -106,7 +107,7 @@ public:
             SDL_RenderPresent(renderer);
       }
 
-      virtual void ClearLevel()
+      virtual void ClearLevelGameObjects()
       {
             for (auto obj : gameObjects)
             {
@@ -115,18 +116,15 @@ public:
             }
             gameObjects.clear();
             std::cout << "\033[1;33mLevel " << levelIndex << " GameObject list is cleared.\033[0m" << std::endl;
+      }
 
+      virtual void ClearLevelManagers()
+      {
             if (audioManager)
             {
                   delete audioManager;
                   audioManager = nullptr;
                   std::cout << "\033[1;33mLevel " << levelIndex << " AudioManager is deleted.\033[0m" << std::endl;
-            }
-            if (levelManager)
-            {
-                  delete levelManager;
-                  levelManager = nullptr;
-                  std::cout << "\033[1;33mLevel " << levelIndex << " LevelManager is deleted.\033[0m" << std::endl;
             }
             if (spawnManager)
             {
@@ -165,7 +163,6 @@ public:
       bool GetIsLevelGameObjectListIsClear() const { return gameObjects.empty(); }
 
       AudioManager *GetAudioManager() { return audioManager; }
-      LevelManager *GetLevelManager() { return levelManager; }
       SpawnManager *GetSpawnManager() { return spawnManager; }
       UIManager *GetUIManager() { return uiManager; }
 };

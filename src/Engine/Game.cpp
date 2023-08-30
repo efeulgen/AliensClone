@@ -47,17 +47,23 @@ void Game::Init()
       }
 
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+}
 
-      // setup game
-      isRunning = true;
-      SetupLevels();
+void Game::SetupGame()
+{
+      gameManager = new GameManager();
+      gameManager->SetIsRunning(true);
+
+      levelManager = new LevelManager();
+
+      CreateLevels();
 }
 
 void Game::Display()
 {
       // *****************************************************************************************************************************
-      levels[activeLevelIndex]->SetupLevel();
-      while (isRunning)
+      levelManager->GetCurrentLevel()->SetupLevel();
+      while (gameManager->GetIsRunning())
       {
             // *****************************************************************************************************************************
             // ************************* deltaTime *****************************************************************************************
@@ -72,12 +78,12 @@ void Game::Display()
             // *****************************************************************************************************************************
             // ************************* game loop *****************************************************************************************
             ProcessInput();
-            levels[activeLevelIndex]->UpdateLevel(deltaTime);
-            levels[activeLevelIndex]->RenderLevel(renderer);
+            levelManager->GetCurrentLevel()->UpdateLevel(deltaTime);
+            levelManager->GetCurrentLevel()->RenderLevel(renderer);
 
-            if (levels[activeLevelIndex]->GetIsLevelComplete())
+            if (levelManager->GetCurrentLevel()->GetIsLevelComplete())
             {
-                  LoadNextLevel();
+                  levelManager->LoadNextLevel();
             }
       }
 }
@@ -89,18 +95,17 @@ void Game::ProcessInput()
       {
             if (event.type == SDL_QUIT)
             {
-                  isRunning = false;
+                  gameManager->SetIsRunning(false);
             }
             if (event.type == SDL_KEYDOWN)
             {
-                  if (activeLevelIndex == 0)
+                  if (levelManager->GetActiveLevelIndex() == 0)
                   {
-                        LoadNextLevel();
-                        SDL_Delay(200);
+                        levelManager->LoadNextLevel();
                   }
                   if (event.key.keysym.sym == SDLK_ESCAPE)
                   {
-                        isRunning = false;
+                        gameManager->SetIsRunning(false);
                   }
             }
       }
@@ -108,34 +113,14 @@ void Game::ProcessInput()
 
 void Game::Destroy()
 {
-      if (!levels.empty())
-      {
-            for (auto level : levels)
-            {
-                  if (!level)
-                        continue;
-                  if (!level->GetIsLevelGameObjectListIsClear())
-                  {
-                        level->ClearLevel();
-                  }
-                  delete level;
-                  level = nullptr;
-            }
-            levels.clear();
-      }
+      levelManager->ClearLevels();
+
+      delete levelManager;
+      levelManager = nullptr;
+      delete gameManager;
+      gameManager = nullptr;
 
       SDL_DestroyRenderer(renderer);
       SDL_DestroyWindow(window);
       SDL_Quit();
-}
-
-void Game::LoadNextLevel()
-{
-      levels[activeLevelIndex]->ClearLevel();
-      delete levels[activeLevelIndex];
-      levels[activeLevelIndex] = nullptr;
-
-      activeLevelIndex++;
-
-      levels[activeLevelIndex]->SetupLevel();
 }

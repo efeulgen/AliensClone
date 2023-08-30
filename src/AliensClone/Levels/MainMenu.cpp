@@ -13,8 +13,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::SetupLevel()
 {
-      // setup managers
-      uiManager = new UIManager(windowWidth, windowHeight);
+      Level::SetupLevel();
 }
 
 void MainMenu::RenderLevel(SDL_Renderer *renderer)
