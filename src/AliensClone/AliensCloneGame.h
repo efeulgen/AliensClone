@@ -6,6 +6,7 @@
 #include "Levels/MainMenu.h"
 #include "Levels/LevelOne.h"
 #include "Levels/LevelTwo.h"
+#include "Levels/LevelThree.h"
 
 class AliensCloneGame : public Game
 {
@@ -13,7 +14,7 @@ public:
       AliensCloneGame();
       ~AliensCloneGame();
 
-      void CreateLevels() override;
+      void CreateLevels(GameManager *gameManager) override;
 };
 
 #endif

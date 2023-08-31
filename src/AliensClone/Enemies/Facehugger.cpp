@@ -10,6 +10,7 @@ Facehugger::Facehugger(glm::vec2 pos, glm::vec2 vel, int rSize) : GameObject(pos
 
 Facehugger::~Facehugger()
 {
+      Logger::Logg("Facehugger Destructor");
 }
 
 void Facehugger::InitGameObject()

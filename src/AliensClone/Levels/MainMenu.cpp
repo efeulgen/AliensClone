@@ -1,7 +1,7 @@
 
 #include "MainMenu.h"
 
-MainMenu::MainMenu(int index, int w, int h, int len, bool isFinal) : Level(index, w, h, len, isFinal)
+MainMenu::MainMenu(int index, int w, int h, int len, GameManager *gManager, bool isFinal) : Level(index, w, h, len, gManager, isFinal)
 {
       Logger::Logg("MainMenu Constructor");
 }
@@ -13,6 +13,8 @@ MainMenu::~MainMenu()
 
 void MainMenu::SetupLevel()
 {
+      SDL_ShowCursor(1);
+
       Level::SetupLevel();
 }
 
@@ -22,7 +24,7 @@ void MainMenu::RenderLevel(SDL_Renderer *renderer)
       SDL_RenderClear(renderer);
 
       uiManager->RenderImage(renderer, "./assets/sprites/AliensCloneCover.png", glm::vec2(-1, -1));
-      uiManager->RenderText(renderer, "Press Any Key", 255, 255, 255, glm::vec2(-1, 700));
+      uiManager->RenderText(renderer, "Press Space", 255, 255, 255, glm::vec2(-1, 750));
 
       SDL_RenderPresent(renderer);
 }

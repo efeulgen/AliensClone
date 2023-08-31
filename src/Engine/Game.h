@@ -37,7 +37,7 @@ public:
       void Display();
       void ProcessInput();
       void Destroy();
-      virtual void CreateLevels() {}
+      virtual void CreateLevels(GameManager *gameManager) {}
 
       // getters & setters
       int GetWindowWidth() const { return windowWidth; }

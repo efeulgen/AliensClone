@@ -46,6 +46,7 @@ public:
       }
 
       virtual ~GameObject() {}
+
       virtual void InitGameObject() = 0;
       virtual void CollisionCallback(GameObject *otherObj) = 0;
       virtual void UpdateGameObject(double deltaTime) = 0;

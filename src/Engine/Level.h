@@ -10,6 +10,7 @@
 #include "Managers/AudioManager.h"
 #include "Managers/SpawnManager.h"
 #include "Managers/UIManager.h"
+#include "Managers/GameManager.h"
 
 class Level
 {
@@ -33,13 +34,16 @@ protected:
       SpawnManager *spawnManager = nullptr;
       UIManager *uiManager = nullptr;
 
+      GameManager *refToGameManager = nullptr;
+
 public:
-      Level(int index, int w, int h, int len, bool isFinal = false)
+      Level(int index, int w, int h, int len, GameManager *gManager, bool isFinal = false)
       {
             levelIndex = index;
             windowWidth = w;
             windowHeight = h;
             levelLength = len;
+            refToGameManager = gManager;
             isFinalLevel = isFinal;
       }
       virtual ~Level() {}
@@ -146,6 +150,11 @@ public:
                   uiManager = nullptr;
                   std::cout << "\033[1;33mLevel " << levelIndex << " UIManager is deleted.\033[0m" << std::endl;
             }
+            if (refToGameManager)
+            {
+                  refToGameManager = nullptr;
+                  std::cout << "\033[1;33mLevel " << levelIndex << " RefToGameManager is set to nullptr.\033[0m" << std::endl;
+            }
       }
 
       virtual void InstantiateGameObject(GameObject *obj)
@@ -177,6 +186,7 @@ public:
       AudioManager *GetAudioManager() { return audioManager; }
       SpawnManager *GetSpawnManager() { return spawnManager; }
       UIManager *GetUIManager() { return uiManager; }
+      GameManager *GetRefToGameManager() { return refToGameManager; }
 };
 
 #endif

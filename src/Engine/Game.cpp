@@ -56,7 +56,7 @@ void Game::SetupGame()
 
       levelManager = new LevelManager();
 
-      CreateLevels();
+      CreateLevels(gameManager);
 }
 
 void Game::Display()
@@ -106,9 +106,10 @@ void Game::ProcessInput()
             }
             if (event.type == SDL_KEYDOWN)
             {
-                  if (levelManager->GetActiveLevelIndex() == 0)
+                  if (event.key.keysym.sym == SDLK_SPACE && levelManager->GetActiveLevelIndex() == 0)
                   {
                         levelManager->LoadNextLevel();
+                        gameManager->SetIsGameStarted(true);
                   }
                   if (event.key.keysym.sym == SDLK_ESCAPE)
                   {

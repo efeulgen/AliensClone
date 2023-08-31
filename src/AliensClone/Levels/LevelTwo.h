@@ -8,7 +8,7 @@
 class LevelTwo : public Level
 {
 public:
-      LevelTwo(int index, int w, int h, int len, bool isFinal = false);
+      LevelTwo(int index, int w, int h, int len, GameManager *gManager, bool isFinal = false);
       ~LevelTwo();
 
       void SetupLevel() override;
