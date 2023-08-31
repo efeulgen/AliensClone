@@ -241,3 +241,13 @@ void Player::IncreaseTrippleShotAmmo()
 {
       trippleShotAmmo += 2;
 }
+
+void Player::DamagePlayer(int damageAmount)
+{
+      health -= damageAmount;
+      if (health <= 0)
+      {
+            currentLevel->GetRefToGameManager()->SetIsPlayerDead(true);
+            canBeDestroyed = true;
+      }
+}

@@ -58,6 +58,7 @@ public:
       void IncreaseLaserBlasterAmmo();
       void IncreaseFlamethrowerAmmo();
       void IncreaseTrippleShotAmmo();
+      void DamagePlayer(int damageAmount);
 };
 
 #endif

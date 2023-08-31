@@ -17,7 +17,6 @@ class Pickup : public GameObject
 {
 private:
       PickupType pickupType;
-      Player *refToPlayer;
 
 public:
       Pickup(glm::vec2 pos, int rSize, PickupType t);

@@ -90,7 +90,10 @@ public:
       // getters & setters
       SDL_Rect GetRect() const { return rect; }
       Transform GetTransform() const { return transform; }
+
       bool GetCanBeDestroyed() const { return canBeDestroyed; }
+      void SetCanBeDestroyed(bool value) { canBeDestroyed = value; }
+
       std::string GetGameObjectTag() const { return gameObjectTag; }
 };
 

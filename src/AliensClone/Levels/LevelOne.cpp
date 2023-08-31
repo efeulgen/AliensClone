@@ -21,6 +21,9 @@ void LevelOne::SetupLevel()
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
       gameObjects.push_back(player);
 
+      // alien test
+      gameObjects.push_back(new Alien(glm::vec2(2500, 700), 250, player));
+
       // pickups
       gameObjects.push_back(new Pickup(glm::vec2(800, 600), 128, PickupType::PT_HealthPickup));
       gameObjects.push_back(new Pickup(glm::vec2(1200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));

@@ -15,7 +15,7 @@ class Projectile : public GameObject
 {
 private:
       ProjectileType type;
-      double damageAmount;
+      int damageAmount;
 
 public:
       Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t, bool flip);
@@ -24,6 +24,9 @@ public:
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
       void CollisionCallback(GameObject *otherObj) override;
+
+      // getters & setters
+      int GetDamageAmount() const { return damageAmount; }
 };
 
 #endif
