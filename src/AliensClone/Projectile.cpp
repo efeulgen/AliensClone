@@ -17,6 +17,10 @@ Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t
             imgFilePath = "./assets/sprites/Player/Projectiles/PlayerFlamethrowerProjectile.png";
             damageAmount = 1;
             break;
+      case ProjectileType::PT_TrippleShot:
+            imgFilePath = "./assets/sprites/Player/Projectiles/PlayerTrippleShotProjectile.png";
+            damageAmount = 10;
+            break;
       default:
             break;
       }

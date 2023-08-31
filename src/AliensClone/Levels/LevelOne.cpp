@@ -24,7 +24,9 @@ void LevelOne::SetupLevel()
       // pickups
       gameObjects.push_back(new Pickup(glm::vec2(800, 600), 128, PickupType::PT_HealthPickup));
       gameObjects.push_back(new Pickup(glm::vec2(1200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
-      gameObjects.push_back(new Pickup(glm::vec2(2500, 600), 128, PickupType::PT_HealthPickup));
+      gameObjects.push_back(new Pickup(glm::vec2(1700, 600), 128, PickupType::PT_HealthPickup));
+      gameObjects.push_back(new Pickup(glm::vec2(2300, 600), 128, PickupType::PT_FlamethrowerAmmoPickup));
+      gameObjects.push_back(new Pickup(glm::vec2(2800, 600), 128, PickupType::PT_TrippleShotAmmoPickup));
 
       Level::SetupLevel();
 }

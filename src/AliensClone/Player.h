@@ -9,7 +9,7 @@
 
 const double LASERBLASTER_FIRE_RATE = 0.25;
 const double FLAMETHROWER_FIRE_RATE = 0.05;
-const double TRIPPLESHOT_FIRE_RATE = 3.5;
+const double TRIPPLESHOT_FIRE_RATE = 1.5;
 
 enum PlayerWeaponMode
 {

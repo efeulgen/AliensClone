@@ -38,8 +38,6 @@ void Pickup::CollisionCallback(GameObject *otherObj)
 {
       if (otherObj->GetGameObjectTag() == "Player")
       {
-            std::cout << "Pickup is collected." << std::endl;
-
             switch (pickupType)
             {
             case PickupType::PT_HealthPickup:

@@ -128,7 +128,7 @@ void Player::ProcessPlayerInput(double deltaTime)
       }
       if (keyboardState[SDL_SCANCODE_3])
       {
-            // imgFilePath = "./assets/sprites/Player/PlayerTrippleShot.png";
+            imgFilePath = "./assets/sprites/Player/PlayerTrippleShot.png";
             weaponMode = PlayerWeaponMode::PWM_TrippleShot;
             fireCounter = TRIPPLESHOT_FIRE_RATE;
       }
@@ -191,7 +191,21 @@ void Player::Fire()
             currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 32, ProjectileType::PT_Flamethrower, isFlipped));
             break;
       case PlayerWeaponMode::PWM_TrippleShot:
-            // tripple shot code
+            speed = 1500.0;
+            // mid
+            vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
+            offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
+            currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 64, ProjectileType::PT_TrippleShot, isFlipped));
+
+            // top
+            vel = isFlipped ? glm::vec2(-speed, -200.0) : glm::vec2(speed, -200.0);
+            offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
+            currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 64, ProjectileType::PT_TrippleShot, isFlipped));
+
+            // bottom
+            vel = isFlipped ? glm::vec2(-speed, 200.0) : glm::vec2(speed, 200.0);
+            offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
+            currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 64, ProjectileType::PT_TrippleShot, isFlipped));
             break;
 
       default:
@@ -206,8 +220,6 @@ void Player::Crouch()
 
 void Player::HealPlayer()
 {
-      std::cout << "Heal Player" << std::endl;
-
       health += 10;
       if (health > 100)
       {
@@ -217,21 +229,15 @@ void Player::HealPlayer()
 
 void Player::IncreaseLaserBlasterAmmo()
 {
-      std::cout << "Increase LaserBlaster Ammo" << std::endl;
-
       laserBlasterAmmo += 30;
 }
 
 void Player::IncreaseFlamethrowerAmmo()
 {
-      std::cout << "Increase Flamethrower Ammo" << std::endl;
-
       flamethrowerAmmo += 50;
 }
 
 void Player::IncreaseTrippleShotAmmo()
 {
-      std::cout << "Increase TrippleShot Ammo" << std::endl;
-
       trippleShotAmmo += 2;
 }
