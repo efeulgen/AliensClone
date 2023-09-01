@@ -56,12 +56,6 @@ void Alien::UpdateGameObject(double deltaTime)
 
 void Alien::CollisionCallback(GameObject *otherObj)
 {
-      /*
-      if (otherObj->GetGameObjectTag() == "Player")
-      {
-            refToPlayer->DamagePlayer(10);
-      }
-      */
       if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile")
       {
             GetDamage(static_cast<Projectile *>(otherObj)->GetDamageAmount());

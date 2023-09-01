@@ -4,8 +4,9 @@
 
 #include "../../Engine/Level.h"
 #include "../Player.h"
-#include "../Enemies/Alien.h" // for testing
+#include "../Enemies/Alien.h"
 #include "../Pickups/Pickup.h"
+#include "../SpawnManagers/LevelOneSpawnManager.h"
 
 class LevelOne : public Level
 {

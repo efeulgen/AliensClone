@@ -51,7 +51,6 @@ public:
       {
             // managers
             audioManager = new AudioManager();
-            spawnManager = new SpawnManager();
             uiManager = new UIManager(windowWidth, windowHeight);
 
             // init game objects
@@ -65,6 +64,7 @@ public:
       {
             for (auto obj : gameObjects)
             {
+                  // garbage collection
                   if (obj->GetCanBeDestroyed())
                   {
                         gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), obj), gameObjects.end());
@@ -72,7 +72,19 @@ public:
                         obj = nullptr;
                         break;
                   }
+                  // update objects
                   obj->UpdateGameObject(deltaTime);
+
+                  // update SpawnManager
+                  if (spawnManager)
+                  {
+                        GameObject *newGameObject = spawnManager->UpdateSpawnManager(deltaTime);
+                        if (newGameObject)
+                        {
+                              gameObjects.push_back(newGameObject);
+                              std::cout << "SpawnManager spawns new GameObject." << std::endl;
+                        }
+                  }
 
                   // collision detection
                   for (auto collider : gameObjects)
@@ -140,6 +152,7 @@ public:
             }
             if (spawnManager)
             {
+                  spawnManager->ClearSpawnObjects();
                   delete spawnManager;
                   spawnManager = nullptr;
                   std::cout << "\033[1;33mLevel " << levelIndex << " SpawnManager is deleted.\033[0m" << std::endl;
@@ -157,12 +170,12 @@ public:
             }
       }
 
-      virtual void InstantiateGameObject(GameObject *obj)
+      void InstantiateGameObject(GameObject *obj)
       {
             gameObjects.push_back(obj);
       }
 
-      virtual void ShifBackground(double shiftValue, double deltaTime)
+      void ShifBackground(double shiftValue, double deltaTime)
       {
             backgroundXPosition -= shiftValue * deltaTime;
             for (auto obj : gameObjects)

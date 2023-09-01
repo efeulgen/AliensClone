@@ -16,6 +16,8 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
 Player::~Player()
 {
       Logger::Logg("Player Destructor");
+
+      currentLevel = nullptr;
 }
 
 void Player::InitGameObject()

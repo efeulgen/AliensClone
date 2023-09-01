@@ -3,6 +3,7 @@
 #define LEVELTHREE_H
 
 #include "../../Engine/Level.h"
+#include "../Player.h"
 
 class LevelThree : public Level
 {
