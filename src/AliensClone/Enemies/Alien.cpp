@@ -51,7 +51,7 @@ void Alien::UpdateGameObject(double deltaTime)
       isFlipped = refToPlayer->GetTransform().position.x > transform.position.x ? true : false;
 
       transform.position.x += velocity.x * deltaTime;
-      transform.position.x += velocity.y * deltaTime;
+      transform.position.y += velocity.y * deltaTime;
 }
 
 void Alien::CollisionCallback(GameObject *otherObj)

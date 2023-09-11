@@ -90,6 +90,7 @@ public:
       // getters & setters
       SDL_Rect GetRect() const { return rect; }
       Transform GetTransform() const { return transform; }
+      glm::vec2 GetPosition() const { return transform.position; }
 
       bool GetCanBeDestroyed() const { return canBeDestroyed; }
       void SetCanBeDestroyed(bool value) { canBeDestroyed = value; }

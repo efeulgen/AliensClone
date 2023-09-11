@@ -1,7 +1,7 @@
 
 #include "LevelOneSpawnManager.h"
 
-LevelOneSpawnManager::LevelOneSpawnManager(Player *player) : refToPlayer{player}
+LevelOneSpawnManager::LevelOneSpawnManager(Player *player, Level *level) : refToPlayer{player}, refToCurrentLevel{level}
 {
       Logger::Logg("LevelOneSpawnManager Constructor");
 }
@@ -24,8 +24,7 @@ GameObject *LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                   }
                   else if (spawnObj.gameObjectTag == "AlienEgg")
                   {
-                        std::cout << "Spawn AlienEgg" << std::endl;
-                        return nullptr;
+                        return new AlienEgg(glm::vec2(refToPlayer->GetPosition().x + 700.0, -100.0), glm::vec2(0.0, 375.0), 200, refToCurrentLevel, refToPlayer);
                   }
                   else if (spawnObj.gameObjectTag == "Facehugger")
                   {

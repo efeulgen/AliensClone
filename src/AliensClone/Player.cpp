@@ -180,19 +180,33 @@ void Player::Fire()
       switch (weaponMode)
       {
       case PlayerWeaponMode::PWM_LaserBlaster:
+            if (laserBlasterAmmo <= 0)
+            {
+                  return;
+            }
             speed = 2000.0;
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
             offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
             currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 32, ProjectileType::PT_LaserBlast, isFlipped));
             currentLevel->GetAudioManager()->PlaySFX(0);
+            laserBlasterAmmo--;
             break;
       case PlayerWeaponMode::PWM_Flamethrower:
+            if (flamethrowerAmmo <= 0)
+            {
+                  return;
+            }
             speed = 1500.0;
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
             offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
             currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 32, ProjectileType::PT_Flamethrower, isFlipped));
+            flamethrowerAmmo--;
             break;
       case PlayerWeaponMode::PWM_TrippleShot:
+            if (trippleShotAmmo <= 0)
+            {
+                  return;
+            }
             speed = 1500.0;
             // mid
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
@@ -208,6 +222,8 @@ void Player::Fire()
             vel = isFlipped ? glm::vec2(-speed, 200.0) : glm::vec2(speed, 200.0);
             offset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
             currentLevel->InstantiateGameObject(new Projectile(glm::vec2(transform.position.x, transform.position.y) + offset, vel, 64, ProjectileType::PT_TrippleShot, isFlipped));
+
+            trippleShotAmmo--;
             break;
 
       default:
