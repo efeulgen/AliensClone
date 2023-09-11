@@ -251,5 +251,6 @@ void Player::DamagePlayer(int damageAmount)
       {
             currentLevel->GetRefToGameManager()->SetIsPlayerDead(true);
             canBeDestroyed = true;
+            currentLevel->GetRefToGameManager()->SetIsGameOver(true);
       }
 }

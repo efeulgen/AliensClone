@@ -59,6 +59,23 @@ public:
       void IncreaseFlamethrowerAmmo();
       void IncreaseTrippleShotAmmo();
       void DamagePlayer(int damageAmount);
+
+      // getters & setters
+      int GetHealth() const { return health; }
+      int GetAmmo() const
+      {
+            switch (weaponMode)
+            {
+            case PlayerWeaponMode::PWM_LaserBlaster:
+                  return laserBlasterAmmo;
+            case PlayerWeaponMode::PWM_Flamethrower:
+                  return flamethrowerAmmo;
+            case PlayerWeaponMode::PWM_TrippleShot:
+                  return trippleShotAmmo;
+            default:
+                  return 0;
+            }
+      }
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "../Enemies/Alien.h"
 #include "../Pickups/Pickup.h"
 #include "../SpawnManagers/LevelOneSpawnManager.h"
+#include "../UIManagers/LevelOneUIManager.h"
 
 class LevelOne : public Level
 {

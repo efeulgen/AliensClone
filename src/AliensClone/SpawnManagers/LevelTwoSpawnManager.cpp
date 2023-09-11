@@ -13,4 +13,5 @@ LevelTwoSpawnManager::~LevelTwoSpawnManager()
 
 GameObject *LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
 {
+      return nullptr;
 }

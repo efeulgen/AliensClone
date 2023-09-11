@@ -21,5 +21,11 @@ void LevelThree::SetupLevel()
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
       gameObjects.push_back(player);
 
+      // spawn manager
+
+      // pickups
+
       Level::SetupLevel();
+
+      // uiManager->SetRefToPlayer(player);
 }

@@ -46,12 +46,13 @@ public:
             refToGameManager = gManager;
             isFinalLevel = isFinal;
       }
+
       virtual ~Level() {}
+
       virtual void SetupLevel()
       {
             // managers
             audioManager = new AudioManager();
-            uiManager = new UIManager(windowWidth, windowHeight);
 
             // init game objects
             for (auto obj : gameObjects)
@@ -82,7 +83,6 @@ public:
                         if (newGameObject)
                         {
                               gameObjects.push_back(newGameObject);
-                              std::cout << "SpawnManager spawns new GameObject." << std::endl;
                         }
                   }
 
@@ -123,9 +123,22 @@ public:
                   backgroundXPosition = 0;
             }
 
+            // *****************************************************************************************************************************
+            // ************************* render objects ************************************************************************************
             for (auto obj : gameObjects)
             {
                   obj->RenderGameObject(renderer);
+            }
+
+            // *****************************************************************************************************************************
+            // ************************* render UI *****************************************************************************************
+            if (refToGameManager->GetIsGameOver())
+            {
+                  uiManager->RenderGameOverUI(renderer);
+            }
+            else
+            {
+                  uiManager->RenderUI(renderer);
             }
 
             SDL_RenderPresent(renderer);

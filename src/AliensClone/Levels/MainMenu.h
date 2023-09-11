@@ -3,6 +3,7 @@
 #define MAINMENU_H
 
 #include "../../Engine/Level.h"
+#include "../UIManagers/MainMenuUIManager.h"
 
 class MainMenu : public Level
 {

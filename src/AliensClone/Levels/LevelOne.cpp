@@ -21,9 +21,10 @@ void LevelOne::SetupLevel()
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
       gameObjects.push_back(player);
 
-      // spawn manager
+      // manager
       spawnManager = new LevelOneSpawnManager(player);
       spawnManager->SpawnGameObject("Alien", 20.0);
+      uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);
 
       // pickups
       gameObjects.push_back(new Pickup(glm::vec2(800, 600), 128, PickupType::PT_HealthPickup));

@@ -13,4 +13,5 @@ LevelThreeSpawnManager::~LevelThreeSpawnManager()
 
 GameObject *LevelThreeSpawnManager::UpdateSpawnManager(double deltaTime)
 {
+      return nullptr;
 }

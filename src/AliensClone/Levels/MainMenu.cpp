@@ -15,6 +15,7 @@ void MainMenu::SetupLevel()
 {
       SDL_ShowCursor(1);
 
+      uiManager = new MainMenuUIManager(windowWidth, windowHeight);
       Level::SetupLevel();
 }
 
