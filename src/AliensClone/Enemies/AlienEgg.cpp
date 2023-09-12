@@ -19,6 +19,8 @@ AlienEgg::~AlienEgg()
 
 void AlienEgg::InitGameObject()
 {
+      srand(refToCurrentLevel->GetSpawnManager()->IncrementSpawnSeed());
+      stopPos = 550.0 + static_cast<double>(rand() % 200);
 }
 
 void AlienEgg::UpdateGameObject(double deltaTime)
@@ -26,7 +28,7 @@ void AlienEgg::UpdateGameObject(double deltaTime)
       transform.position.x += velocity.x * deltaTime;
       transform.position.y += velocity.y * deltaTime;
 
-      if (transform.position.y >= 550.0)
+      if (transform.position.y >= stopPos)
       {
             isHitGround = true;
             velocity = glm::vec2(0.0, 0.0);

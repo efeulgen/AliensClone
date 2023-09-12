@@ -11,17 +11,17 @@ Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t
       {
       case ProjectileType::PT_LaserBlast:
             imgFilePath = "./assets/sprites/Player/Projectiles/PlayerLaserBlasterProjectile.png";
-            damageAmount = 20;
+            damageAmount = 35;
             gameObjectTag = "LaserBlasterProjectile";
             break;
       case ProjectileType::PT_Flamethrower:
             imgFilePath = "./assets/sprites/Player/Projectiles/PlayerFlamethrowerProjectile.png";
-            damageAmount = 5;
+            damageAmount = 10;
             gameObjectTag = "FlamethrowerProjectile";
             break;
       case ProjectileType::PT_TrippleShot:
             imgFilePath = "./assets/sprites/Player/Projectiles/PlayerTrippleShotProjectile.png";
-            damageAmount = 35;
+            damageAmount = 50;
             gameObjectTag = "TrippleShotProjectile";
             break;
       default:

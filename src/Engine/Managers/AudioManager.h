@@ -9,7 +9,7 @@
 
 struct sfx
 {
-      Mix_Chunk *chunk;
+      Mix_Chunk *chunk = nullptr;
       int channel;
 };
 

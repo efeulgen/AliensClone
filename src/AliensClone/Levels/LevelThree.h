@@ -11,6 +11,7 @@ public:
       LevelThree(int index, int w, int h, int len, GameManager *gManager, bool isFinal = false);
       ~LevelThree();
 
+      void SetupLevelSounds() override;
       void SetupLevel() override;
 };
 

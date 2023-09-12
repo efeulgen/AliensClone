@@ -11,6 +11,7 @@ public:
       LevelTwo(int index, int w, int h, int len, GameManager *gManager, bool isFinal = false);
       ~LevelTwo();
 
+      void SetupLevelSounds() override;
       void SetupLevel() override;
 };
 

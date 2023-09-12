@@ -11,6 +11,7 @@ public:
       MainMenu(int index, int w, int h, int len, GameManager *gManager, bool isFinal = false);
       ~MainMenu();
 
+      void SetupLevelSounds() override;
       void SetupLevel() override;
       void RenderLevel(SDL_Renderer *renderer) override;
 };

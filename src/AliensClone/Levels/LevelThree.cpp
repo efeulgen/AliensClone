@@ -13,6 +13,10 @@ LevelThree::~LevelThree()
       Logger::Logg("LevelThree Destructor");
 }
 
+void LevelThree::SetupLevelSounds()
+{
+}
+
 void LevelThree::SetupLevel()
 {
       SDL_ShowCursor(0);
@@ -22,10 +26,7 @@ void LevelThree::SetupLevel()
       gameObjects.push_back(player);
 
       // spawn manager
-
       // pickups
 
       Level::SetupLevel();
-
-      // uiManager->SetRefToPlayer(player);
 }

@@ -13,6 +13,10 @@ LevelTwo::~LevelTwo()
       Logger::Logg("LevelTwo Destructor");
 }
 
+void LevelTwo::SetupLevelSounds()
+{
+}
+
 void LevelTwo::SetupLevel()
 {
       SDL_ShowCursor(0);
@@ -22,10 +26,7 @@ void LevelTwo::SetupLevel()
       gameObjects.push_back(player);
 
       // spawn manager
-
       // pickups
 
       Level::SetupLevel();
-
-      // uiManager->SetRefToPlayer(player);
 }

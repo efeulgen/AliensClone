@@ -12,6 +12,7 @@ class AlienEgg : public GameObject
 private:
       Level *refToCurrentLevel = nullptr;
       Player *refToPlayer = nullptr;
+      double stopPos = 0.0;
 
       bool isHitGround = false;
 

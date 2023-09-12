@@ -11,6 +11,10 @@ MainMenu::~MainMenu()
       Logger::Logg("MainMenu Destructor");
 }
 
+void MainMenu::SetupLevelSounds()
+{
+}
+
 void MainMenu::SetupLevel()
 {
       SDL_ShowCursor(1);

@@ -13,6 +13,14 @@ LevelOne::~LevelOne()
       Logger::Logg("LevelOne Destructor");
 }
 
+void LevelOne::SetupLevelSounds()
+{
+      audioManager->AddChunk("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
+      audioManager->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
+      audioManager->AddChunk("./audio/Reload.wav");                        // 2
+      audioManager->AddChunk("./audio/OutOfAmmo.wav");                     // 3
+}
+
 void LevelOne::SetupLevel()
 {
       SDL_ShowCursor(0);
@@ -23,7 +31,7 @@ void LevelOne::SetupLevel()
 
       // manager
       spawnManager = new LevelOneSpawnManager(player, this);
-      // spawnManager->SpawnGameObject("Alien", 20.0);
+      // spawnManager->SpawnGameObject("Alien", 20.0); -> for debug
       spawnManager->SpawnGameObject("AlienEgg", 25.0);
 
       uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);

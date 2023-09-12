@@ -22,8 +22,6 @@ Player::~Player()
 
 void Player::InitGameObject()
 {
-      currentLevel->GetAudioManager()->AddChunk("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
-      currentLevel->GetAudioManager()->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
 }
 
 void Player::UpdateGameObject(double deltaTime)
@@ -77,6 +75,10 @@ void Player::UpdateGameObject(double deltaTime)
 
 void Player::CollisionCallback(GameObject *otherObj)
 {
+      if (otherObj->GetGameObjectTag() == "AmmoPickup")
+      {
+            currentLevel->GetAudioManager()->PlaySFX(2);
+      }
 }
 
 void Player::ProcessPlayerInput(double deltaTime)
@@ -104,8 +106,15 @@ void Player::ProcessPlayerInput(double deltaTime)
             canFire = false;
             if (weaponMode == PlayerWeaponMode::PWM_Flamethrower && !isFiringFlamethrower)
             {
-                  currentLevel->GetAudioManager()->PlaySFX(1);
-                  isFiringFlamethrower = true;
+                  if (flamethrowerAmmo > 0)
+                  {
+                        currentLevel->GetAudioManager()->PlaySFX(1);
+                        isFiringFlamethrower = true;
+                  }
+                  else
+                  {
+                        currentLevel->GetAudioManager()->PlaySFX(3);
+                  }
             }
       }
       if (!keyboardState[SDL_SCANCODE_RETURN])
@@ -182,6 +191,7 @@ void Player::Fire()
       case PlayerWeaponMode::PWM_LaserBlaster:
             if (laserBlasterAmmo <= 0)
             {
+                  currentLevel->GetAudioManager()->PlaySFX(3);
                   return;
             }
             speed = 2000.0;
@@ -205,6 +215,7 @@ void Player::Fire()
       case PlayerWeaponMode::PWM_TrippleShot:
             if (trippleShotAmmo <= 0)
             {
+                  currentLevel->GetAudioManager()->PlaySFX(3);
                   return;
             }
             speed = 1500.0;

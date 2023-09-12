@@ -23,7 +23,7 @@ protected:
       glm::vec2 velocity = glm::vec2(0.0, 0.0);
       int rectSize = 0;
       const char *imgFilePath = nullptr;
-      std::string gameObjectTag;
+      std::string gameObjectTag = "Untagged";
 
       bool isFlipped = false;
       bool canBeDestroyed = false;

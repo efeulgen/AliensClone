@@ -13,6 +13,11 @@ LevelOneSpawnManager::~LevelOneSpawnManager()
 
 GameObject *LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
 {
+      if (refToCurrentLevel->GetRefToGameManager()->GetIsGameOver())
+      {
+            return nullptr;
+      }
+
       for (auto &spawnObj : spawnObjects)
       {
             if (spawnObj.spawnCounter >= spawnObj.spawnRate)
@@ -20,11 +25,17 @@ GameObject *LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                   spawnObj.spawnCounter = 0.0;
                   if (spawnObj.gameObjectTag == "Alien")
                   {
-                        return new Alien(glm::vec2(3000, 700), 250, refToPlayer);
+                        Alien *newAlien = new Alien(glm::vec2(3000, 700), 250, refToPlayer);
+                        newAlien->InitGameObject();
+                        return newAlien;
                   }
                   else if (spawnObj.gameObjectTag == "AlienEgg")
                   {
-                        return new AlienEgg(glm::vec2(refToPlayer->GetPosition().x + 700.0, -100.0), glm::vec2(0.0, 375.0), 200, refToCurrentLevel, refToPlayer);
+                        srand(IncrementSpawnSeed());
+                        double alienEggSpawnOffset = (rand() % 3) == 0 ? 700.0 : -700.0;
+                        AlienEgg *newAlienEgg = new AlienEgg(glm::vec2(refToPlayer->GetPosition().x + alienEggSpawnOffset, -100.0), glm::vec2(0.0, 375.0), 200, refToCurrentLevel, refToPlayer);
+                        newAlienEgg->InitGameObject();
+                        return newAlienEgg;
                   }
                   else if (spawnObj.gameObjectTag == "Facehugger")
                   {

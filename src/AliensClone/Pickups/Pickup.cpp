@@ -7,15 +7,19 @@ Pickup::Pickup(glm::vec2 pos, int rSize, PickupType t) : GameObject(pos, rSize),
       {
       case PickupType::PT_HealthPickup:
             imgFilePath = "./assets/sprites/Pickups/HealthPickup.png";
+            gameObjectTag = "HealthPickup";
             break;
       case PickupType::PT_LaserBlasterAmmoPickup:
             imgFilePath = "./assets/sprites/Pickups/LaserBlasterAmmoPickup.png";
+            gameObjectTag = "AmmoPickup";
             break;
       case PickupType::PT_FlamethrowerAmmoPickup:
             imgFilePath = "./assets/sprites/Pickups/FlamethrowerAmmoPickup.png";
+            gameObjectTag = "AmmoPickup";
             break;
       case PickupType::PT_TrippleShotAmmoPickup:
             imgFilePath = "./assets/sprites/Pickups/TrippleShotAmmoPickup.png";
+            gameObjectTag = "AmmoPickup";
             break;
       default:
             break;

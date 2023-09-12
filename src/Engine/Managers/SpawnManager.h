@@ -17,6 +17,9 @@ struct SpawnObject
 
 class SpawnManager
 {
+private:
+      int spawnSeed = 0;
+
 protected:
       std::vector<SpawnObject> spawnObjects;
 
@@ -36,6 +39,10 @@ public:
       {
             spawnObjects.clear();
       }
+
+      // getters & setters
+      int GetSpawnSeed() const { return spawnSeed; }
+      int IncrementSpawnSeed() { return spawnSeed++; }
 };
 
 #endif

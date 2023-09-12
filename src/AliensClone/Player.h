@@ -8,7 +8,7 @@
 #include "Projectile.h"
 
 const double LASERBLASTER_FIRE_RATE = 0.25;
-const double FLAMETHROWER_FIRE_RATE = 0.05;
+const double FLAMETHROWER_FIRE_RATE = 0.1;
 const double TRIPPLESHOT_FIRE_RATE = 1.5;
 
 enum PlayerWeaponMode
@@ -36,7 +36,7 @@ private:
       // stats
       int health = 100;
       int laserBlasterAmmo = 30;
-      int flamethrowerAmmo = 100;
+      int flamethrowerAmmo = 200;
       int trippleShotAmmo = 10;
 
 public:

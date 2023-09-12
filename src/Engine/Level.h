@@ -49,10 +49,12 @@ public:
 
       virtual ~Level() {}
 
+      virtual void SetupLevelSounds() = 0;
       virtual void SetupLevel()
       {
             // managers
             audioManager = new AudioManager();
+            SetupLevelSounds();
 
             // init game objects
             for (auto obj : gameObjects)
@@ -98,6 +100,14 @@ public:
                               obj->CheckCollision(collider->GetRect(), collider);
                         }
                   }
+
+                  // game over
+                  /*
+                  if (refToGameManager->GetIsGameOver())
+                  {
+                        ClearLevelGameObjects();
+                  }
+                  */
             }
       }
 
@@ -159,6 +169,7 @@ public:
       {
             if (audioManager)
             {
+                  audioManager->ClearSoundEffects();
                   delete audioManager;
                   audioManager = nullptr;
                   std::cout << "\033[1;33mLevel " << levelIndex << " AudioManager is deleted.\033[0m" << std::endl;
