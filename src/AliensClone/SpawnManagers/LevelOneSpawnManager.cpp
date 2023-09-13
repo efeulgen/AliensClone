@@ -25,7 +25,7 @@ GameObject *LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                   spawnObj.spawnCounter = 0.0;
                   if (spawnObj.gameObjectTag == "Alien")
                   {
-                        Alien *newAlien = new Alien(glm::vec2(3000, 700), 250, refToPlayer);
+                        Alien *newAlien = new Alien(glm::vec2(3000, 700), 250, refToPlayer, refToCurrentLevel);
                         newAlien->InitGameObject();
                         return newAlien;
                   }

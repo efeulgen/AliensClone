@@ -1,7 +1,7 @@
 
 #include "Alien.h"
 
-Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef) : GameObject(pos, rSize), refToPlayer{playerRef}
+Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : GameObject(pos, rSize), refToPlayer{playerRef}, refToCurrentLevel{levelRef}
 {
       Logger::Logg("Alien Constructor");
 
@@ -13,6 +13,9 @@ Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef) : GameObject(pos, rSiz
 Alien::~Alien()
 {
       Logger::Logg("Alien Destructor");
+
+      refToPlayer = nullptr;
+      refToCurrentLevel = nullptr;
 }
 
 void Alien::InitGameObject()
@@ -21,7 +24,7 @@ void Alien::InitGameObject()
 
 void Alien::UpdateGameObject(double deltaTime)
 {
-      if (!refToPlayer)
+      if (refToCurrentLevel->GetRefToGameManager()->GetIsGameOver())
       {
             return;
       }

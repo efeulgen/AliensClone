@@ -17,7 +17,6 @@ void LevelManager::LoadNextLevel()
       levels[activeLevelIndex]->ClearLevelManagers();
 
       activeLevelIndex++;
-
       levels[activeLevelIndex]->SetupLevel();
 }
 
@@ -31,7 +30,6 @@ void LevelManager::LoadMainMenu()
       }
 
       activeLevelIndex = 0;
-
       levels[activeLevelIndex]->SetupLevel();
 }
 

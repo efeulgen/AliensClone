@@ -100,14 +100,6 @@ public:
                               obj->CheckCollision(collider->GetRect(), collider);
                         }
                   }
-
-                  // game over
-                  /*
-                  if (refToGameManager->GetIsGameOver())
-                  {
-                        ClearLevelGameObjects();
-                  }
-                  */
             }
       }
 
@@ -186,11 +178,6 @@ public:
                   delete uiManager;
                   uiManager = nullptr;
                   std::cout << "\033[1;33mLevel " << levelIndex << " UIManager is deleted.\033[0m" << std::endl;
-            }
-            if (refToGameManager)
-            {
-                  refToGameManager = nullptr;
-                  std::cout << "\033[1;33mLevel " << levelIndex << " RefToGameManager is set to nullptr.\033[0m" << std::endl;
             }
       }
 

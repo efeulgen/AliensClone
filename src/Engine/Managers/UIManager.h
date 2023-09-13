@@ -60,6 +60,7 @@ public:
       void RenderGameOverUI(SDL_Renderer *renderer)
       {
             RenderText(renderer, "Game Over", 255, 255, 255);
+            RenderText(renderer, "Press 'Space' to play again or 'ESC' to quit.", 255, 255, 255, glm::vec2(-1, windowHeight / 2 + 300));
       }
 };
 

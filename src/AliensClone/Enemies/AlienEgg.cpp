@@ -39,7 +39,8 @@ void AlienEgg::CollisionCallback(GameObject *otherObj)
 {
       if ((otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile") && isHitGround)
       {
-            refToCurrentLevel->InstantiateGameObject(new Alien(glm::vec2(transform.position.x, transform.position.y), 200, refToPlayer));
+            refToCurrentLevel->GetAudioManager()->PlaySFX(4);
+            refToCurrentLevel->InstantiateGameObject(new Alien(glm::vec2(transform.position.x, transform.position.y), 200, refToPlayer, refToCurrentLevel));
             canBeDestroyed = true;
             otherObj->SetCanBeDestroyed(true);
       }

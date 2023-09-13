@@ -111,6 +111,13 @@ void Game::ProcessInput()
                         levelManager->LoadNextLevel();
                         gameManager->SetIsGameStarted(true);
                   }
+                  if (event.key.keysym.sym == SDLK_SPACE && gameManager->GetIsGameOver())
+                  {
+                        levelManager->LoadMainMenu();
+                        gameManager->SetIsGameOver(false);
+                        gameManager->SetIsPlayerDead(false);
+                        gameManager->SetIsGameStarted(false);
+                  }
                   if (event.key.keysym.sym == SDLK_ESCAPE)
                   {
                         gameManager->SetIsRunning(false);

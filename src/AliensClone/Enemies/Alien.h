@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include "../../Engine/GameObject.h"
+#include "../../Engine/Level.h"
 #include "../Player.h"
 #include "../Projectile.h"
 
@@ -14,6 +15,7 @@ class Alien : public GameObject
 {
 private:
       Player *refToPlayer;
+      Level *refToCurrentLevel;
       double attackCounter = 0.0;
       double attackRange = 150.0;
 
@@ -21,7 +23,7 @@ private:
       int health = 100;
 
 public:
-      Alien(glm::vec2 pos, int rSize, Player *playerRef);
+      Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef);
       ~Alien();
 
       void InitGameObject() override;

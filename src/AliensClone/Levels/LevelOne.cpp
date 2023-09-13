@@ -19,6 +19,7 @@ void LevelOne::SetupLevelSounds()
       audioManager->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
       audioManager->AddChunk("./audio/Reload.wav");                        // 2
       audioManager->AddChunk("./audio/OutOfAmmo.wav");                     // 3
+      audioManager->AddChunk("./audio/smash.wav");                         // 4
 }
 
 void LevelOne::SetupLevel()
@@ -31,7 +32,7 @@ void LevelOne::SetupLevel()
 
       // manager
       spawnManager = new LevelOneSpawnManager(player, this);
-      // spawnManager->SpawnGameObject("Alien", 20.0); -> for debug
+      spawnManager->SpawnGameObject("Alien", 20.0);
       spawnManager->SpawnGameObject("AlienEgg", 25.0);
 
       uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);

@@ -277,7 +277,7 @@ void Player::DamagePlayer(int damageAmount)
       if (health <= 0)
       {
             currentLevel->GetRefToGameManager()->SetIsPlayerDead(true);
-            canBeDestroyed = true;
             currentLevel->GetRefToGameManager()->SetIsGameOver(true);
+            canBeDestroyed = true;
       }
 }

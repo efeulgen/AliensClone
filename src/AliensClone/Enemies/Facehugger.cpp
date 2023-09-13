@@ -23,4 +23,14 @@ void Facehugger::UpdateGameObject(double deltaTime)
 
 void Facehugger::CollisionCallback(GameObject *otherObj)
 {
+      if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile")
+      {
+            canBeDestroyed = true;
+            otherObj->SetCanBeDestroyed(true);
+      }
+
+      if (otherObj->GetGameObjectTag() == "Player")
+      {
+            // facehug player
+      }
 }
