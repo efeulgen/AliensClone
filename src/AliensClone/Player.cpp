@@ -73,7 +73,7 @@ void Player::UpdateGameObject(double deltaTime)
       }
 }
 
-void Player::CollisionCallback(GameObject *otherObj)
+void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if (otherObj->GetGameObjectTag() == "AmmoPickup")
       {

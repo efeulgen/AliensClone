@@ -21,7 +21,7 @@ void Facehugger::UpdateGameObject(double deltaTime)
 {
 }
 
-void Facehugger::CollisionCallback(GameObject *otherObj)
+void Facehugger::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile")
       {

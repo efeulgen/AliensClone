@@ -23,6 +23,6 @@ void FacehuggerTank::UpdateGameObject(double deltaTime)
       }
 }
 
-void FacehuggerTank::CollisionCallback(GameObject *otherObj)
+void FacehuggerTank::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
 }

@@ -35,7 +35,7 @@ void AlienEgg::UpdateGameObject(double deltaTime)
       }
 }
 
-void AlienEgg::CollisionCallback(GameObject *otherObj)
+void AlienEgg::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if ((otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile") && isHitGround)
       {

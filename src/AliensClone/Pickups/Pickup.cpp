@@ -38,7 +38,7 @@ void Pickup::UpdateGameObject(double deltaTime)
 {
 }
 
-void Pickup::CollisionCallback(GameObject *otherObj)
+void Pickup::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if (otherObj->GetGameObjectTag() == "Player")
       {

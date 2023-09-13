@@ -30,6 +30,7 @@ protected:
 
 private:
       SDL_Rect rect = {0, 0, 0, 0};
+      SDL_Rect *collisionRect;
 
 public:
       GameObject() {}
@@ -48,7 +49,7 @@ public:
       virtual ~GameObject() {}
 
       virtual void InitGameObject() = 0;
-      virtual void CollisionCallback(GameObject *otherObj) = 0;
+      virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) = 0;
       virtual void UpdateGameObject(double deltaTime) = 0;
 
       virtual void RenderGameObject(SDL_Renderer *renderer)
@@ -72,11 +73,22 @@ public:
             SDL_DestroyTexture(tex);
       }
 
+      virtual void RenderAnimation(SDL_Renderer *renderer, const char *spriteSheet[], int spriteSize, double sprtieSheetIndex, glm::vec2 pos)
+      {
+            SDL_Surface *surf = IMG_Load(spriteSheet[static_cast<int>(sprtieSheetIndex)]);
+            SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
+            SDL_FreeSurface(surf);
+            SDL_Rect rect = {static_cast<int>(pos.x), static_cast<int>(pos.x), spriteSize, spriteSize};
+            SDL_RenderCopy(renderer, tex, NULL, &rect);
+            SDL_DestroyTexture(tex);
+      }
+
       void CheckCollision(SDL_Rect other, GameObject *otherObj)
       {
             if (SDL_HasIntersection(&rect, &other))
             {
-                  CollisionCallback(otherObj);
+                  // SDL_IntersectRect(&rect, &other, collisionRect);
+                  CollisionCallback(otherObj, collisionRect);
             }
       }
 

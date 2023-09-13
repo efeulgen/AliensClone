@@ -19,6 +19,12 @@ private:
       double attackCounter = 0.0;
       double attackRange = 150.0;
 
+      // bloodsplash anim
+      bool isRenderingBloodSplash = false;
+      double bloodSplashAnimIndex = 0.0;
+      glm::vec2 hitPos = glm::vec2(0.0, 0.0);
+      const char *alienBloodSplashSpritesheet[4] = {"./assets/sprites/Enemies/Alien/Alien_bloodSplash_1.png", "./assets/sprites/Enemies/Alien/Alien_bloodSplash_2.png", "./assets/sprites/Enemies/Alien/Alien_bloodSplash_3.png", "./assets/sprites/Enemies/Alien/Alien_bloodSplash_4.png"};
+
       // stats
       int health = 100;
 
@@ -28,7 +34,8 @@ public:
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback(GameObject *otherObj) override;
+      void RenderGameObject(SDL_Renderer *renderer) override;
+      void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
 
       void Attack();
       void GetDamage(int damageAmount);

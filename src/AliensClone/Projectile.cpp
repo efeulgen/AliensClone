@@ -56,6 +56,6 @@ void Projectile::UpdateGameObject(double deltaTime)
       }
 }
 
-void Projectile::CollisionCallback(GameObject *otherObj)
+void Projectile::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
 }

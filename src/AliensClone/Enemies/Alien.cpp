@@ -55,12 +55,35 @@ void Alien::UpdateGameObject(double deltaTime)
 
       transform.position.x += velocity.x * deltaTime;
       transform.position.y += velocity.y * deltaTime;
+
+      // anims
+      if (isRenderingBloodSplash)
+      {
+            bloodSplashAnimIndex += deltaTime * 10;
+      }
 }
 
-void Alien::CollisionCallback(GameObject *otherObj)
+void Alien::RenderGameObject(SDL_Renderer *renderer)
+{
+      GameObject::RenderGameObject(renderer);
+
+      if (isRenderingBloodSplash)
+      {
+            RenderAnimation(renderer, alienBloodSplashSpritesheet, 64, bloodSplashAnimIndex, hitPos); // transform.position for debugging; get collision pos later
+            if (static_cast<int>(bloodSplashAnimIndex) >= 3)
+            {
+                  isRenderingBloodSplash = false;
+                  bloodSplashAnimIndex = 0.0;
+            }
+      }
+}
+
+void Alien::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile")
       {
+            isRenderingBloodSplash = true;
+            // hitPos = glm::vec2(hitRect->x, hitRect->y);
             GetDamage(static_cast<Projectile *>(otherObj)->GetDamageAmount());
             otherObj->SetCanBeDestroyed(true);
       }

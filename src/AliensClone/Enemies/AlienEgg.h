@@ -22,7 +22,7 @@ public:
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
-      void CollisionCallback(GameObject *otherObj) override;
+      void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
 };
 
 #endif
