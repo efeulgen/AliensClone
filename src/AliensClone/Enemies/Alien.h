@@ -20,9 +20,9 @@ private:
       double attackRange = 150.0;
 
       // bloodsplash anim
-      bool isRenderingBloodSplash = false;
-      double bloodSplashAnimIndex = 0.0;
-      glm::vec2 hitPos = glm::vec2(0.0, 0.0);
+      bool isRenderingBloodSplash;
+      double bloodSplashAnimIndex;
+      glm::vec2 hitPos;
       const char *alienBloodSplashSpritesheet[4] = {"./assets/sprites/Enemies/Alien/Alien_bloodSplash_1.png", "./assets/sprites/Enemies/Alien/Alien_bloodSplash_2.png", "./assets/sprites/Enemies/Alien/Alien_bloodSplash_3.png", "./assets/sprites/Enemies/Alien/Alien_bloodSplash_4.png"};
 
       // stats

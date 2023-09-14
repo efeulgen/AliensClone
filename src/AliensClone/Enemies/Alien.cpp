@@ -8,6 +8,10 @@ Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : Gam
       imgFilePath = "./assets/sprites/Enemies/Alien/Alien.png";
       gameObjectTag = "Alien";
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(ALIENSPEED, 0.0) : glm::vec2(-ALIENSPEED, 0.0);
+
+      isRenderingBloodSplash = false;
+      bloodSplashAnimIndex = 0.0;
+      hitPos = glm::vec2(0.0, 0.0);
 }
 
 Alien::~Alien()
@@ -69,7 +73,7 @@ void Alien::RenderGameObject(SDL_Renderer *renderer)
 
       if (isRenderingBloodSplash)
       {
-            RenderAnimation(renderer, alienBloodSplashSpritesheet, 64, bloodSplashAnimIndex, hitPos); // transform.position for debugging; get collision pos later
+            RenderAnimation(renderer, alienBloodSplashSpritesheet, 64, bloodSplashAnimIndex, hitPos);
             if (static_cast<int>(bloodSplashAnimIndex) >= 3)
             {
                   isRenderingBloodSplash = false;
@@ -82,8 +86,8 @@ void Alien::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile")
       {
+            hitPos = otherObj->GetPosition();
             isRenderingBloodSplash = true;
-            // hitPos = glm::vec2(hitRect->x, hitRect->y);
             GetDamage(static_cast<Projectile *>(otherObj)->GetDamageAmount());
             otherObj->SetCanBeDestroyed(true);
       }

@@ -27,11 +27,18 @@ private:
       bool canFire;
       double fireCounter;
       bool isFiringFlamethrower = false;
+      glm::vec2 fireOffset = glm::vec2(0.0, 0.0);
+      glm::vec2 firePos = glm::vec2(0.0, 0.0);
 
       int windowWidth;
       int windowHeight;
 
       double globalX;
+
+      // muzzle flash anim
+      bool isRenderingMuzzleFlash = false;
+      double muzzleFlashAnimIndex = 0.0;
+      const char *muzzleFlashSpritesheet[3] = {"./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_1.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_2.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_3.png"};
 
       // stats
       int health = 100;
@@ -45,6 +52,7 @@ public:
 
       void InitGameObject() override;
       void UpdateGameObject(double deltaTime) override;
+      void RenderGameObject(SDL_Renderer *renderer) override;
       void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
 
       void ProcessPlayerInput(double deltaTime);

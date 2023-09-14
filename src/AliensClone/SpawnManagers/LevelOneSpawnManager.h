@@ -16,7 +16,7 @@ private:
       Level *refToCurrentLevel;
 
 public:
-      LevelOneSpawnManager(Player *player, Level* level);
+      LevelOneSpawnManager(Player *player, Level *level);
       ~LevelOneSpawnManager();
       GameObject *UpdateSpawnManager(double deltaTime) override;
 };
