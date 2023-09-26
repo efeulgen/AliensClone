@@ -84,7 +84,7 @@ public:
                         GameObject *newGameObject = spawnManager->UpdateSpawnManager(deltaTime);
                         if (newGameObject)
                         {
-                              gameObjects.push_back(newGameObject);
+                              InstantiateGameObject(newGameObject);
                         }
                   }
 

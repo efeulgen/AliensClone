@@ -6,10 +6,11 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
       Logger::Logg("Player Constructor");
 
       imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
+      gameObjectTag = "Player";
+
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
       fireCounter = LASERBLASTER_FIRE_RATE;
       canFire = true;
-      gameObjectTag = "Player";
       globalX = pos.x;
 }
 

@@ -25,6 +25,10 @@ void GameObjects::RenderGameObjects(SDL_Renderer *renderer)
 {
 }
 
+void GameObjects::AppendGameObject(GameObject obj)
+{
+}
+
 GameObject GameObjects::FindGameObjectWithTag(std::string tag)
 {
 }

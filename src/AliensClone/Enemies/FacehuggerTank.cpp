@@ -4,6 +4,9 @@
 FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, Player *player) : GameObject(pos, rSize), refToPlayer{player}
 {
       Logger::Logg("FacehuggerTank Constructor");
+
+      imgFilePath = undamagedTankImg;
+      gameObjectTag = "FacehuggerTank";
 }
 
 FacehuggerTank::~FacehuggerTank()

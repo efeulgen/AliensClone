@@ -10,6 +10,9 @@ class FacehuggerTank : public GameObject
 private:
       Player *refToPlayer;
 
+      const char *undamagedTankImg = "";
+      const char *damagedTankImg = "";
+
 public:
       FacehuggerTank(glm::vec2 pos, int rSize, Player *player);
       ~FacehuggerTank();

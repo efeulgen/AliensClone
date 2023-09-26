@@ -29,7 +29,7 @@ public:
 
       virtual GameObject *UpdateSpawnManager(double deltaTime) = 0;
 
-      void SpawnGameObject(std::string tag, double rate)
+      void CreateSpawnObject(std::string tag, double rate)
       {
             SpawnObject spawnObj = {tag, rate, rate};
             spawnObjects.push_back(spawnObj);

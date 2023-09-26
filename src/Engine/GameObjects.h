@@ -22,6 +22,7 @@ public:
       void UpdateGameObjects(double deltaTime);
       void RenderGameObjects(SDL_Renderer *renderer);
 
+      void AppendGameObject(GameObject obj);
       GameObject FindGameObjectWithTag(std::string tag); // implement with binary search; give indices to game objects
       void RemoveGameObjectWithTag(std::string tag);
       void ClearGameObjects();
