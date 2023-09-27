@@ -11,6 +11,7 @@ struct sfx
 {
       Mix_Chunk *chunk = nullptr;
       int channel;
+      bool isPlaying;
 };
 
 class AudioManager

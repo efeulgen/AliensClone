@@ -46,6 +46,10 @@ void Game::Init()
             return;
       }
 
+      gameMusic = Mix_LoadWAV("./audio/game_music.wav");
+      Mix_VolumeChunk(gameMusic, 35);
+      Mix_PlayChannel(-1, gameMusic, -1);
+
       SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 }
 
@@ -128,6 +132,9 @@ void Game::ProcessInput()
 
 void Game::Destroy()
 {
+      Mix_FreeChunk(gameMusic);
+      gameMusic = nullptr;
+
       levelManager->ClearLevels();
 
       delete levelManager;

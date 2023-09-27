@@ -104,6 +104,11 @@ public:
 
       // getters & setters
       SDL_Rect GetRect() const { return rect; }
+      glm::vec2 GetRectMidTop() const { return glm::vec2(rect.x + (rect.w / 2), rect.y); }
+      glm::vec2 GetRectMidBottom() const { return glm::vec2(rect.x + (rect.w / 2), rect.y + rect.h); }
+      glm::vec2 GetRectMidLeft() const { return glm::vec2(rect.x, rect.y + (rect.y / 2)); }
+      glm::vec2 GetRectMidRight() const { return glm::vec2(rect.x + rect.w, rect.y + (rect.y / 2)); }
+
       Transform GetTransform() const { return transform; }
       glm::vec2 GetPosition() const { return transform.position; }
 

@@ -12,6 +12,8 @@ FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, Player *player) : GameO
 FacehuggerTank::~FacehuggerTank()
 {
       Logger::Logg("FacehuggerTank Destructor");
+
+      refToPlayer = nullptr;
 }
 
 void FacehuggerTank::InitGameObject()

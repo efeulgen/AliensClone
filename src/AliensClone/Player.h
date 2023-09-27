@@ -11,6 +11,8 @@ const double LASERBLASTER_FIRE_RATE = 0.25;
 const double FLAMETHROWER_FIRE_RATE = 0.1;
 const double TRIPPLESHOT_FIRE_RATE = 1.5;
 
+const double FACEHUG_DURATION = 2.0;
+
 enum PlayerWeaponMode
 {
       PWM_LaserBlaster,
@@ -46,6 +48,9 @@ private:
       int flamethrowerAmmo = 200;
       int trippleShotAmmo = 10;
 
+      bool isFacehugged = false;
+      double facehugDurationCounter = 0.0;
+
 public:
       Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int h);
       ~Player();
@@ -67,6 +72,7 @@ public:
       void IncreaseFlamethrowerAmmo();
       void IncreaseTrippleShotAmmo();
       void DamagePlayer(int damageAmount);
+      void ActivateIsFacehugged();
 
       // getters & setters
       int GetHealth() const { return health; }

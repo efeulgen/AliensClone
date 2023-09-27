@@ -27,6 +27,20 @@ void Player::InitGameObject()
 
 void Player::UpdateGameObject(double deltaTime)
 {
+      if (isFacehugged)
+      {
+            facehugDurationCounter += deltaTime;
+            if (facehugDurationCounter >= FACEHUG_DURATION)
+            {
+                  isFacehugged = false;
+                  facehugDurationCounter = 0.0;
+            }
+            else
+            {
+                  return;
+            }
+      }
+
       ProcessPlayerInput(deltaTime);
 
       // fire
@@ -295,10 +309,16 @@ void Player::IncreaseTrippleShotAmmo()
 void Player::DamagePlayer(int damageAmount)
 {
       health -= damageAmount;
+      currentLevel->GetAudioManager()->PlaySFX(5);
       if (health <= 0)
       {
             currentLevel->GetRefToGameManager()->SetIsPlayerDead(true);
             currentLevel->GetRefToGameManager()->SetIsGameOver(true);
             canBeDestroyed = true;
       }
+}
+
+void Player::ActivateIsFacehugged()
+{
+      isFacehugged = true;
 }

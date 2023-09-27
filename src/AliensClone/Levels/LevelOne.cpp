@@ -20,6 +20,8 @@ void LevelOne::SetupLevelSounds()
       audioManager->AddChunk("./audio/Reload.wav");                        // 2
       audioManager->AddChunk("./audio/OutOfAmmo.wav");                     // 3
       audioManager->AddChunk("./audio/smash.wav");                         // 4
+      audioManager->AddChunk("./audio/player_hurt.wav");                   // 5
+      audioManager->AddChunk("./audio/Minor_Explosion.wav");               // 6
 }
 
 void LevelOne::SetupLevel()
@@ -28,7 +30,7 @@ void LevelOne::SetupLevel()
 
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
-      gameObjects.push_back(player);
+      InstantiateGameObject(player);
 
       // manager
       spawnManager = new LevelOneSpawnManager(player, this);
@@ -38,11 +40,20 @@ void LevelOne::SetupLevel()
       uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);
 
       // pickups
-      gameObjects.push_back(new Pickup(glm::vec2(800, 600), 128, PickupType::PT_HealthPickup));
-      gameObjects.push_back(new Pickup(glm::vec2(1200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
-      gameObjects.push_back(new Pickup(glm::vec2(1700, 600), 128, PickupType::PT_HealthPickup));
-      gameObjects.push_back(new Pickup(glm::vec2(2300, 600), 128, PickupType::PT_FlamethrowerAmmoPickup));
-      gameObjects.push_back(new Pickup(glm::vec2(2800, 600), 128, PickupType::PT_TrippleShotAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(800, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(1200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(1700, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(3700, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(5000, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(7500, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(2300, 600), 128, PickupType::PT_FlamethrowerAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(2800, 600), 128, PickupType::PT_TrippleShotAmmoPickup));
+
+      // obstacles
+      InstantiateGameObject(new Mine(glm::vec2(2000, 700), 64, this));
+      InstantiateGameObject(new Mine(glm::vec2(4000, 750), 64, this));
+      InstantiateGameObject(new Mine(glm::vec2(6000, 800), 64, this));
+      InstantiateGameObject(new Mine(glm::vec2(8000, 750), 64, this));
 
       Level::SetupLevel();
 }

@@ -26,6 +26,8 @@ protected:
       int windowWidth;
       int windowHeight;
 
+      Mix_Chunk *gameMusic = nullptr;
+
       GameManager *gameManager = nullptr;
       LevelManager *levelManager = nullptr;
 
