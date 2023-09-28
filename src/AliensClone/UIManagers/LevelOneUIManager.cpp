@@ -9,6 +9,9 @@ LevelOneUIManager::LevelOneUIManager(int w, int h, Player *p, GameManager *gm) :
 LevelOneUIManager::~LevelOneUIManager()
 {
       Logger::Logg("LevelOneUIManager Destructor");
+
+      refToPlayer = nullptr;
+      refToGameManager = nullptr;
 }
 
 void LevelOneUIManager::RenderUI(SDL_Renderer *renderer)

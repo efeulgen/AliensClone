@@ -32,7 +32,7 @@ void LevelOne::SetupLevel()
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
       InstantiateGameObject(player);
 
-      // manager
+      // managers
       spawnManager = new LevelOneSpawnManager(player, this);
       spawnManager->CreateSpawnObject("Alien", 20.0);
       spawnManager->CreateSpawnObject("AlienEgg", 25.0);
@@ -41,11 +41,13 @@ void LevelOne::SetupLevel()
 
       // pickups
       InstantiateGameObject(new Pickup(glm::vec2(800, 600), 128, PickupType::PT_HealthPickup));
-      InstantiateGameObject(new Pickup(glm::vec2(1200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
       InstantiateGameObject(new Pickup(glm::vec2(1700, 600), 128, PickupType::PT_HealthPickup));
       InstantiateGameObject(new Pickup(glm::vec2(3700, 600), 128, PickupType::PT_HealthPickup));
       InstantiateGameObject(new Pickup(glm::vec2(5000, 600), 128, PickupType::PT_HealthPickup));
       InstantiateGameObject(new Pickup(glm::vec2(7500, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(1200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(3200, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(6500, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
       InstantiateGameObject(new Pickup(glm::vec2(2300, 600), 128, PickupType::PT_FlamethrowerAmmoPickup));
       InstantiateGameObject(new Pickup(glm::vec2(2800, 600), 128, PickupType::PT_TrippleShotAmmoPickup));
 

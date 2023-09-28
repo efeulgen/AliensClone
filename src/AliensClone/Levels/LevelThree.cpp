@@ -15,6 +15,13 @@ LevelThree::~LevelThree()
 
 void LevelThree::SetupLevelSounds()
 {
+      audioManager->AddChunk("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
+      audioManager->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
+      audioManager->AddChunk("./audio/Reload.wav");                        // 2
+      audioManager->AddChunk("./audio/OutOfAmmo.wav");                     // 3
+      audioManager->AddChunk("./audio/smash.wav");                         // 4
+      audioManager->AddChunk("./audio/player_hurt.wav");                   // 5
+      audioManager->AddChunk("./audio/Minor_Explosion.wav");               // 6
 }
 
 void LevelThree::SetupLevel()
@@ -23,9 +30,12 @@ void LevelThree::SetupLevel()
 
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
-      gameObjects.push_back(player);
+      InstantiateGameObject(player);
 
-      // spawn manager
+      // managers
+      spawnManager = new LevelThreeSpawnManager();
+      uiManager = new LevelThreeUIManager(windowWidth, windowHeight, player, refToGameManager);
+
       // pickups
 
       Level::SetupLevel();

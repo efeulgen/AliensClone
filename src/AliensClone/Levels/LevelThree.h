@@ -4,6 +4,8 @@
 
 #include "../../Engine/Level.h"
 #include "../Player.h"
+#include "../SpawnManagers/LevelThreeSpawnManager.h"
+#include "../UIManagers/LevelThreeUIManager.h"
 
 class LevelThree : public Level
 {

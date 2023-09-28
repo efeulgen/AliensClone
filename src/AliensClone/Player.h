@@ -7,7 +7,7 @@
 #include "../Engine/Level.h"
 #include "Projectile.h"
 
-const double LASERBLASTER_FIRE_RATE = 0.25;
+const double LASERBLASTER_FIRE_RATE = 0.2;
 const double FLAMETHROWER_FIRE_RATE = 0.1;
 const double TRIPPLESHOT_FIRE_RATE = 1.5;
 
