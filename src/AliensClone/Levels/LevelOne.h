@@ -5,6 +5,7 @@
 #include "../../Engine/Level.h"
 #include "../Player.h"
 #include "../Enemies/Alien.h"
+#include "../Enemies/FacehuggerTank.h"
 #include "../Pickups/Pickup.h"
 #include "../Mine.h"
 #include "../SpawnManagers/LevelOneSpawnManager.h"

@@ -100,7 +100,7 @@ void Player::RenderGameObject(SDL_Renderer *renderer)
 
       if (isRenderingMuzzleFlash)
       {
-            RenderAnimation(renderer, muzzleFlashSpritesheet, 64, muzzleFlashAnimIndex, firePos);
+            RenderAnimation(renderer, muzzleFlashSpritesheet, 3, 64, &muzzleFlashAnimIndex, firePos, true);
             if (static_cast<int>(muzzleFlashAnimIndex) >= 2)
             {
                   isRenderingMuzzleFlash = false;

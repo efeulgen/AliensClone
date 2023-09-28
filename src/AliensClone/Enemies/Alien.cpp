@@ -73,7 +73,7 @@ void Alien::RenderGameObject(SDL_Renderer *renderer)
 
       if (isRenderingBloodSplash)
       {
-            RenderAnimation(renderer, alienBloodSplashSpritesheet, 64, bloodSplashAnimIndex, hitPos);
+            RenderAnimation(renderer, alienBloodSplashSpritesheet, 4, 64, &bloodSplashAnimIndex, hitPos, true);
             if (static_cast<int>(bloodSplashAnimIndex) >= 3)
             {
                   isRenderingBloodSplash = false;

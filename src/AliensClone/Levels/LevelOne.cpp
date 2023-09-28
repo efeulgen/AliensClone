@@ -22,6 +22,7 @@ void LevelOne::SetupLevelSounds()
       audioManager->AddChunk("./audio/smash.wav");                         // 4
       audioManager->AddChunk("./audio/player_hurt.wav");                   // 5
       audioManager->AddChunk("./audio/Minor_Explosion.wav");               // 6
+      audioManager->AddChunk("./audio/glass_shatter.wav");                 // 7
 }
 
 void LevelOne::SetupLevel()
@@ -30,7 +31,11 @@ void LevelOne::SetupLevel()
 
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
-      InstantiateGameObject(player);
+
+      // facehugger tanks
+      InstantiateGameObject(new FacehuggerTank(glm::vec2(1000.0, 420), 256, player, this));
+
+      InstantiateGameObject(player); // create render layers
 
       // managers
       spawnManager = new LevelOneSpawnManager(player, this);

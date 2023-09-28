@@ -60,10 +60,7 @@ public:
             SDL_Surface *surf = IMG_Load(imgFilePath);
             SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
             SDL_FreeSurface(surf);
-            rect = {static_cast<int>(transform.position.x),
-                    static_cast<int>(transform.position.y),
-                    static_cast<int>(rectSize * transform.scale.x),
-                    static_cast<int>(rectSize * transform.scale.y)};
+            CalculateRect();
             if (isFlipped)
             {
                   SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
@@ -76,13 +73,34 @@ public:
             SDL_DestroyTexture(tex);
       }
 
-      virtual void RenderAnimation(SDL_Renderer *renderer, const char *spriteSheet[], int spriteSize, double sprtieSheetIndex, glm::vec2 pos)
+      virtual void CalculateRect()
       {
-            SDL_Surface *surf = IMG_Load(spriteSheet[static_cast<int>(sprtieSheetIndex)]);
+            rect = {static_cast<int>(transform.position.x),
+                    static_cast<int>(transform.position.y),
+                    static_cast<int>(rectSize * transform.scale.x),
+                    static_cast<int>(rectSize * transform.scale.y)};
+      }
+
+      virtual void RenderAnimation(SDL_Renderer *renderer, const char *spriteSheet[], int spriteSheetSize, int spriteSize, double *sprtieSheetIndex, glm::vec2 pos, bool playOnce, bool flip = false)
+      {
+            if (static_cast<int>(*sprtieSheetIndex) >= spriteSheetSize - 1 && !playOnce)
+            {
+                  *sprtieSheetIndex = 0.0;
+            }
+
+            SDL_Surface *surf = IMG_Load(spriteSheet[static_cast<int>(*sprtieSheetIndex)]);
             SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
             SDL_FreeSurface(surf);
             SDL_Rect rect = {static_cast<int>(pos.x), static_cast<int>(pos.y), spriteSize, spriteSize};
-            SDL_RenderCopy(renderer, tex, NULL, &rect);
+            if (flip)
+            {
+                  SDL_RendererFlip flipped = SDL_FLIP_HORIZONTAL;
+                  SDL_RenderCopyEx(renderer, tex, NULL, &rect, 0.0, NULL, flipped);
+            }
+            else
+            {
+                  SDL_RenderCopy(renderer, tex, NULL, &rect);
+            }
             SDL_DestroyTexture(tex);
       }
 

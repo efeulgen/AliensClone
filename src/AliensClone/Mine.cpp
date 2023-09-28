@@ -46,11 +46,11 @@ void Mine::RenderGameObject(SDL_Renderer *renderer)
 
       if (isRenderingExplosion)
       {
-            RenderAnimation(renderer, explosionSpriteSheet, 256, explosionAnimIndex, GetRectMidTop() + glm::vec2(-128, -150));
+            RenderAnimation(renderer, explosionSpriteSheet, 4, 256, &explosionAnimIndex, GetRectMidTop() + glm::vec2(-128, -150), true);
             if (static_cast<int>(explosionAnimIndex) >= 3)
             {
-                  isRenderingExplosion = false;
                   explosionAnimIndex = 0.0;
+                  isRenderingExplosion = false;
                   canBeDestroyed = true;
             }
       }
