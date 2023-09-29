@@ -23,16 +23,26 @@ void FacehuggerTank::InitGameObject()
 
 void FacehuggerTank::UpdateGameObject(double deltaTime)
 {
-      if (refToPlayer->GetPosition().x >= transform.position.x + 200.0)
+      if (isDamaged || refToLevel->GetRefToGameManager()->GetIsGameOver())
+            return;
+
+      breakOffsetSeed++;
+      srand(breakOffsetSeed);
+      int breakOffset = (rand() % 400) + 250;
+      if ((refToPlayer->GetPosition().x >= transform.position.x + breakOffset) && !isPassedByPlayer)
       {
-            // spawn facehugger
-            isDamaged = true;
+            isPassedByPlayer = true;
+            int breakChance = rand() % 2;
+            if (breakChance == 1)
+            {
+                  refToLevel->GetAudioManager()->PlaySFX(7);
+                  refToLevel->GetAudioManager()->PlaySFX(8);
+                  refToLevel->InstantiateGameObject(new Facehugger(transform.position + glm::vec2(0.0, 200.0), 128, refToPlayer, refToLevel));
+                  isDamaged = true;
+            }
       }
 
-      if (!isDamaged)
-      {
-            undamagedTankAnimIndex += deltaTime * 8;
-      }
+      undamagedTankAnimIndex += deltaTime * 8;
 }
 
 void FacehuggerTank::RenderGameObject(SDL_Renderer *renderer)
@@ -50,10 +60,12 @@ void FacehuggerTank::RenderGameObject(SDL_Renderer *renderer)
 
 void FacehuggerTank::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
-      if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile")
+      if ((otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile") && !isDamaged)
       {
             otherObj->SetCanBeDestroyed(true);
-            isDamaged = true;
             refToLevel->GetAudioManager()->PlaySFX(7);
+            refToLevel->GetAudioManager()->PlaySFX(8);
+            refToLevel->InstantiateGameObject(new Facehugger(transform.position + glm::vec2(0.0, 200.0), 128, refToPlayer, refToLevel));
+            isDamaged = true;
       }
 }

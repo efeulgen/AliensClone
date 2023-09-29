@@ -23,6 +23,8 @@ void LevelOne::SetupLevelSounds()
       audioManager->AddChunk("./audio/player_hurt.wav");                   // 5
       audioManager->AddChunk("./audio/Minor_Explosion.wav");               // 6
       audioManager->AddChunk("./audio/glass_shatter.wav");                 // 7
+      audioManager->AddChunk("./audio/gore_sound_1.wav");                  // 8
+      audioManager->AddChunk("./audio/bug_scream_sound_1.wav");            // 9
 }
 
 void LevelOne::SetupLevel()
@@ -33,7 +35,12 @@ void LevelOne::SetupLevel()
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
 
       // facehugger tanks
-      InstantiateGameObject(new FacehuggerTank(glm::vec2(1000.0, 420), 256, player, this));
+      for (int i = 1; i < 5; i++)
+      {
+            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0, 410), 256, player, this));
+            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 200, 410), 256, player, this));
+            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 400, 410), 256, player, this));
+      }
 
       InstantiateGameObject(player); // create render layers
 
@@ -57,10 +64,12 @@ void LevelOne::SetupLevel()
       InstantiateGameObject(new Pickup(glm::vec2(2800, 600), 128, PickupType::PT_TrippleShotAmmoPickup));
 
       // obstacles
-      InstantiateGameObject(new Mine(glm::vec2(2000, 700), 64, this));
-      InstantiateGameObject(new Mine(glm::vec2(4000, 750), 64, this));
-      InstantiateGameObject(new Mine(glm::vec2(6000, 800), 64, this));
-      InstantiateGameObject(new Mine(glm::vec2(8000, 750), 64, this));
+      for (int i = 1; i < 8; i++)
+      {
+            srand(i * 10);
+            int yPosVariance = rand() % 100;
+            InstantiateGameObject(new Mine(glm::vec2(i * 2000.0, 700.0 + yPosVariance), 64, this));
+      }
 
       Level::SetupLevel();
 }

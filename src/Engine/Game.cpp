@@ -124,6 +124,7 @@ void Game::ProcessInput()
                   }
                   if (event.key.keysym.sym == SDLK_ESCAPE)
                   {
+                        Logger::Err("Quit Game");
                         gameManager->SetIsRunning(false);
                   }
             }

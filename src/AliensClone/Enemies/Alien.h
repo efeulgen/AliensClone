@@ -8,7 +8,7 @@
 #include "../Player.h"
 #include "../Projectile.h"
 
-const double ALIENSPEED = 400.0;
+const double ALIENSPEED = 350.0;
 const double ATTACK_RATE = 1.0;
 
 class Alien : public GameObject

@@ -34,6 +34,20 @@ void Player::UpdateGameObject(double deltaTime)
             {
                   isFacehugged = false;
                   facehugDurationCounter = 0.0;
+                  switch (weaponMode)
+                  {
+                  case PlayerWeaponMode::PWM_LaserBlaster:
+                        imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
+                        break;
+                  case PlayerWeaponMode::PWM_Flamethrower:
+                        imgFilePath = "./assets/sprites/Player/PlayerFlamethrower.png";
+                        break;
+                  case PlayerWeaponMode::PWM_TrippleShot:
+                        imgFilePath = "./assets/sprites/Player/PlayerTrippleShot.png";
+                        break;
+                  default:
+                        break;
+                  }
             }
             else
             {
@@ -271,7 +285,6 @@ void Player::Fire()
 
             trippleShotAmmo--;
             break;
-
       default:
             break;
       }
@@ -320,5 +333,20 @@ void Player::DamagePlayer(int damageAmount)
 
 void Player::ActivateIsFacehugged()
 {
+      switch (weaponMode)
+      {
+      case PlayerWeaponMode::PWM_LaserBlaster:
+            imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster_facehugged.png";
+            break;
+      case PlayerWeaponMode::PWM_Flamethrower:
+            imgFilePath = "./assets/sprites/Player/PlayerFlamethrower_facehugged.png";
+            break;
+      case PlayerWeaponMode::PWM_TrippleShot:
+            imgFilePath = "./assets/sprites/Player/PlayerTrippleShot_facehugged.png";
+            break;
+      default:
+            break;
+      }
       isFacehugged = true;
+      DamagePlayer(5);
 }
