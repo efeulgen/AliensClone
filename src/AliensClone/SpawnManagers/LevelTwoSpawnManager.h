@@ -9,7 +9,7 @@ class LevelTwoSpawnManager : public SpawnManager
 public:
       LevelTwoSpawnManager();
       ~LevelTwoSpawnManager();
-      GameObject *UpdateSpawnManager(double deltaTime) override;
+      void UpdateSpawnManager(double deltaTime) override;
 };
 
 #endif

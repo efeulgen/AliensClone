@@ -78,16 +78,6 @@ public:
                   // update objects
                   obj->UpdateGameObject(deltaTime);
 
-                  // update SpawnManager
-                  if (spawnManager)
-                  {
-                        GameObject *newGameObject = spawnManager->UpdateSpawnManager(deltaTime);
-                        if (newGameObject)
-                        {
-                              InstantiateGameObject(newGameObject);
-                        }
-                  }
-
                   // collision detection
                   for (auto collider : gameObjects)
                   {
@@ -100,6 +90,11 @@ public:
                               obj->CheckCollision(collider->GetRect(), collider);
                         }
                   }
+            }
+            // update SpawnManager
+            if (levelIndex != 0)
+            {
+                  spawnManager->UpdateSpawnManager(deltaTime);
             }
       }
 
@@ -210,6 +205,7 @@ public:
       bool GetIsFinalLevel() const { return isFinalLevel; }
       bool GetIsLevelGameObjectListIsClear() const { return gameObjects.empty(); }
       int GetLevelLength() const { return levelLength; }
+      int GetLevelIndex() const { return levelIndex; }
 
       AudioManager *GetAudioManager() { return audioManager; }
       SpawnManager *GetSpawnManager() { return spawnManager; }

@@ -11,7 +11,6 @@ LevelTwoSpawnManager::~LevelTwoSpawnManager()
       Logger::Logg("LevelTwoSpawnManager Destructor");
 }
 
-GameObject *LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
+void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
 {
-      return nullptr;
 }

@@ -11,7 +11,6 @@ LevelThreeSpawnManager::~LevelThreeSpawnManager()
       Logger::Logg("LevelThreeSpawnManager Destructor");
 }
 
-GameObject *LevelThreeSpawnManager::UpdateSpawnManager(double deltaTime)
+void LevelThreeSpawnManager::UpdateSpawnManager(double deltaTime)
 {
-      return nullptr;
 }

@@ -9,7 +9,7 @@ class LevelThreeSpawnManager : public SpawnManager
 public:
       LevelThreeSpawnManager();
       ~LevelThreeSpawnManager();
-      GameObject *UpdateSpawnManager(double deltaTime) override;
+      void UpdateSpawnManager(double deltaTime) override;
 };
 
 #endif

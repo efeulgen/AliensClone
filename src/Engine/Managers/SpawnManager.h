@@ -27,7 +27,7 @@ public:
       SpawnManager() {}
       virtual ~SpawnManager() {}
 
-      virtual GameObject *UpdateSpawnManager(double deltaTime) = 0;
+      virtual void UpdateSpawnManager(double deltaTime) = 0;
 
       void CreateSpawnObject(std::string tag, double rate)
       {

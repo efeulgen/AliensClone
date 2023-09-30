@@ -33,6 +33,31 @@ void AlienEgg::UpdateGameObject(double deltaTime)
             isHitGround = true;
             velocity = glm::vec2(0.0, 0.0);
       }
+
+      if (isBursted)
+      {
+            burstAnimIndex += deltaTime * 8;
+      }
+}
+
+void AlienEgg::RenderGameObject(SDL_Renderer *renderer)
+{
+      if (!isBursted)
+      {
+            GameObject::RenderGameObject(renderer);
+      }
+      else
+      {
+            RenderAnimation(renderer, burstSpriteSheet, 5, rectSize, &burstAnimIndex, transform.position, true);
+            if (static_cast<int>(burstAnimIndex) >= 4)
+            {
+                  burstAnimIndex = 0.0;
+                  Alien *newAlien = new Alien(glm::vec2(transform.position.x, transform.position.y), 200, refToPlayer, refToCurrentLevel);
+                  newAlien->InitGameObject();
+                  refToCurrentLevel->InstantiateGameObject(newAlien);
+                  canBeDestroyed = true;
+            }
+      }
 }
 
 void AlienEgg::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
@@ -40,8 +65,7 @@ void AlienEgg::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       if ((otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile") && isHitGround)
       {
             refToCurrentLevel->GetAudioManager()->PlaySFX(4);
-            refToCurrentLevel->InstantiateGameObject(new Alien(glm::vec2(transform.position.x, transform.position.y), 200, refToPlayer, refToCurrentLevel));
-            canBeDestroyed = true;
             otherObj->SetCanBeDestroyed(true);
+            isBursted = true;
       }
 }
