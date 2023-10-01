@@ -49,6 +49,7 @@ void LevelOne::SetupLevel()
       spawnManager = new LevelOneSpawnManager(player, this);
       spawnManager->CreateSpawnObject("Alien", 5.0);
       spawnManager->CreateSpawnObject("AlienEgg", 7.5);
+      spawnManager->CreateSpawnObject("Facehugger", 12.0);
 
       uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);
 

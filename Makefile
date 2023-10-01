@@ -6,6 +6,7 @@ SRC = src/*.cpp \
       src/Engine/Managers/*.cpp \
       src/AliensClone/*.cpp \
       src/AliensClone/Enemies/*.cpp \
+      src/AliensClone/Enemies/Level_2_Enemies/*.cpp \
       src/AliensClone/Levels/*.cpp \
       src/AliensClone/Pickups/*.cpp \
       src/AliensClone/SpawnManagers/*.cpp \

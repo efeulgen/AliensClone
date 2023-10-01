@@ -45,7 +45,12 @@ void LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                   }
                   else if (spawnObj.gameObjectTag == "Facehugger")
                   {
-                        std::cout << "Spawn Facehugger" << std::endl;
+                        srand(IncrementSpawnSeed());
+                        double huggerYPos = 550.0 + static_cast<double>((rand() % 200));
+
+                        Facehugger *newFacehugger = new Facehugger(glm::vec2(3000.0, huggerYPos), 128, refToPlayer, refToCurrentLevel);
+                        newFacehugger->InitGameObject();
+                        refToCurrentLevel->InstantiateGameObject(newFacehugger);
                   }
             }
             else
