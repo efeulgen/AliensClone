@@ -29,6 +29,12 @@ void Facehugger::UpdateGameObject(double deltaTime)
 
       facehuggerWalkAnimIndex += deltaTime * 8;
 
+      if (isDead)
+      {
+            facehuggerDeathAnimIndex += deltaTime * 8;
+            velocity = glm::vec2(0.0, 0.0);
+      }
+
       isFlipped = refToPlayer->GetTransform().position.x > transform.position.x ? true : false;
 
       transform.position.x += velocity.x * deltaTime;
@@ -38,7 +44,19 @@ void Facehugger::UpdateGameObject(double deltaTime)
 void Facehugger::RenderGameObject(SDL_Renderer *renderer)
 {
       CalculateRect();
-      RenderAnimation(renderer, facehuggerWalkSpriteSheet, 4, rectSize, &facehuggerWalkAnimIndex, transform.position, false, isFlipped);
+      if (!isDead)
+      {
+            RenderAnimation(renderer, facehuggerWalkSpriteSheet, 4, rectSize, &facehuggerWalkAnimIndex, transform.position, false, isFlipped);
+      }
+      else
+      {
+            RenderAnimation(renderer, facehuggerDeathSpriteSheet, 4, rectSize, &facehuggerDeathAnimIndex, transform.position, true, isFlipped);
+            if (static_cast<int>(facehuggerDeathAnimIndex) >= 3)
+            {
+                  facehuggerDeathAnimIndex = 0.0;
+                  canBeDestroyed = true;
+            }
+      }
 }
 
 void Facehugger::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
@@ -47,10 +65,10 @@ void Facehugger::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       {
             otherObj->SetCanBeDestroyed(true);
             refToCurrentLevel->GetAudioManager()->PlaySFX(9);
-            canBeDestroyed = true;
+            isDead = true;
       }
 
-      if (otherObj->GetGameObjectTag() == "Player")
+      if (otherObj->GetGameObjectTag() == "Player" && !isDead)
       {
             static_cast<Player *>(otherObj)->ActivateIsFacehugged();
             canBeDestroyed = true;

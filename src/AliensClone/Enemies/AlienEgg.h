@@ -18,7 +18,7 @@ private:
 
       bool isBursted = false;
       double burstAnimIndex = 0.0;
-      const char *burstSpriteSheet[5] = {"./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_1.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_2.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_3.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_4.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_5.png"};
+      const char *burstSpriteSheet[7] = {"./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_1.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_2.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_3.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_4.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_5.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_6.png", "./assets/sprites/Enemies/AlienEgg/AlienEgg_burst_7.png"};
 
 public:
       AlienEgg(glm::vec2 pos, glm::vec2 vel, int rSize, Level *l, Player *p);

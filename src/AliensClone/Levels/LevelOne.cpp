@@ -25,6 +25,7 @@ void LevelOne::SetupLevelSounds()
       audioManager->AddChunk("./audio/glass_shatter.wav");                 // 7
       audioManager->AddChunk("./audio/gore_sound_1.wav");                  // 8
       audioManager->AddChunk("./audio/bug_scream_sound_1.wav");            // 9
+      audioManager->AddChunk("./audio/alien_scream_1.wav");                // 10
 }
 
 void LevelOne::SetupLevel()
@@ -35,7 +36,7 @@ void LevelOne::SetupLevel()
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
 
       // facehugger tanks
-      for (int i = 1; i < 5; i++)
+      for (int i = 1; i < 8; i++)
       {
             InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0, 410), 256, player, this));
             InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 200, 410), 256, player, this));
@@ -46,8 +47,8 @@ void LevelOne::SetupLevel()
 
       // managers
       spawnManager = new LevelOneSpawnManager(player, this);
-      spawnManager->CreateSpawnObject("Alien", 20.0);
-      spawnManager->CreateSpawnObject("AlienEgg", 50.0); // 50.0
+      spawnManager->CreateSpawnObject("Alien", 5.0);
+      spawnManager->CreateSpawnObject("AlienEgg", 7.5);
 
       uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);
 

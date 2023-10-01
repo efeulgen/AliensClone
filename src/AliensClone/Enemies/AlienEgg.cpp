@@ -36,7 +36,7 @@ void AlienEgg::UpdateGameObject(double deltaTime)
 
       if (isBursted)
       {
-            burstAnimIndex += deltaTime * 8;
+            burstAnimIndex += deltaTime * 10;
       }
 }
 
@@ -48,8 +48,8 @@ void AlienEgg::RenderGameObject(SDL_Renderer *renderer)
       }
       else
       {
-            RenderAnimation(renderer, burstSpriteSheet, 5, rectSize, &burstAnimIndex, transform.position, true);
-            if (static_cast<int>(burstAnimIndex) >= 4)
+            RenderAnimation(renderer, burstSpriteSheet, 7, rectSize, &burstAnimIndex, transform.position, true);
+            if (static_cast<int>(burstAnimIndex) >= 6)
             {
                   burstAnimIndex = 0.0;
                   Alien *newAlien = new Alien(glm::vec2(transform.position.x, transform.position.y), 200, refToPlayer, refToCurrentLevel);

@@ -104,5 +104,6 @@ void Alien::GetDamage(int damageAmount)
       if (health <= 0)
       {
             canBeDestroyed = true;
+            refToCurrentLevel->GetAudioManager()->PlaySFX(10);
       }
 }
