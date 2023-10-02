@@ -50,7 +50,7 @@ void Projectile::UpdateGameObject(double deltaTime)
             transform.position.y -= deltaTime * 200;
       }
 
-      if (transform.position.x > 2000.0 || transform.position.x < -100.0)
+      if (transform.position.x > 1500.0 || transform.position.x < -100.0)
       {
             canBeDestroyed = true;
       }

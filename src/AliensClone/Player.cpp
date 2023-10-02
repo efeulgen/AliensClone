@@ -9,6 +9,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
       gameObjectTag = "Player";
 
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
+      animState = PlayerAnimState::PAS_Idle;
       fireCounter = LASERBLASTER_FIRE_RATE;
       canFire = true;
       globalX = pos.x;
@@ -27,6 +28,17 @@ void Player::InitGameObject()
 
 void Player::UpdateGameObject(double deltaTime)
 {
+      // anims
+      if (isRenderingMuzzleFlash)
+      {
+            muzzleFlashAnimIndex += deltaTime * 10;
+      }
+
+      if (animState == PlayerAnimState::PAS_Walking)
+      {
+            laserBlasterWalkAninIdex += deltaTime * 10;
+      }
+
       if (isFacehugged)
       {
             facehugDurationCounter += deltaTime;
@@ -100,21 +112,30 @@ void Player::UpdateGameObject(double deltaTime)
       {
             currentLevel->SetIsLevelComplete(true);
       }
-
-      // anims
-      if (isRenderingMuzzleFlash)
-      {
-            muzzleFlashAnimIndex += deltaTime * 10;
-      }
 }
 
 void Player::RenderGameObject(SDL_Renderer *renderer)
 {
-      GameObject::RenderGameObject(renderer);
+      switch (animState)
+      {
+      case PlayerAnimState::PAS_Idle:
+            std::cout << "Idle Anim State" << std::endl;
+            GameObject::RenderGameObject(renderer);
+            break;
+      case PlayerAnimState::PAS_Walking:
+            std::cout << "Walking Anim State" << std::endl;
+            CalculateRect();
+            RenderAnimation(renderer, laserBlasterWalkSpriteSheet, 4, rectSize, &laserBlasterWalkAninIdex, transform.position, false, isFlipped);
+            break;
+
+      default:
+            break;
+      }
 
       if (isRenderingMuzzleFlash)
       {
-            RenderAnimation(renderer, muzzleFlashSpritesheet, 3, 64, &muzzleFlashAnimIndex, firePos, true);
+            glm::vec2 offset = isFlipped ? glm::vec2(-10.0, -15.0) : glm::vec2(-32.0, -15.0);
+            RenderAnimation(renderer, muzzleFlashSpritesheet, 3, 64, &muzzleFlashAnimIndex, firePos + offset, true);
             if (static_cast<int>(muzzleFlashAnimIndex) >= 2)
             {
                   isRenderingMuzzleFlash = false;
@@ -129,6 +150,10 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       {
             currentLevel->GetAudioManager()->PlaySFX(2);
       }
+      if (otherObj->GetGameObjectTag() == "HealthPickup")
+      {
+            currentLevel->GetAudioManager()->PlaySFX(11);
+      }
 }
 
 void Player::ProcessPlayerInput(double deltaTime)
@@ -137,18 +162,26 @@ void Player::ProcessPlayerInput(double deltaTime)
       if (keyboardState[SDL_SCANCODE_D])
       {
             MoveForward(deltaTime);
+            animState = PlayerAnimState::PAS_Walking;
       }
       if (keyboardState[SDL_SCANCODE_A])
       {
             MoveBackward(deltaTime);
+            animState = PlayerAnimState::PAS_Walking;
       }
       if (keyboardState[SDL_SCANCODE_W])
       {
             MoveUp(deltaTime);
+            animState = PlayerAnimState::PAS_Walking;
       }
       if (keyboardState[SDL_SCANCODE_S])
       {
             MoveDown(deltaTime);
+            animState = PlayerAnimState::PAS_Walking;
+      }
+      if (!keyboardState[SDL_SCANCODE_D] && !keyboardState[SDL_SCANCODE_A] && !keyboardState[SDL_SCANCODE_W] && !keyboardState[SDL_SCANCODE_S])
+      {
+            animState = PlayerAnimState::PAS_Idle;
       }
       if (keyboardState[SDL_SCANCODE_RETURN] && canFire)
       {
@@ -201,10 +234,10 @@ void Player::MoveForward(double deltaTime)
       globalX += velocity.x * deltaTime;
       isFlipped = false;
 
-      if (globalX > windowWidth / 2 && globalX < currentLevel->GetLevelLength())
+      if (globalX > ((windowWidth / 2) - (rectSize / 2)) && globalX < currentLevel->GetLevelLength())
       {
             currentLevel->ShifBackground(600.0, deltaTime);
-            transform.position.x = windowWidth / 2;
+            transform.position.x = ((windowWidth / 2) - (rectSize / 2));
       }
 }
 
@@ -214,10 +247,10 @@ void Player::MoveBackward(double deltaTime)
       globalX -= velocity.x * deltaTime;
       isFlipped = true;
 
-      if (globalX > windowWidth / 2 && globalX < currentLevel->GetLevelLength())
+      if (globalX > ((windowWidth / 2) - (rectSize / 2)) && globalX < currentLevel->GetLevelLength())
       {
             currentLevel->ShifBackground(-600.0, deltaTime);
-            transform.position.x = windowWidth / 2;
+            transform.position.x = ((windowWidth / 2) - (rectSize / 2));
       }
 }
 
@@ -246,7 +279,7 @@ void Player::Fire()
             isRenderingMuzzleFlash = true;
             speed = 2000.0;
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
-            fireOffset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
+            fireOffset = isFlipped ? glm::vec2(-15.0, static_cast<double>(rectSize) / 2 - 11.5) : glm::vec2(static_cast<double>(rectSize), static_cast<double>(rectSize) / 2 - 11.5);
             firePos = transform.position + fireOffset;
             currentLevel->InstantiateGameObject(new Projectile(firePos, vel, 32, ProjectileType::PT_LaserBlast, isFlipped));
             currentLevel->GetAudioManager()->PlaySFX(0);
@@ -259,7 +292,7 @@ void Player::Fire()
             }
             speed = 1500.0;
             vel = isFlipped ? glm::vec2(-speed, 0.0) : glm::vec2(speed, 0.0);
-            fireOffset = isFlipped ? glm::vec2(-8.0, static_cast<double>(rectSize) / 2 - 12.0) : glm::vec2(static_cast<double>(rectSize) + 3.0, static_cast<double>(rectSize) / 2 - 12.0);
+            fireOffset = isFlipped ? glm::vec2(10.0, static_cast<double>(rectSize) / 2 - 12.5) : glm::vec2(static_cast<double>(rectSize) - 40.0, static_cast<double>(rectSize) / 2 - 12.5);
             firePos = transform.position + fireOffset;
             currentLevel->InstantiateGameObject(new Projectile(firePos, vel, 32, ProjectileType::PT_Flamethrower, isFlipped));
             flamethrowerAmmo--;
@@ -347,6 +380,7 @@ void Player::ActivateIsFacehugged()
       default:
             break;
       }
+      animState = PlayerAnimState::PAS_Idle;
       isFacehugged = true;
       DamagePlayer(5);
 }

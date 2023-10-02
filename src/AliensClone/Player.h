@@ -20,11 +20,19 @@ enum PlayerWeaponMode
       PWM_TrippleShot
 };
 
+enum PlayerAnimState
+{
+      PAS_Idle,
+      PAS_Walking,
+      PAS_Firing
+};
+
 class Player : public GameObject
 {
 private:
       Level *currentLevel = nullptr;
       PlayerWeaponMode weaponMode;
+      PlayerAnimState animState;
 
       bool canFire;
       double fireCounter;
@@ -41,6 +49,10 @@ private:
       bool isRenderingMuzzleFlash = false;
       double muzzleFlashAnimIndex = 0.0;
       const char *muzzleFlashSpritesheet[3] = {"./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_1.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_2.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_3.png"};
+
+      // walk anims
+      double laserBlasterWalkAninIdex = 0.0;
+      const char *laserBlasterWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_1.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_2.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_3.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_4.png"};
 
       // stats
       int health = 100;

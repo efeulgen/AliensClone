@@ -13,11 +13,16 @@ AudioManager::~AudioManager()
       ClearSoundEffects();
 }
 
-void AudioManager::AddChunk(const char *filePath)
+void AudioManager::AddSFX(const char *filePath)
 {
       Mix_Chunk *newChunk = Mix_LoadWAV(filePath);
       sfx newSFX = {newChunk, 0, false};
       soundEffects.push_back(newSFX);
+}
+
+sfx AudioManager::GetSFX(int index)
+{
+      return soundEffects[index];
 }
 
 void AudioManager::PlaySFX(int index)

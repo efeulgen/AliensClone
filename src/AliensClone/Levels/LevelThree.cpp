@@ -15,13 +15,13 @@ LevelThree::~LevelThree()
 
 void LevelThree::SetupLevelSounds()
 {
-      audioManager->AddChunk("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
-      audioManager->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
-      audioManager->AddChunk("./audio/Reload.wav");                        // 2
-      audioManager->AddChunk("./audio/OutOfAmmo.wav");                     // 3
-      audioManager->AddChunk("./audio/smash.wav");                         // 4
-      audioManager->AddChunk("./audio/player_hurt.wav");                   // 5
-      audioManager->AddChunk("./audio/Minor_Explosion.wav");               // 6
+      audioManager->AddSFX("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
+      audioManager->AddSFX("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
+      audioManager->AddSFX("./audio/Reload.wav");                        // 2
+      audioManager->AddSFX("./audio/OutOfAmmo.wav");                     // 3
+      audioManager->AddSFX("./audio/smash.wav");                         // 4
+      audioManager->AddSFX("./audio/player_hurt.wav");                   // 5
+      audioManager->AddSFX("./audio/Minor_Explosion.wav");               // 6
 }
 
 void LevelThree::SetupLevel()

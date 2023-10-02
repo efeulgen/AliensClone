@@ -23,7 +23,8 @@ public:
       AudioManager();
       ~AudioManager();
 
-      void AddChunk(const char *filePath);
+      void AddSFX(const char *filePath);
+      sfx GetSFX(int index);
       void PlaySFX(int index);
       void StopSFX(int index);
       void ClearSoundEffects();

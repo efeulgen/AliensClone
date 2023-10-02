@@ -15,17 +15,19 @@ LevelOne::~LevelOne()
 
 void LevelOne::SetupLevelSounds()
 {
-      audioManager->AddChunk("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
-      audioManager->AddChunk("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
-      audioManager->AddChunk("./audio/Reload.wav");                        // 2
-      audioManager->AddChunk("./audio/OutOfAmmo.wav");                     // 3
-      audioManager->AddChunk("./audio/smash.wav");                         // 4
-      audioManager->AddChunk("./audio/player_hurt.wav");                   // 5
-      audioManager->AddChunk("./audio/Minor_Explosion.wav");               // 6
-      audioManager->AddChunk("./audio/glass_shatter.wav");                 // 7
-      audioManager->AddChunk("./audio/gore_sound_1.wav");                  // 8
-      audioManager->AddChunk("./audio/bug_scream_sound_1.wav");            // 9
-      audioManager->AddChunk("./audio/alien_scream_1.wav");                // 10
+      audioManager->AddSFX("./audio/dummy_PlayerLaserBlasterSound.wav"); // 0
+      audioManager->AddSFX("./audio/dummy_PlayerFlamethrowerSound.wav"); // 1
+      audioManager->AddSFX("./audio/Reload.wav");                        // 2
+      audioManager->AddSFX("./audio/OutOfAmmo.wav");                     // 3
+      audioManager->AddSFX("./audio/smash.wav");                         // 4
+      audioManager->AddSFX("./audio/player_hurt.wav");                   // 5
+      audioManager->AddSFX("./audio/Minor_Explosion.wav");               // 6
+      audioManager->AddSFX("./audio/glass_shatter.wav");                 // 7
+      audioManager->AddSFX("./audio/gore_sound_1.wav");                  // 8
+      audioManager->AddSFX("./audio/bug_scream_sound_1.wav");            // 9
+      audioManager->AddSFX("./audio/alien_scream_1.wav");                // 10
+      audioManager->AddSFX("./audio/power_up_1.wav");                    // 11
+      Mix_VolumeChunk(audioManager->GetSFX(11).chunk, 25);
 }
 
 void LevelOne::SetupLevel()
@@ -49,7 +51,7 @@ void LevelOne::SetupLevel()
       spawnManager = new LevelOneSpawnManager(player, this);
       spawnManager->CreateSpawnObject("Alien", 5.0);
       spawnManager->CreateSpawnObject("AlienEgg", 7.5);
-      spawnManager->CreateSpawnObject("Facehugger", 12.0);
+      spawnManager->CreateSpawnObject("Facehugger", 3.0); // 8.5
 
       uiManager = new LevelOneUIManager(windowWidth, windowHeight, player, refToGameManager);
 
