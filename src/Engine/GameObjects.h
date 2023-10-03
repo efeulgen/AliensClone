@@ -10,22 +10,23 @@
 class GameObjects
 {
 private:
-      int size;
-      int length;
-      GameObject *gameObjects;
+      int length = 0;
+      GameObject **gameObjects = nullptr;
 
 public:
-      GameObjects(int initSize);
+      GameObjects();
       ~GameObjects();
 
-      void InitGameObjects();
-      void UpdateGameObjects(double deltaTime);
-      void RenderGameObjects(SDL_Renderer *renderer);
-
-      void AppendGameObject(GameObject obj);
-      GameObject FindGameObjectWithTag(std::string tag); // implement with binary search; give indices to game objects
-      void RemoveGameObjectWithTag(std::string tag);
+      void InstantiateGameObject(GameObject *newObj);
+      GameObject *FindGameObject(GameObject *obj);
+      GameObject *FindGameObjectWithTag(std::string tag);
+      void DestroyGameObject(GameObject *obj);
+      void DestroyGameObjectWithTag(std::string tag);
       void ClearGameObjects();
+
+      // getters & setters
+      int GetLength() const { return length; }
+      GameObject **GetGameObjects() const { return gameObjects; }
 };
 
 #endif

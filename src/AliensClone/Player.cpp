@@ -119,11 +119,9 @@ void Player::RenderGameObject(SDL_Renderer *renderer)
       switch (animState)
       {
       case PlayerAnimState::PAS_Idle:
-            std::cout << "Idle Anim State" << std::endl;
             GameObject::RenderGameObject(renderer);
             break;
       case PlayerAnimState::PAS_Walking:
-            std::cout << "Walking Anim State" << std::endl;
             CalculateRect();
             RenderAnimation(renderer, laserBlasterWalkSpriteSheet, 4, rectSize, &laserBlasterWalkAninIdex, transform.position, false, isFlipped);
             break;

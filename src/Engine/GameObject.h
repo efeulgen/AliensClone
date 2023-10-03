@@ -51,9 +51,9 @@ public:
             delete collisionRect;
       }
 
-      virtual void InitGameObject() = 0;
-      virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) = 0;
-      virtual void UpdateGameObject(double deltaTime) = 0;
+      virtual void InitGameObject() {}                                           // = 0;
+      virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) {} //  = 0;
+      virtual void UpdateGameObject(double deltaTime) {}                         // = 0;
 
       virtual void RenderGameObject(SDL_Renderer *renderer)
       {
