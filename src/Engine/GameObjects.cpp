@@ -3,12 +3,12 @@
 
 GameObjects::GameObjects()
 {
-      Logger::Logg("GameObjects Constructor");
+      Logger::Logg("GameObjects ADT Constructor");
 }
 
 GameObjects::~GameObjects()
 {
-      Logger::Logg("GameObjects Destructor");
+      Logger::Logg("GameObjects ADT Destructor");
 }
 
 void GameObjects::InstantiateGameObject(GameObject *newObj)
@@ -31,6 +31,27 @@ void GameObjects::InstantiateGameObject(GameObject *newObj)
 
 GameObject *GameObjects::FindGameObject(GameObject *obj)
 {
+      int low, mid, high;
+      low = 0;
+      high = length - 1;
+
+      while (low <= high)
+      {
+            mid = (low + high) / 2;
+            if (obj->GetGameObjectID() == gameObjects[mid]->GetGameObjectID())
+            {
+                  return gameObjects[mid];
+            }
+            else if (obj->GetGameObjectID() < gameObjects[mid]->GetGameObjectID())
+            {
+                  high = mid - 1;
+            }
+            else
+            {
+                  low = mid + 1;
+            }
+      }
+
       return nullptr;
 }
 

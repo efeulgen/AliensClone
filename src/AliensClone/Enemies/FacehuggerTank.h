@@ -21,7 +21,7 @@ private:
       bool isPassedByPlayer = false;
 
 public:
-      FacehuggerTank(glm::vec2 pos, int rSize, Player *player, Level *level);
+      FacehuggerTank(glm::vec2 pos, int rSize, int imgPathSeed, Player *player, Level *level);
       ~FacehuggerTank();
 
       void InitGameObject() override;

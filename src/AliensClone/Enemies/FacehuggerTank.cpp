@@ -1,11 +1,26 @@
 
 #include "FacehuggerTank.h"
 
-FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, Player *player, Level *level) : GameObject(pos, rSize), refToPlayer{player}, refToLevel{level}
+FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, int imgPathSeed, Player *player, Level *level) : GameObject(pos, rSize), refToPlayer{player}, refToLevel{level}
 {
       Logger::Logg("FacehuggerTank Constructor");
 
-      imgFilePath = "./assets/sprites/Enemies/Facehugger/FacehuggerTank_Damaged.png";
+      srand(imgPathSeed);
+      int randomNum = rand() % 3;
+      switch (randomNum)
+      {
+      case 0:
+            imgFilePath = "./assets/sprites/Enemies/Facehugger/FacehuggerTank_Damaged.png";
+            break;
+      case 1:
+            imgFilePath = "./assets/sprites/Enemies/Facehugger/FacehuggerTank_Damaged_v2.png";
+            break;
+      case 2:
+            imgFilePath = "./assets/sprites/Enemies/Facehugger/FacehuggerTank_Damaged_v3.png";
+            break;
+      default:
+            break;
+      }
       gameObjectTag = "FacehuggerTank";
 }
 

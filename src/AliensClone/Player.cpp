@@ -10,6 +10,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
 
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
       animState = PlayerAnimState::PAS_Idle;
+      walkAnimSpritesheet = laserBlasterWalkSpriteSheet;
       fireCounter = LASERBLASTER_FIRE_RATE;
       canFire = true;
       globalX = pos.x;
@@ -36,7 +37,7 @@ void Player::UpdateGameObject(double deltaTime)
 
       if (animState == PlayerAnimState::PAS_Walking)
       {
-            laserBlasterWalkAninIdex += deltaTime * 10;
+            walkAnimIndex += deltaTime * 10;
       }
 
       if (isFacehugged)
@@ -123,9 +124,8 @@ void Player::RenderGameObject(SDL_Renderer *renderer)
             break;
       case PlayerAnimState::PAS_Walking:
             CalculateRect();
-            RenderAnimation(renderer, laserBlasterWalkSpriteSheet, 4, rectSize, &laserBlasterWalkAninIdex, transform.position, false, isFlipped);
+            RenderAnimation(renderer, walkAnimSpritesheet, 4, rectSize, &walkAnimIndex, transform.position, false, isFlipped);
             break;
-
       default:
             break;
       }
@@ -210,18 +210,21 @@ void Player::ProcessPlayerInput(double deltaTime)
       {
             imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
             weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
+            walkAnimSpritesheet = laserBlasterWalkSpriteSheet;
             fireCounter = LASERBLASTER_FIRE_RATE;
       }
       if (keyboardState[SDL_SCANCODE_2])
       {
             imgFilePath = "./assets/sprites/Player/PlayerFlamethrower.png";
             weaponMode = PlayerWeaponMode::PWM_Flamethrower;
+            walkAnimSpritesheet = flamethrowerWalkSpriteSheet;
             fireCounter = FLAMETHROWER_FIRE_RATE;
       }
       if (keyboardState[SDL_SCANCODE_3])
       {
             imgFilePath = "./assets/sprites/Player/PlayerTrippleShot.png";
             weaponMode = PlayerWeaponMode::PWM_TrippleShot;
+            walkAnimSpritesheet = trippleShotWalkSpriteSheet;
             fireCounter = TRIPPLESHOT_FIRE_RATE;
       }
 }

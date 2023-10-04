@@ -24,7 +24,7 @@ public:
       void DestroyGameObjectWithTag(std::string tag);
       void ClearGameObjects();
 
-      // getters & setters
+      // *************** getters *********************************************
       int GetLength() const { return length; }
       GameObject **GetGameObjects() const { return gameObjects; }
 };

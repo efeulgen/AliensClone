@@ -23,8 +23,7 @@ enum PlayerWeaponMode
 enum PlayerAnimState
 {
       PAS_Idle,
-      PAS_Walking,
-      PAS_Firing
+      PAS_Walking
 };
 
 class Player : public GameObject
@@ -51,8 +50,11 @@ private:
       const char *muzzleFlashSpritesheet[3] = {"./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_1.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_2.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_3.png"};
 
       // walk anims
-      double laserBlasterWalkAninIdex = 0.0;
+      const char **walkAnimSpritesheet;
+      double walkAnimIndex = 0.0;
       const char *laserBlasterWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_1.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_2.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_3.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_4.png"};
+      const char *flamethrowerWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerFlamethrower_walk_1.png", "./assets/sprites/Player/Walking/PlayerFlamethrower_walk_2.png", "./assets/sprites/Player/Walking/PlayerFlamethrower_walk_3.png", "./assets/sprites/Player/Walking/PlayerFlamethrower_walk_4.png"};
+      const char *trippleShotWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerTrippleShot_walk_1.png", "./assets/sprites/Player/Walking/PlayerTrippleShot_walk_2.png", "./assets/sprites/Player/Walking/PlayerTrippleShot_walk_3.png", "./assets/sprites/Player/Walking/PlayerTrippleShot_walk_4.png"};
 
       // stats
       int health = 100;

@@ -42,9 +42,9 @@ void LevelOne::SetupLevel()
       // facehugger tanks
       for (int i = 1; i < 8; i++)
       {
-            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0, 410), 256, player, this));
-            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 200, 410), 256, player, this));
-            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 400, 410), 256, player, this));
+            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0, 410), 256, i * 5, player, this));
+            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 200, 410), 256, (i + 1) * 5, player, this));
+            InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 400, 410), 256, (i + 2) * 5, player, this));
       }
 
       InstantiateGameObject(player); // create render layers

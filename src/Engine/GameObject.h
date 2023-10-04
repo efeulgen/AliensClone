@@ -29,6 +29,8 @@ protected:
       bool canBeDestroyed = false;
 
 private:
+      int gameObjectID;
+
       SDL_Rect rect = {0, 0, 0, 0};
       SDL_Rect *collisionRect = new SDL_Rect();
 
@@ -120,7 +122,7 @@ public:
 
       void DestroyGameObject() { delete this; }
 
-      // getters & setters
+      // *************** getters & setters *********************************************
       SDL_Rect GetRect() const { return rect; }
       glm::vec2 GetRectMidTop() const { return glm::vec2(rect.x + (rect.w / 2), rect.y); }
       glm::vec2 GetRectMidBottom() const { return glm::vec2(rect.x + (rect.w / 2), rect.y + rect.h); }
@@ -134,6 +136,7 @@ public:
       void SetCanBeDestroyed(bool value) { canBeDestroyed = value; }
 
       std::string GetGameObjectTag() const { return gameObjectTag; }
+      int GetGameObjectID() const { return gameObjectID; }
 };
 
 #endif

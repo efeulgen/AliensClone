@@ -19,6 +19,8 @@ private:
 
 protected:
       std::vector<GameObject *> gameObjects;
+      int gameObjectCount = 0;
+
       bool isLevelComplete = false;
       bool isFinalLevel = false;
       class Player *player = nullptr;
@@ -183,6 +185,7 @@ public:
       void InstantiateGameObject(GameObject *obj)
       {
             gameObjects.push_back(obj);
+            gameObjectCount++;
       }
 
       void ShifBackground(double shiftValue, double deltaTime)
@@ -198,7 +201,7 @@ public:
             }
       }
 
-      // getters & setters
+      // *************** getters & setters *********************************************
       bool GetIsLevelComplete() const { return isLevelComplete; }
       void SetIsLevelComplete(bool value) { isLevelComplete = value; }
 
