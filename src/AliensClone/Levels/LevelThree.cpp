@@ -5,7 +5,9 @@ LevelThree::LevelThree(int index, int w, int h, int len, GameManager *gManager, 
 {
       Logger::Logg("LevelThree Constructor");
 
-      levelBackgroundPath = "./assets/sprites/Background_3.png";
+      levelBackgroundPath_1 = "./assets/sprites/Background_3.png";
+      levelBackgroundPath_2 = "./assets/sprites/Background_3.png";
+      levelBackgroundPath_3 = "./assets/sprites/Background_3.png";
 }
 
 LevelThree::~LevelThree()

@@ -5,6 +5,8 @@ Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : Gam
 {
       Logger::Logg("Alien Constructor");
 
+      animState = AlienAnimState::AAS_Walking;
+
       imgFilePath = "./assets/sprites/Enemies/Alien/Alien.png";
       gameObjectTag = "Alien";
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(ALIENSPEED, 0.0) : glm::vec2(-ALIENSPEED, 0.0);
@@ -65,11 +67,24 @@ void Alien::UpdateGameObject(double deltaTime)
       {
             bloodSplashAnimIndex += deltaTime * 10;
       }
+
+      if (animState == AlienAnimState::AAS_Walking)
+      {
+            walkAnimIndex += deltaTime * 8;
+      }
 }
 
 void Alien::RenderGameObject(SDL_Renderer *renderer)
 {
-      GameObject::RenderGameObject(renderer);
+      CalculateRect();
+      switch (animState)
+      {
+      case AlienAnimState::AAS_Walking:
+            RenderAnimation(renderer, alienWalkingSpritesheet, 4, rectSize, &walkAnimIndex, transform.position, false, isFlipped);
+            break;
+      default:
+            break;
+      }
 
       if (isRenderingBloodSplash)
       {

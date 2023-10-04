@@ -25,14 +25,12 @@ void LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                   spawnObj.spawnCounter = 0.0;
                   if (spawnObj.gameObjectTag == "Alien")
                   {
-                        /*
                         srand(IncrementSpawnSeed());
                         double alienYPos = 550.0 + static_cast<double>((rand() % 200));
 
                         Alien *newAlien = new Alien(glm::vec2(3000.0, alienYPos), 250, refToPlayer, refToCurrentLevel);
                         newAlien->InitGameObject();
                         refToCurrentLevel->InstantiateGameObject(newAlien);
-                        */
                   }
                   else if (spawnObj.gameObjectTag == "AlienEgg")
                   {

@@ -5,7 +5,9 @@ LevelTwo::LevelTwo(int index, int w, int h, int len, GameManager *gManager, bool
 {
       Logger::Logg("LevelTwo Constructor");
 
-      levelBackgroundPath = "./assets/sprites/Background_2.png";
+      levelBackgroundPath_1 = "./assets/sprites/Background_2.png";
+      levelBackgroundPath_2 = "./assets/sprites/Background_2.png";
+      levelBackgroundPath_3 = "./assets/sprites/Background_2.png";
 }
 
 LevelTwo::~LevelTwo()

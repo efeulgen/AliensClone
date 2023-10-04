@@ -29,7 +29,9 @@ protected:
       int windowWidth;
       int windowHeight;
 
-      const char *levelBackgroundPath;
+      const char *levelBackgroundPath_1;
+      const char *levelBackgroundPath_2;
+      const char *levelBackgroundPath_3;
       int backgroundXPosition = 0;
 
       AudioManager *audioManager = nullptr;
@@ -107,19 +109,32 @@ public:
 
             // *****************************************************************************************************************************
             // ************************* background ****************************************************************************************
-            SDL_Surface *surf = IMG_Load(levelBackgroundPath);
-            SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
-            SDL_Rect rect1 = {backgroundXPosition, 0, windowWidth, windowHeight};
-            SDL_RenderCopy(renderer, tex, NULL, &rect1);
-            SDL_Rect rect2 = {backgroundXPosition + windowWidth, 0, windowWidth, windowHeight};
-            SDL_RenderCopy(renderer, tex, NULL, &rect2);
-            SDL_Rect rect3 = {backgroundXPosition - windowWidth, 0, windowWidth, windowHeight};
-            SDL_RenderCopy(renderer, tex, NULL, &rect3);
-            SDL_DestroyTexture(tex);
+            SDL_Surface *surf_1 = IMG_Load(levelBackgroundPath_1);
+            SDL_Texture *tex_1 = SDL_CreateTextureFromSurface(renderer, surf_1);
+            SDL_Rect rect1 = {backgroundXPosition - windowWidth, 0, windowWidth, windowHeight};
+            SDL_RenderCopy(renderer, tex_1, NULL, &rect1);
 
-            if (backgroundXPosition <= -windowWidth || backgroundXPosition >= windowWidth)
+            SDL_Surface *surf_2 = IMG_Load(levelBackgroundPath_2);
+            SDL_Texture *tex_2 = SDL_CreateTextureFromSurface(renderer, surf_2);
+            SDL_Rect rect2 = {backgroundXPosition, 0, windowWidth, windowHeight};
+            SDL_RenderCopy(renderer, tex_2, NULL, &rect2);
+
+            SDL_Surface *surf_3 = IMG_Load(levelBackgroundPath_3);
+            SDL_Texture *tex_3 = SDL_CreateTextureFromSurface(renderer, surf_3);
+            SDL_Rect rect3 = {backgroundXPosition + windowWidth, 0, windowWidth, windowHeight};
+            SDL_RenderCopy(renderer, tex_3, NULL, &rect3);
+
+            SDL_DestroyTexture(tex_1);
+            SDL_DestroyTexture(tex_2);
+            SDL_DestroyTexture(tex_3);
+
+            if (backgroundXPosition <= -windowWidth)
             {
-                  backgroundXPosition = 0;
+                  backgroundXPosition = windowWidth;
+            }
+            if (backgroundXPosition > windowWidth)
+            {
+                  backgroundXPosition = (windowWidth * -1);
             }
 
             // *****************************************************************************************************************************
