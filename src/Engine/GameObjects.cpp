@@ -11,6 +11,10 @@ GameObjects::~GameObjects()
       Logger::Logg("GameObjects ADT Destructor");
 }
 
+// **********************************************************************************************************************************************************************************************
+// **********************************************************************************************************************************************************************************************
+// **********************************************************************************************************************************************************************************************
+
 void GameObjects::InstantiateGameObject(GameObject *newObj)
 {
       newObj->InitGameObject();
@@ -21,11 +25,13 @@ void GameObjects::InstantiateGameObject(GameObject *newObj)
       {
             temp[i] = gameObjects[i];
       }
-      temp[i + 1] = newObj;
+      temp[i] = newObj;
 
+      delete[] gameObjects;
       gameObjects = temp;
-      delete[] temp;
+
       temp = nullptr;
+
       length++;
 }
 
@@ -90,9 +96,11 @@ void GameObjects::DestroyGameObject(GameObject *obj)
             }
       }
 
+      delete[] gameObjects;
       gameObjects = temp;
-      delete[] temp;
+
       temp = nullptr;
+
       length--;
 }
 

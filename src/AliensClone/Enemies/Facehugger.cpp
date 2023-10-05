@@ -32,7 +32,7 @@ void Facehugger::UpdateGameObject(double deltaTime)
       if (isDead)
       {
             facehuggerDeathAnimIndex += deltaTime * 8;
-            velocity = glm::vec2(0.0, 0.0);
+            return;
       }
 
       isFlipped = refToPlayer->GetTransform().position.x > transform.position.x ? true : false;

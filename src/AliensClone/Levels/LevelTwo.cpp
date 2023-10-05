@@ -35,7 +35,9 @@ void LevelTwo::SetupLevel()
       InstantiateGameObject(player);
 
       // managers
-      spawnManager = new LevelTwoSpawnManager();
+      spawnManager = new LevelTwoSpawnManager(player, this);
+      spawnManager->CreateSpawnObject("NewBorn", 5.0);
+
       uiManager = new LevelTwoUIManager(windowWidth, windowHeight, player, refToGameManager);
 
       // pickups

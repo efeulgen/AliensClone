@@ -1,7 +1,7 @@
 
 #include "LevelTwoSpawnManager.h"
 
-LevelTwoSpawnManager::LevelTwoSpawnManager()
+LevelTwoSpawnManager::LevelTwoSpawnManager(Player *player, Level *level) : refToPlayer{player}, refToCurrentLevel{level}
 {
       Logger::Logg("LevelTwoSpawnManager Constructor");
 }
@@ -13,4 +13,29 @@ LevelTwoSpawnManager::~LevelTwoSpawnManager()
 
 void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
 {
+      if (refToCurrentLevel->GetRefToGameManager()->GetIsGameOver())
+      {
+            return;
+      }
+
+      for (auto &spawnObj : spawnObjects)
+      {
+            if (spawnObj.spawnCounter >= spawnObj.spawnRate)
+            {
+                  spawnObj.spawnCounter = 0.0;
+                  if (spawnObj.gameObjectTag == "NewBorn")
+                  {
+                        srand(IncrementSpawnSeed());
+                        double newBornYPos = 650.0 + static_cast<double>((rand() % 200));
+
+                        NewBorn *newNewBorn = new NewBorn(glm::vec2(3000.0, newBornYPos), 120, refToPlayer, refToCurrentLevel);
+                        newNewBorn->InitGameObject();
+                        refToCurrentLevel->InstantiateGameObject(newNewBorn);
+                  }
+            }
+            else
+            {
+                  spawnObj.spawnCounter += deltaTime;
+            }
+      }
 }
