@@ -5,8 +5,10 @@ NewBorn::NewBorn(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos
 {
       Logger::Logg("NewBorn Constructor");
 
+      imgFilePath = "./assets/sprites/Enemies/NewBorn/NewBorn_1.png";
       gameObjectTag = "NewBorn";
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(newBornSpeed, 0.0) : glm::vec2(-newBornSpeed, 0.0);
+      animState = NewBornAnimState::NBAS_Crawling;
 }
 
 NewBorn::~NewBorn()
@@ -31,11 +33,17 @@ void NewBorn::UpdateGameObject(double deltaTime)
             return;
       }
 
+      if (animState == NewBornAnimState::NBAS_Attacking)
+      {
+            newBornAttackAnimIndex += deltaTime * 10;
+      }
+
       // follow player
       if (abs(refToPlayer->GetTransform().position.x - transform.position.x) > attackRange)
       {
             velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(newBornSpeed, 0.0) : glm::vec2(-newBornSpeed, 0.0);
             attackCounter = attackRate;
+            animState = NewBornAnimState::NBAS_Crawling;
       }
       else
       {
@@ -45,6 +53,7 @@ void NewBorn::UpdateGameObject(double deltaTime)
             {
                   Attack();
                   attackCounter = 0.0;
+                  animState = NewBornAnimState::NBAS_Attacking;
             }
             else
             {
@@ -64,7 +73,25 @@ void NewBorn::RenderGameObject(SDL_Renderer *renderer)
       if (!isDead)
       {
             CalculateRect();
-            RenderAnimation(renderer, newBornSpriteSheet, 4, rectSize, &newBornAnimIndex, transform.position, false, isFlipped);
+            switch (animState)
+            {
+            case NewBornAnimState::NBAS_Crawling:
+                  RenderAnimation(renderer, newBornSpriteSheet, 4, rectSize, &newBornAnimIndex, transform.position, false, isFlipped);
+                  break;
+            case NewBornAnimState::NBAS_Attacking:
+                  RenderAnimation(renderer, newBornAttackSpriteSheet, 4, rectSize, &newBornAttackAnimIndex, transform.position, true, isFlipped);
+                  if (static_cast<int>(newBornAttackAnimIndex) >= 3)
+                  {
+                        newBornAttackAnimIndex = 0.0;
+                        animState = NewBornAnimState::NBAS_Idle;
+                  }
+                  break;
+            case NewBornAnimState::NBAS_Idle:
+                  GameObject::RenderGameObject(renderer);
+                  break;
+            default:
+                  break;
+            }
       }
       else
       {
@@ -90,4 +117,5 @@ void NewBorn::Attack()
       if (isDead)
             return;
       std::cout << "NewBorn attacks." << std::endl;
+      refToPlayer->DamagePlayer(10);
 }
