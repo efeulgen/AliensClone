@@ -24,7 +24,7 @@ private:
 
       double attackRange = 150.0;
       double attackCounter = 0.0;
-      double attackRate = 0.75; //
+      double attackRate = 0.75;
       double newBornSpeed = 450.0;
 
       // animations
