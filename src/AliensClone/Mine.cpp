@@ -22,7 +22,7 @@ void Mine::InitGameObject()
 
 void Mine::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
-      if (otherObj->GetGameObjectTag() == "Player" && canHurtPlayer)
+      if ((otherObj->GetGameObjectTag() == "LaserBlasterProjectile" || otherObj->GetGameObjectTag() == "FlamethrowerProjectile" || otherObj->GetGameObjectTag() == "TrippleShotProjectile" || otherObj->GetGameObjectTag() == "Player") && canHurtPlayer)
       {
             static_cast<Player *>(otherObj)->DamagePlayer(damageAmount);
             refToCurrentLevel->GetAudioManager()->PlaySFX(6);

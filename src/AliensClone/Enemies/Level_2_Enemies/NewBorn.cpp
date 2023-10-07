@@ -116,6 +116,5 @@ void NewBorn::Attack()
 {
       if (isDead)
             return;
-      std::cout << "NewBorn attacks." << std::endl;
       refToPlayer->DamagePlayer(10);
 }

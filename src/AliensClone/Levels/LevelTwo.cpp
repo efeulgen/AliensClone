@@ -24,6 +24,12 @@ void LevelTwo::SetupLevelSounds()
       audioManager->AddSFX("./audio/smash.wav");                         // 4
       audioManager->AddSFX("./audio/player_hurt.wav");                   // 5
       audioManager->AddSFX("./audio/Minor_Explosion.wav");               // 6
+      audioManager->AddSFX("./audio/glass_shatter.wav");                 // 7
+      audioManager->AddSFX("./audio/gore_sound_1.wav");                  // 8
+      audioManager->AddSFX("./audio/bug_scream_sound_1.wav");            // 9
+      audioManager->AddSFX("./audio/possessed_death.wav");               // 10
+      audioManager->AddSFX("./audio/power_up_1.wav");                    // 11
+      audioManager->AddSFX("./audio/possessed_hurt.wav");                // 12
 }
 
 void LevelTwo::SetupLevel()
