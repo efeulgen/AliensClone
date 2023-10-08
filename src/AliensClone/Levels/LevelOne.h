@@ -7,7 +7,7 @@
 #include "../Enemies/Alien.h"
 #include "../Enemies/FacehuggerTank.h"
 #include "../Pickups/Pickup.h"
-#include "../Mine.h"
+#include "../Obstacles/Mine.h"
 #include "../SpawnManagers/LevelOneSpawnManager.h"
 #include "../UIManagers/LevelOneUIManager.h"
 

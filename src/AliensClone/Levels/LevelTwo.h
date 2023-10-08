@@ -4,6 +4,8 @@
 
 #include "../../Engine/Level.h"
 #include "../Player.h"
+#include "../Pickups/Pickup.h"
+#include "../Obstacles/GooEgg.h"
 #include "../SpawnManagers/LevelTwoSpawnManager.h"
 #include "../UIManagers/LevelTwoUIManager.h"
 

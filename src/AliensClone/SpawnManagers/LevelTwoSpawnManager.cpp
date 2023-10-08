@@ -36,12 +36,14 @@ void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
                   }
                   if (spawnObj.gameObjectTag == "Possessed")
                   {
+                        /*
                         srand(IncrementSpawnSeed());
                         double possessedYPos = 500.0 + static_cast<double>((rand() % 200));
 
                         Possessed *newPossessed = new Possessed(glm::vec2(3000.0, possessedYPos), 250, refToPlayer, refToCurrentLevel);
                         newPossessed->InitGameObject();
                         refToCurrentLevel->InstantiateGameObject(newPossessed);
+                        */
                   }
             }
             else

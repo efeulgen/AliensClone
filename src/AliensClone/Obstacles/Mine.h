@@ -2,9 +2,9 @@
 #ifndef MINE_H
 #define MINE_H
 
-#include "../Engine/GameObject.h"
-#include "../Engine/Level.h"
-#include "Player.h"
+#include "../../Engine/GameObject.h"
+#include "../../Engine/Level.h"
+#include "../Player.h"
 
 class Mine : public GameObject
 {

@@ -48,6 +48,30 @@ void LevelTwo::SetupLevel()
       uiManager = new LevelTwoUIManager(windowWidth, windowHeight, player, refToGameManager);
 
       // pickups
+      InstantiateGameObject(new Pickup(glm::vec2(800, 650), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(1800, 650), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(4200, 650), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(5500, 600), 128, PickupType::PT_HealthPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(7500, 600), 128, PickupType::PT_HealthPickup));
+
+      InstantiateGameObject(new Pickup(glm::vec2(1500, 750), 128, PickupType::PT_LaserBlasterAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(3500, 700), 128, PickupType::PT_LaserBlasterAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(5200, 550), 128, PickupType::PT_LaserBlasterAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(7500, 600), 128, PickupType::PT_LaserBlasterAmmoPickup));
+
+      InstantiateGameObject(new Pickup(glm::vec2(2300, 600), 128, PickupType::PT_FlamethrowerAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(4500, 650), 128, PickupType::PT_FlamethrowerAmmoPickup));
+
+      InstantiateGameObject(new Pickup(glm::vec2(1250, 750), 128, PickupType::PT_TrippleShotAmmoPickup));
+      InstantiateGameObject(new Pickup(glm::vec2(2800, 650), 128, PickupType::PT_TrippleShotAmmoPickup));
+
+      // obstacles
+      for (int i = 1; i < 8; i++)
+      {
+            srand(i * 10);
+            int yPosVariance = rand() % 100;
+            InstantiateGameObject(new GooEgg(glm::vec2(i * 2000.0, 650.0 + yPosVariance), 128, player, this));
+      }
 
       Level::SetupLevel();
 }

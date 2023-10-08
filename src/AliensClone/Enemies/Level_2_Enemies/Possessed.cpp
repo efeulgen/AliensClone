@@ -88,7 +88,6 @@ void Possessed::RenderGameObject(SDL_Renderer *renderer)
             case PossessedAnimState::POSAS_Idle:
                   GameObject::RenderGameObject(renderer);
                   break;
-
             default:
                   break;
             }

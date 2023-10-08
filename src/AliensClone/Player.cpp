@@ -40,6 +40,7 @@ void Player::UpdateGameObject(double deltaTime)
             walkAnimIndex += deltaTime * 10;
       }
 
+      // facehug duration
       if (isFacehugged)
       {
             facehugDurationCounter += deltaTime;
@@ -65,6 +66,19 @@ void Player::UpdateGameObject(double deltaTime)
             else
             {
                   return;
+            }
+      }
+
+      // slow down duration
+      if (isSlowedDown)
+      {
+            slowDownCounter += deltaTime;
+            if (slowDownCounter >= SLOWDOWN_DURATION)
+            {
+                  slowDownCounter = 0.0;
+                  velocity.x *= 2;
+                  velocity.y *= 2;
+                  isSlowedDown = false;
             }
       }
 
@@ -150,6 +164,8 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       }
       if (otherObj->GetGameObjectTag() == "HealthPickup")
       {
+            if (health == 100)
+                  return;
             currentLevel->GetAudioManager()->PlaySFX(11);
       }
 }
@@ -237,7 +253,7 @@ void Player::MoveForward(double deltaTime)
 
       if (globalX > ((windowWidth / 2) - (rectSize / 2)) && globalX < currentLevel->GetLevelLength())
       {
-            currentLevel->ShifBackground(600.0, deltaTime);
+            currentLevel->ShifBackground(velocity.x, deltaTime);
             transform.position.x = ((windowWidth / 2) - (rectSize / 2));
       }
 }
@@ -250,7 +266,7 @@ void Player::MoveBackward(double deltaTime)
 
       if (globalX > ((windowWidth / 2) - (rectSize / 2)) && globalX < currentLevel->GetLevelLength())
       {
-            currentLevel->ShifBackground(-600.0, deltaTime);
+            currentLevel->ShifBackground(-velocity.x, deltaTime);
             transform.position.x = ((windowWidth / 2) - (rectSize / 2));
       }
 }
@@ -384,4 +400,14 @@ void Player::ActivateIsFacehugged()
       animState = PlayerAnimState::PAS_Idle;
       isFacehugged = true;
       DamagePlayer(5);
+}
+
+void Player::SlowDownPlayer()
+{
+      if (!isSlowedDown)
+      {
+            isSlowedDown = true;
+            velocity.x /= 2;
+            velocity.y /= 2;
+      }
 }

@@ -45,6 +45,10 @@ void Pickup::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
             switch (pickupType)
             {
             case PickupType::PT_HealthPickup:
+                  if (static_cast<Player *>(otherObj)->GetHealth() == 100)
+                  {
+                        return;
+                  }
                   static_cast<Player *>(otherObj)->HealPlayer();
                   break;
             case PickupType::PT_LaserBlasterAmmoPickup:

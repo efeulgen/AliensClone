@@ -12,6 +12,7 @@ const double FLAMETHROWER_FIRE_RATE = 0.1;
 const double TRIPPLESHOT_FIRE_RATE = 1.5;
 
 const double FACEHUG_DURATION = 2.0;
+const double SLOWDOWN_DURATION = 3.0;
 
 enum PlayerWeaponMode
 {
@@ -65,6 +66,9 @@ private:
       bool isFacehugged = false;
       double facehugDurationCounter = 0.0;
 
+      bool isSlowedDown = false;
+      double slowDownCounter = 0.0;
+
 public:
       Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int h);
       ~Player();
@@ -87,6 +91,7 @@ public:
       void IncreaseTrippleShotAmmo();
       void DamagePlayer(int damageAmount);
       void ActivateIsFacehugged();
+      void SlowDownPlayer();
 
       // getters & setters
       int GetHealth() const { return health; }

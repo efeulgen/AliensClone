@@ -5,7 +5,7 @@ Mine::Mine(glm::vec2 pos, int rSize, Level *refToLev) : GameObject(pos, rSize), 
 {
       Logger::Logg("Mine Constructor");
 
-      imgFilePath = "./assets/sprites/Mine.png";
+      imgFilePath = "./assets/sprites/Obstacles/Mine.png";
       gameObjectTag = "Mine";
 }
 
