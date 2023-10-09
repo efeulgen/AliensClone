@@ -5,8 +5,9 @@ GooEgg::GooEgg(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, 
 {
       Logger::Logg("GooEgg Constructor");
 
-      imgFilePath = unexplodedFilePath;
+      imgFilePath = "./assets/sprites/Obstacles/GooEgg/GooEgg_unexploded.png";
       gameObjectTag = "GooEgg";
+      animState = GooEggAnimState::GEAS_Unexploded;
 }
 
 GooEgg::~GooEgg()
@@ -20,9 +21,22 @@ void GooEgg::InitGameObject()
 
 void GooEgg::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
-      if ((otherObj->GetGameObjectTag() == "Player") && isExploded)
+      if ((otherObj->GetGameObjectTag() == "Player"))
       {
-            static_cast<Player *>(otherObj)->SlowDownPlayer();
+            if (animState == GooEggAnimState::GEAS_Exploded)
+            {
+                  static_cast<Player *>(otherObj)->SlowDownPlayer();
+                  animState = GooEggAnimState::GEAS_Infecting;
+            }
+            else if ((animState == GooEggAnimState::GEAS_Burning) && canDamagePlayer)
+            {
+                  static_cast<Player *>(otherObj)->DamagePlayer(5);
+                  canDamagePlayer = false;
+            }
+      }
+      if (otherObj->GetGameObjectTag() == "FlamethrowerProjectile" && animState == GooEggAnimState::GEAS_Exploded)
+      {
+            animState = GooEggAnimState::GEAS_Burning;
       }
 }
 
@@ -33,34 +47,79 @@ void GooEgg::UpdateGameObject(double deltaTime)
             return;
       }
 
-      // anims
-      if (isExploding)
+      if (!canDamagePlayer)
       {
-            explodeAnimIndex += deltaTime * 5;
+            fireDamageCounter += deltaTime;
+            if (fireDamageCounter >= fireDamageRate)
+            {
+                  canDamagePlayer = true;
+                  fireDamageCounter = 0.0;
+            }
       }
 
-      if ((abs(refToPlayer->GetPosition().x - transform.position.x) < 200.0) && !isExploded && !isExploding)
+      if (animState == GooEggAnimState::GEAS_Infecting)
+      {
+            infectingAnimDurationCounter += deltaTime;
+            if (infectingAnimDurationCounter >= infectingAnimDuration)
+            {
+                  animState = GooEggAnimState::GEAS_Exploded;
+                  infectingAnimDurationCounter = 0.0;
+            }
+      }
+
+      // animations
+      switch (animState)
+      {
+      case GooEggAnimState::GEAS_Exploding:
+            explodingAnimIndex += deltaTime * 5;
+            break;
+      case GooEggAnimState::GEAS_Exploded:
+            explodedAnimIndex += deltaTime * 5;
+            break;
+      case GooEggAnimState::GEAS_Infecting:
+            infectingAnimIndex += deltaTime * 5;
+            break;
+      case GooEggAnimState::GEAS_Burning:
+            burningAnimIndex += deltaTime * 5;
+            break;
+      default:
+            break;
+      }
+
+      // explode on detect player
+      if ((abs(refToPlayer->GetPosition().x - transform.position.x) < 200.0) && animState == GooEggAnimState::GEAS_Unexploded)
       {
             refToLevel->GetAudioManager()->PlaySFX(4);
-            isExploding = true;
+            animState = GooEggAnimState::GEAS_Exploding;
       }
 }
 
 void GooEgg::RenderGameObject(SDL_Renderer *renderer)
 {
-      if (!isExploding)
+      CalculateRect();
+      switch (animState)
       {
+      case GooEggAnimState::GEAS_Unexploded:
             GameObject::RenderGameObject(renderer);
-      }
-      else
-      {
-            RenderAnimation(renderer, explodeSpriteSheet, 3, rectSize, &explodeAnimIndex, transform.position, true, isFlipped);
-            if (static_cast<int>(explodeAnimIndex) >= 2)
+            break;
+      case GooEggAnimState::GEAS_Exploding:
+            RenderAnimation(renderer, explodingSpriteSheet, 3, rectSize, &explodingAnimIndex, transform.position, true, isFlipped);
+            if (static_cast<int>(explodingAnimIndex) >= 2)
             {
-                  explodeAnimIndex = 0.0;
-                  isExploding = false;
-                  isExploded = true;
-                  imgFilePath = explodedFilePath;
+                  explodingAnimIndex = 0.0;
+                  animState = GooEggAnimState::GEAS_Exploded;
             }
+            break;
+      case GooEggAnimState::GEAS_Exploded:
+            RenderAnimation(renderer, explodedSpriteSheet, 3, rectSize, &explodedAnimIndex, transform.position, false, isFlipped);
+            break;
+      case GooEggAnimState::GEAS_Infecting:
+            RenderAnimation(renderer, infectingSpriteSheet, 3, rectSize, &infectingAnimIndex, transform.position, false, isFlipped);
+            break;
+      case GooEggAnimState::GEAS_Burning:
+            RenderAnimation(renderer, burningSpriteSheet, 3, rectSize, &burningAnimIndex, transform.position, false, isFlipped);
+            break;
+      default:
+            break;
       }
 }

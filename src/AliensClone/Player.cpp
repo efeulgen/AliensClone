@@ -170,6 +170,14 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       }
 }
 
+void Player::CalculateCollider()
+{
+      collider = {static_cast<int>(transform.position.x),
+                  static_cast<int>(transform.position.y),
+                  static_cast<int>((rectSize / 4) * transform.scale.x),
+                  static_cast<int>(rectSize * transform.scale.y)};
+}
+
 void Player::ProcessPlayerInput(double deltaTime)
 {
       const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);

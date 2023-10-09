@@ -28,11 +28,13 @@ protected:
       bool isFlipped = false;
       bool canBeDestroyed = false;
 
+      SDL_Rect collider = {0, 0, 0, 0};
+
 private:
       int gameObjectID;
 
       SDL_Rect rect = {0, 0, 0, 0};
-      SDL_Rect *collisionRect = new SDL_Rect();
+      SDL_Rect *collisionRect = new SDL_Rect;
 
 public:
       GameObject() {}
@@ -81,6 +83,15 @@ public:
                     static_cast<int>(transform.position.y),
                     static_cast<int>(rectSize * transform.scale.x),
                     static_cast<int>(rectSize * transform.scale.y)};
+            CalculateCollider();
+      }
+
+      virtual void CalculateCollider()
+      {
+            collider = {static_cast<int>(transform.position.x),
+                        static_cast<int>(transform.position.y),
+                        static_cast<int>(rectSize * transform.scale.x),
+                        static_cast<int>(rectSize * transform.scale.y)};
       }
 
       virtual void RenderAnimation(SDL_Renderer *renderer, const char *spriteSheet[], int spriteSheetSize, int spriteSize, double *sprtieSheetIndex, glm::vec2 pos, bool playOnce, bool flip = false)
@@ -108,9 +119,9 @@ public:
 
       void CheckCollision(SDL_Rect other, GameObject *otherObj)
       {
-            if (SDL_HasIntersection(&rect, &other))
+            if (SDL_HasIntersection(&collider, &other))
             {
-                  SDL_IntersectRect(&rect, &other, collisionRect);
+                  SDL_IntersectRect(&collider, &other, collisionRect);
                   CollisionCallback(otherObj, collisionRect);
             }
       }
@@ -124,6 +135,7 @@ public:
 
       // *************** getters & setters *********************************************
       SDL_Rect GetRect() const { return rect; }
+
       glm::vec2 GetRectMidTop() const { return glm::vec2(rect.x + (rect.w / 2), rect.y); }
       glm::vec2 GetRectMidBottom() const { return glm::vec2(rect.x + (rect.w / 2), rect.y + rect.h); }
       glm::vec2 GetRectMidLeft() const { return glm::vec2(rect.x, rect.y + (rect.y / 2)); }
