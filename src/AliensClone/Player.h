@@ -52,10 +52,16 @@ private:
 
       // walk anims
       const char **walkAnimSpritesheet;
+      double walkAnimSpeed = 10.0;
+
       double walkAnimIndex = 0.0;
       const char *laserBlasterWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_1.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_2.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_3.png", "./assets/sprites/Player/Walking/PlayerLaserBlaster_walk_4.png"};
       const char *flamethrowerWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerFlamethrower_walk_1.png", "./assets/sprites/Player/Walking/PlayerFlamethrower_walk_2.png", "./assets/sprites/Player/Walking/PlayerFlamethrower_walk_3.png", "./assets/sprites/Player/Walking/PlayerFlamethrower_walk_4.png"};
       const char *trippleShotWalkSpriteSheet[4] = {"./assets/sprites/Player/Walking/PlayerTrippleShot_walk_1.png", "./assets/sprites/Player/Walking/PlayerTrippleShot_walk_2.png", "./assets/sprites/Player/Walking/PlayerTrippleShot_walk_3.png", "./assets/sprites/Player/Walking/PlayerTrippleShot_walk_4.png"};
+
+      const char *laserBlasterInfectedWalkSpriteSheet[4] = {"./assets/sprites/Player/Infected/PlayerLaserBlaster_infected_walk_1.png", "./assets/sprites/Player/Infected/PlayerLaserBlaster_infected_walk_2.png", "./assets/sprites/Player/Infected/PlayerLaserBlaster_infected_walk_3.png", "./assets/sprites/Player/Infected/PlayerLaserBlaster_infected_walk_4.png"};
+      const char *flamethrowerInfectedWalkSpriteSheet[4] = {"./assets/sprites/Player/Infected/PlayerFlamethrower_infected_walk_1.png", "./assets/sprites/Player/Infected/PlayerFlamethrower_infected_walk_2.png", "./assets/sprites/Player/Infected/PlayerFlamethrower_infected_walk_3.png", "./assets/sprites/Player/Infected/PlayerFlamethrower_infected_walk_4.png"};
+      const char *trippleShotInfectedWalkSpriteSheet[4] = {"./assets/sprites/Player/Infected/PlayerTrippleShot_infected_walk_1.png", "./assets/sprites/Player/Infected/PlayerTrippleShot_infected_walk_2.png", "./assets/sprites/Player/Infected/PlayerTrippleShot_infected_walk_3.png", "./assets/sprites/Player/Infected/PlayerTrippleShot_infected_walk_4.png"};
 
       // stats
       int health = 100;
@@ -77,7 +83,7 @@ public:
       void UpdateGameObject(double deltaTime) override;
       void RenderGameObject(SDL_Renderer *renderer) override;
       void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
-      void CalculateCollider() override;
+      void CalculateColliderRect() override;
 
       void ProcessPlayerInput(double deltaTime);
       void MoveForward(double deltaTime);

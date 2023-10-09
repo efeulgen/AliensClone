@@ -37,7 +37,7 @@ void Player::UpdateGameObject(double deltaTime)
 
       if (animState == PlayerAnimState::PAS_Walking)
       {
-            walkAnimIndex += deltaTime * 10;
+            walkAnimIndex += deltaTime * walkAnimSpeed;
       }
 
       // facehug duration
@@ -78,7 +78,25 @@ void Player::UpdateGameObject(double deltaTime)
                   slowDownCounter = 0.0;
                   velocity.x *= 2;
                   velocity.y *= 2;
+                  walkAnimSpeed *= 2;
                   isSlowedDown = false;
+                  switch (weaponMode)
+                  {
+                  case PlayerWeaponMode::PWM_LaserBlaster:
+                        imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
+                        walkAnimSpritesheet = laserBlasterWalkSpriteSheet;
+                        break;
+                  case PlayerWeaponMode::PWM_Flamethrower:
+                        imgFilePath = "./assets/sprites/Player/PlayerFlamethrower.png";
+                        walkAnimSpritesheet = flamethrowerWalkSpriteSheet;
+                        break;
+                  case PlayerWeaponMode::PWM_TrippleShot:
+                        imgFilePath = "./assets/sprites/Player/PlayerTrippleShot.png";
+                        walkAnimSpritesheet = trippleShotWalkSpriteSheet;
+                        break;
+                  default:
+                        break;
+                  }
             }
       }
 
@@ -161,6 +179,7 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       if (otherObj->GetGameObjectTag() == "AmmoPickup")
       {
             currentLevel->GetAudioManager()->PlaySFX(2);
+            std::cout << "Ammo pickup" << std::endl;
       }
       if (otherObj->GetGameObjectTag() == "HealthPickup")
       {
@@ -170,12 +189,13 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       }
 }
 
-void Player::CalculateCollider()
+void Player::CalculateColliderRect()
 {
-      collider = {static_cast<int>(transform.position.x),
-                  static_cast<int>(transform.position.y),
-                  static_cast<int>((rectSize / 4) * transform.scale.x),
-                  static_cast<int>(rectSize * transform.scale.y)};
+      double xPos = isFlipped ? transform.position.x + (rectSize / 2) : transform.position.x;
+      colliderRect = {static_cast<int>(xPos),
+                      static_cast<int>(transform.position.y),
+                      static_cast<int>((rectSize / 2) * transform.scale.x),
+                      static_cast<int>(rectSize * transform.scale.y)};
 }
 
 void Player::ProcessPlayerInput(double deltaTime)
@@ -232,23 +252,23 @@ void Player::ProcessPlayerInput(double deltaTime)
       }
       if (keyboardState[SDL_SCANCODE_1])
       {
-            imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
+            imgFilePath = isSlowedDown ? "./assets/sprites/Player/Infected/PlayerLaserBlaster_infected_walk_1.png" : "./assets/sprites/Player/PlayerLaserBlaster.png";
             weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
-            walkAnimSpritesheet = laserBlasterWalkSpriteSheet;
+            walkAnimSpritesheet = isSlowedDown ? laserBlasterInfectedWalkSpriteSheet : laserBlasterWalkSpriteSheet;
             fireCounter = LASERBLASTER_FIRE_RATE;
       }
       if (keyboardState[SDL_SCANCODE_2])
       {
-            imgFilePath = "./assets/sprites/Player/PlayerFlamethrower.png";
+            imgFilePath = isSlowedDown ? "./assets/sprites/Player/Infected/PlayerFlamethrower_infected_walk_1.png" : "./assets/sprites/Player/PlayerFlamethrower.png";
             weaponMode = PlayerWeaponMode::PWM_Flamethrower;
-            walkAnimSpritesheet = flamethrowerWalkSpriteSheet;
+            walkAnimSpritesheet = isSlowedDown ? flamethrowerInfectedWalkSpriteSheet : flamethrowerWalkSpriteSheet;
             fireCounter = FLAMETHROWER_FIRE_RATE;
       }
       if (keyboardState[SDL_SCANCODE_3])
       {
-            imgFilePath = "./assets/sprites/Player/PlayerTrippleShot.png";
+            imgFilePath = isSlowedDown ? "./assets/sprites/Player/Infected/PlayerTrippleShot_infected_walk_1.png" : "./assets/sprites/Player/PlayerTrippleShot.png";
             weaponMode = PlayerWeaponMode::PWM_TrippleShot;
-            walkAnimSpritesheet = trippleShotWalkSpriteSheet;
+            walkAnimSpritesheet = isSlowedDown ? trippleShotInfectedWalkSpriteSheet : trippleShotWalkSpriteSheet;
             fireCounter = TRIPPLESHOT_FIRE_RATE;
       }
 }
@@ -414,8 +434,27 @@ void Player::SlowDownPlayer()
 {
       if (!isSlowedDown)
       {
+            switch (weaponMode)
+            {
+            case PlayerWeaponMode::PWM_LaserBlaster:
+                  imgFilePath = "./assets/sprites/Player/Infected/PlayerLaserBlaster_infected_walk_1.png";
+                  walkAnimSpritesheet = laserBlasterInfectedWalkSpriteSheet;
+                  break;
+            case PlayerWeaponMode::PWM_Flamethrower:
+                  imgFilePath = "./assets/sprites/Player/Infected/PlayerFlamethrower_infected_walk_1.png";
+                  walkAnimSpritesheet = flamethrowerInfectedWalkSpriteSheet;
+                  break;
+            case PlayerWeaponMode::PWM_TrippleShot:
+                  imgFilePath = "./assets/sprites/Player/Infected/PlayerTrippleShot_infected_walk_1.png";
+                  walkAnimSpritesheet = trippleShotInfectedWalkSpriteSheet;
+                  break;
+            default:
+                  break;
+            }
+
             isSlowedDown = true;
             velocity.x /= 2;
             velocity.y /= 2;
+            walkAnimSpeed /= 2;
       }
 }

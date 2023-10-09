@@ -91,7 +91,7 @@ public:
                         }
                         else
                         {
-                              obj->CheckCollision(collider->GetRect(), collider);
+                              obj->CheckCollision(collider->GetColliderRect(), collider);
                         }
                   }
             }
