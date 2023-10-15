@@ -40,10 +40,37 @@ void Blob::UpdateGameObject(double deltaTime)
             break;
       }
 
+      // sounds
+      if (animState == BlobAnimState::BAS_Blobbing)
+      {
+            if (abs(refToPlayer->GetPosition().x - transform.position.x) < 1000.0)
+            {
+                  refToCurrentLevel->GetAudioManager()->PlaySFX(14);
+            }
+            else
+            {
+                  refToCurrentLevel->GetAudioManager()->StopSFX(14);
+            }
+      }
+
+      // detect player
       if ((abs(refToPlayer->GetPosition().x - transform.position.x) < 100.0) && (animState == BlobAnimState::BAS_Blobbing))
       {
+            refToCurrentLevel->GetAudioManager()->PlaySFX(15);
             animState = BlobAnimState::BAS_Dropping;
-            velocity.y *= 30;
+            velocity = glm::vec2(0, 10);
+      }
+
+      // gravity
+      if (animState == BlobAnimState::BAS_Dropping)
+      {
+            velocity.y += (deltaTime * 3000);
+      }
+
+      // death
+      if (transform.position.y > refToPlayer->GetRectMidBottom().y)
+      {
+            animState = BlobAnimState::BAS_Dissolving;
       }
 
       transform.position.x += velocity.x * deltaTime;
@@ -77,6 +104,7 @@ void Blob::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
       if ((otherObj->GetGameObjectTag() == "Player") && (animState == BlobAnimState::BAS_Dropping))
       {
+            velocity = glm::vec2(0, 0);
             static_cast<Player *>(otherObj)->DamagePlayer(15);
             animState = BlobAnimState::BAS_Dissolving;
       }

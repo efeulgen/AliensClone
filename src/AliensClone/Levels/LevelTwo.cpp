@@ -30,6 +30,13 @@ void LevelTwo::SetupLevelSounds()
       audioManager->AddSFX("./audio/possessed_death.wav");               // 10
       audioManager->AddSFX("./audio/power_up_1.wav");                    // 11
       audioManager->AddSFX("./audio/possessed_hurt.wav");                // 12
+      audioManager->AddSFX("./audio/splat_1.wav");                       // 13
+      audioManager->AddSFX("./audio/slimey_1.wav");                      // 14
+      audioManager->AddSFX("./audio/slug_1.wav");                        // 15
+      audioManager->AddSFX("./audio/slug_2.wav");                        // 16
+
+      Mix_VolumeChunk(audioManager->GetSFX(1).chunk, 100);
+      Mix_VolumeChunk(audioManager->GetSFX(11).chunk, 25);
 }
 
 void LevelTwo::SetupLevel()

@@ -48,9 +48,9 @@ void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
                   else if (spawnObj.gameObjectTag == "Blob")
                   {
                         srand(IncrementSpawnSeed());
-                        double possessedYPos = static_cast<double>((rand() % 100));
+                        double possessedYPos = 50.0 + static_cast<double>((rand() % 100));
 
-                        Blob *newBlob = new Blob(glm::vec2(3000.0, possessedYPos), glm::vec2(0, 20), 128, refToPlayer, refToCurrentLevel);
+                        Blob *newBlob = new Blob(glm::vec2(2000.0, possessedYPos), glm::vec2(-40, 0), 128, refToPlayer, refToCurrentLevel);
                         newBlob->InitGameObject();
                         refToCurrentLevel->InstantiateGameObject(newBlob);
                   }

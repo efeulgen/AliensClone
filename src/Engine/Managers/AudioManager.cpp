@@ -27,8 +27,11 @@ sfx AudioManager::GetSFX(int index)
 
 void AudioManager::PlaySFX(int index)
 {
-      soundEffects[index].channel = Mix_PlayChannel(-1, soundEffects[index].chunk, 0);
-      soundEffects[index].isPlaying = true;
+      if (!soundEffects[index].isPlaying)
+      {
+            soundEffects[index].channel = Mix_PlayChannel(-1, soundEffects[index].chunk, 0);
+            soundEffects[index].isPlaying = true;
+      }
 }
 
 void AudioManager::StopSFX(int index)

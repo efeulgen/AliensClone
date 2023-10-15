@@ -38,6 +38,18 @@ void GooEgg::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       {
             animState = GooEggAnimState::GEAS_Burning;
       }
+      if (otherObj->GetGameObjectTag() == "LaserBlasterProjectile" && (animState == GooEggAnimState::GEAS_Unexploded))
+      {
+            GetDamage(1);
+            otherObj->SetCanBeDestroyed(true);
+            refToLevel->GetAudioManager()->PlaySFX(13);
+      }
+      if (otherObj->GetGameObjectTag() == "TrippleShotProjectile" && (animState == GooEggAnimState::GEAS_Unexploded))
+      {
+            GetDamage(3);
+            otherObj->SetCanBeDestroyed(true);
+            refToLevel->GetAudioManager()->PlaySFX(13);
+      }
 }
 
 void GooEgg::UpdateGameObject(double deltaTime)
@@ -121,5 +133,15 @@ void GooEgg::RenderGameObject(SDL_Renderer *renderer)
             break;
       default:
             break;
+      }
+}
+
+void GooEgg::GetDamage(int amount)
+{
+      health -= amount;
+      if (health <= 0)
+      {
+            refToLevel->GetAudioManager()->PlaySFX(4);
+            animState = GooEggAnimState::GEAS_Exploding;
       }
 }

@@ -25,6 +25,7 @@ private:
       bool canDamagePlayer = true;
       double fireDamageRate = 1.5;
       double fireDamageCounter = 0.0;
+      int health = 3;
 
       // animations
       GooEggAnimState animState;
@@ -51,6 +52,8 @@ public:
       void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
       void UpdateGameObject(double deltaTime) override;
       void RenderGameObject(SDL_Renderer *renderer) override;
+
+      void GetDamage(int amount);
 };
 
 #endif
