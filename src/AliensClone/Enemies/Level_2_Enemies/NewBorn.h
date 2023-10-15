@@ -4,8 +4,8 @@
 
 #include <cstdlib>
 #include "../../../Engine/GameObject.h"
-#include "../../Player.h"
 #include "../../../Engine/Level.h"
+#include "../../Player.h"
 
 enum NewBornAnimState
 {

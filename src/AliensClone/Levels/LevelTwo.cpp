@@ -43,7 +43,8 @@ void LevelTwo::SetupLevel()
       // managers
       spawnManager = new LevelTwoSpawnManager(player, this);
       spawnManager->CreateSpawnObject("NewBorn", 5.0);
-      spawnManager->CreateSpawnObject("Possessed", 4.0);
+      spawnManager->CreateSpawnObject("Possessed", 8.0);
+      spawnManager->CreateSpawnObject("Blob", 7.5);
 
       uiManager = new LevelTwoUIManager(windowWidth, windowHeight, player, refToGameManager);
 

@@ -34,7 +34,7 @@ void GooEgg::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
                   canDamagePlayer = false;
             }
       }
-      if (otherObj->GetGameObjectTag() == "FlamethrowerProjectile" && animState == GooEggAnimState::GEAS_Exploded)
+      if (otherObj->GetGameObjectTag() == "FlamethrowerProjectile" && (animState == GooEggAnimState::GEAS_Exploded || animState == GooEggAnimState::GEAS_Infecting))
       {
             animState = GooEggAnimState::GEAS_Burning;
       }

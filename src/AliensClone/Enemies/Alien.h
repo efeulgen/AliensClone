@@ -38,7 +38,7 @@ private:
       const char *alienWalkingSpritesheet[4] = {"./assets/sprites/Enemies/Alien/AlienWalkAnim/Alien_walk_1.png", "./assets/sprites/Enemies/Alien/AlienWalkAnim/Alien_walk_2.png", "./assets/sprites/Enemies/Alien/AlienWalkAnim/Alien_walk_3.png", "./assets/sprites/Enemies/Alien/AlienWalkAnim/Alien_walk_4.png"};
 
       // stats
-      int health = 100;
+      int health = 70;
 
 public:
       Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef);

@@ -179,7 +179,6 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       if (otherObj->GetGameObjectTag() == "AmmoPickup")
       {
             currentLevel->GetAudioManager()->PlaySFX(2);
-            std::cout << "Ammo pickup" << std::endl;
       }
       if (otherObj->GetGameObjectTag() == "HealthPickup")
       {

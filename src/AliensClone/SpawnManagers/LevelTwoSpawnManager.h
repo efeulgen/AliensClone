@@ -7,6 +7,7 @@
 #include "../Player.h"
 #include "../Enemies/Level_2_Enemies/NewBorn.h"
 #include "../Enemies/Level_2_Enemies/Possessed.h"
+#include "../Enemies/Level_2_Enemies/Blob.h"
 
 class LevelTwoSpawnManager : public SpawnManager
 {

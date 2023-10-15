@@ -34,7 +34,7 @@ void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
                         refToCurrentLevel->InstantiateGameObject(newNewBorn);
                         */
                   }
-                  if (spawnObj.gameObjectTag == "Possessed")
+                  else if (spawnObj.gameObjectTag == "Possessed")
                   {
                         /*
                         srand(IncrementSpawnSeed());
@@ -44,6 +44,15 @@ void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)
                         newPossessed->InitGameObject();
                         refToCurrentLevel->InstantiateGameObject(newPossessed);
                         */
+                  }
+                  else if (spawnObj.gameObjectTag == "Blob")
+                  {
+                        srand(IncrementSpawnSeed());
+                        double possessedYPos = static_cast<double>((rand() % 100));
+
+                        Blob *newBlob = new Blob(glm::vec2(3000.0, possessedYPos), glm::vec2(0, 20), 128, refToPlayer, refToCurrentLevel);
+                        newBlob->InitGameObject();
+                        refToCurrentLevel->InstantiateGameObject(newBlob);
                   }
             }
             else
