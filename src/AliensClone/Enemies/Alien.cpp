@@ -10,10 +10,6 @@ Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : Gam
       imgFilePath = "./assets/sprites/Enemies/Alien/Alien.png";
       gameObjectTag = "Alien";
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(ALIENSPEED, 0.0) : glm::vec2(-ALIENSPEED, 0.0);
-
-      isRenderingBloodSplash = false;
-      bloodSplashAnimIndex = 0.0;
-      hitPos = glm::vec2(0.0, 0.0);
 }
 
 Alien::~Alien()
@@ -34,10 +30,30 @@ void Alien::UpdateGameObject(double deltaTime)
       {
             return;
       }
+      // anims
+      if (isRenderingBloodSplash)
+      {
+            bloodSplashAnimIndex += deltaTime * 10;
+      }
+
+      if (animState == AlienAnimState::AAS_Walking)
+      {
+            walkAnimIndex += deltaTime * 8;
+      }
+      else if (animState == AlienAnimState::AAS_Attacking)
+      {
+            attackingAnimIndex += deltaTime * 8;
+      }
+      else if (animState == AlienAnimState::AAS_Death)
+      {
+            deathAnimIndex += deltaTime * 8;
+            return;
+      }
 
       // follow player
       if (abs(refToPlayer->GetTransform().position.x - transform.position.x) > attackRange)
       {
+            animState = AlienAnimState::AAS_Walking;
             velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(ALIENSPEED, 0.0) : glm::vec2(-ALIENSPEED, 0.0);
             attackCounter = ATTACK_RATE;
       }
@@ -61,17 +77,6 @@ void Alien::UpdateGameObject(double deltaTime)
 
       transform.position.x += velocity.x * deltaTime;
       transform.position.y += velocity.y * deltaTime;
-
-      // anims
-      if (isRenderingBloodSplash)
-      {
-            bloodSplashAnimIndex += deltaTime * 10;
-      }
-
-      if (animState == AlienAnimState::AAS_Walking)
-      {
-            walkAnimIndex += deltaTime * 8;
-      }
 }
 
 void Alien::RenderGameObject(SDL_Renderer *renderer)
@@ -81,6 +86,25 @@ void Alien::RenderGameObject(SDL_Renderer *renderer)
       {
       case AlienAnimState::AAS_Walking:
             RenderAnimation(renderer, alienWalkingSpritesheet, 4, rectSize, &walkAnimIndex, transform.position, false, isFlipped);
+            break;
+      case AlienAnimState::AAS_Attacking:
+            RenderAnimation(renderer, alienAttackingSpritesheet, 5, rectSize, &attackingAnimIndex, transform.position, true, isFlipped);
+            if (static_cast<int>(attackingAnimIndex) >= 4)
+            {
+                  attackingAnimIndex = 0.0;
+                  animState = AlienAnimState::AAS_Idle;
+            }
+            break;
+      case AlienAnimState::AAS_Idle:
+            GameObject::RenderGameObject(renderer);
+            break;
+      case AlienAnimState::AAS_Death:
+            RenderAnimation(renderer, alienDeathSpritesheet, 4, rectSize, &deathAnimIndex, transform.position, true, isFlipped);
+            if (static_cast<int>(deathAnimIndex) >= 3)
+            {
+                  deathAnimIndex = 0.0;
+                  canBeDestroyed = true;
+            }
             break;
       default:
             break;
@@ -110,6 +134,7 @@ void Alien::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 
 void Alien::Attack()
 {
+      animState = AlienAnimState::AAS_Attacking;
       refToPlayer->DamagePlayer(10);
 }
 
@@ -118,7 +143,7 @@ void Alien::GetDamage(int damageAmount)
       health -= damageAmount;
       if (health <= 0)
       {
-            canBeDestroyed = true;
+            animState = AlienAnimState::AAS_Death;
             refToCurrentLevel->GetAudioManager()->PlaySFX(10);
       }
 }

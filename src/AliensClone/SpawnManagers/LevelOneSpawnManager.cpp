@@ -34,15 +34,18 @@ void LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                   }
                   else if (spawnObj.gameObjectTag == "AlienEgg")
                   {
+                        /*
                         srand(IncrementSpawnSeed());
                         double alienEggSpawnOffset = (rand() % 3) == 0 ? 700.0 : -700.0;
 
                         AlienEgg *newAlienEgg = new AlienEgg(glm::vec2(refToPlayer->GetPosition().x + alienEggSpawnOffset, -100.0), glm::vec2(0.0, 375.0), 200, refToCurrentLevel, refToPlayer);
                         newAlienEgg->InitGameObject();
                         refToCurrentLevel->InstantiateGameObject(newAlienEgg);
+                        */
                   }
                   else if (spawnObj.gameObjectTag == "Facehugger")
                   {
+                        /*
                         srand(IncrementSpawnSeed());
                         double huggerYPos = 550.0 + static_cast<double>((rand() % 200));
                         int spawnHuggerAmount = (rand() % 3) + 1;
@@ -53,6 +56,7 @@ void LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)
                               newFacehugger->InitGameObject();
                               refToCurrentLevel->InstantiateGameObject(newFacehugger);
                         }
+                        */
                   }
             }
             else
