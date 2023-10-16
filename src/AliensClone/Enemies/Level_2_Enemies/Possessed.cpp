@@ -117,7 +117,7 @@ void Possessed::Attack()
 {
       if (isDead)
             return;
-      refToPlayer->DamagePlayer(40);
+      refToPlayer->DamagePlayer(30);
 }
 
 void Possessed::GetDamage(int amount)

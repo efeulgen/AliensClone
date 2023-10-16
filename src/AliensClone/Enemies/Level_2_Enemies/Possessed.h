@@ -28,7 +28,7 @@ private:
       double possessedSpeed = 100.0;
 
       // stats
-      int health = 280;
+      int health = 210;
       bool isDead = false;
 
       // animations
