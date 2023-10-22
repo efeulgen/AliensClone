@@ -5,9 +5,9 @@ LevelTwo::LevelTwo(int index, int w, int h, int len, GameManager *gManager, bool
 {
       Logger::Logg("LevelTwo Constructor");
 
-      levelBackgroundPath_1 = "./assets/sprites/Background_2.png";
-      levelBackgroundPath_2 = "./assets/sprites/Background_2.png";
-      levelBackgroundPath_3 = "./assets/sprites/Background_2.png";
+      levelBackgroundPath_1 = "./assets/sprites/Background_2_1.png";
+      levelBackgroundPath_2 = "./assets/sprites/Background_2_2.png";
+      levelBackgroundPath_3 = "./assets/sprites/Background_2_1.png";
 }
 
 LevelTwo::~LevelTwo()
@@ -74,10 +74,15 @@ void LevelTwo::SetupLevel()
       InstantiateGameObject(new Pickup(glm::vec2(2800, 650), 128, PickupType::PT_TrippleShotAmmoPickup));
 
       // machinegun possessed
-      InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0, 150), 256, player, this));
-      // InstantiateGameObject(new MachinegunPossessed(glm::vec2(2400.0, 150), 256, player, this));
-      // InstantiateGameObject(new MachinegunPossessed(glm::vec2(2800.0, 150), 256, player, this));
-      // InstantiateGameObject(new MachinegunPossessed(glm::vec2(3200.0, 150), 256, player, this));
+      for (int i = 1; i < 4; i++)
+      {
+            if (i % 2 != 0)
+            {
+                  InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i, 150), 256, player, this));
+                  InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i + 400, 150), 256, player, this));
+                  InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i + 800, 150), 256, player, this));
+            }
+      }
 
       // obstacles
       for (int i = 1; i < 8; i++)

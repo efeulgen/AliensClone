@@ -5,7 +5,6 @@ MachinegunPossessed::MachinegunPossessed(glm::vec2 pos, int rSize, Player *p, Le
 {
       Logger::Logg("MachinegunPossessed Constructor");
 
-      imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid.png"; // for debug
       gameObjectTag = "MachinegunPossessed";
 }
 
@@ -29,6 +28,20 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
             return;
       }
 
+      switch (animState)
+      {
+      case MachinegunPossessedAnimState::MPAS_Searching:
+            searchingAnimIndex += deltaTime * 2;
+            break;
+      case MachinegunPossessedAnimState::MPAS_Firing:
+            firingAnimIndex += deltaTime * 8;
+            break;
+      case MachinegunPossessedAnimState::MPAS_Death:
+            deathAnimIndex += deltaTime * 8;
+            break;
+      default:
+            break;
+      }
       if (isRenderingMuzzleFlash)
       {
             muzzleFlashAnimIndex += deltaTime * 10;
@@ -36,7 +49,7 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
 
       // detect player
       double distanceFromPlayer = abs(refToPlayer->GetPosition().x - transform.position.x);
-      if (distanceFromPlayer < 700.0 && animState != MachinegunPossessedAnimState::MPAS_Death)
+      if (distanceFromPlayer < 600.0 && animState != MachinegunPossessedAnimState::MPAS_Death)
       {
             animState = MachinegunPossessedAnimState::MPAS_Firing;
 
@@ -49,27 +62,27 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
 
             if (distanceFromPlayer < 150.0)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid.png"; // for debug : add fire anim
+                  firingSpriteSheet = midFiringSpriteSheet;
                   fireOffset = glm::vec2(65.0, 190.0);
             }
             else if (refToPlayer->GetPosition().x < transform.position.x && distanceFromPlayer < 350.0)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid_left.png"; // for debug : add fire anim
+                  firingSpriteSheet = midLeftFiringSpriteSheet;
                   fireOffset = glm::vec2(30.0, 175.0);
             }
             else if (refToPlayer->GetPosition().x > transform.position.x && distanceFromPlayer < 350.0)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid_right.png"; // for debug : add fire anim
+                  firingSpriteSheet = midRightFiringSpriteSheet;
                   fireOffset = glm::vec2(160.0, 160.0);
             }
             else if (refToPlayer->GetPosition().x < transform.position.x)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_left.png"; // for debug : add fire anim
+                  firingSpriteSheet = leftFiringSpriteSheet;
                   fireOffset = glm::vec2(-10.0, 130.0);
             }
             else if (refToPlayer->GetPosition().x > transform.position.x)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_right.png"; // for debug : add fire anim
+                  firingSpriteSheet = rightFiringSpriteSheet;
                   fireOffset = glm::vec2(200.0, 125.0);
             }
       }
@@ -81,15 +94,13 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
 
 void MachinegunPossessed::RenderGameObject(SDL_Renderer *renderer)
 {
-      GameObject::RenderGameObject(renderer); // for debug
-
       switch (animState)
       {
       case MachinegunPossessedAnimState::MPAS_Searching:
-            // Render searching anim
+            RenderAnimation(renderer, searchingSpriteSheet, 8, rectSize, &searchingAnimIndex, transform.position, false, isFlipped);
             break;
       case MachinegunPossessedAnimState::MPAS_Firing:
-            // Render firing anim
+            RenderAnimation(renderer, firingSpriteSheet, 3, rectSize, &firingAnimIndex, transform.position, false, isFlipped);
             break;
       case MachinegunPossessedAnimState::MPAS_Death:
             // Render death anim
