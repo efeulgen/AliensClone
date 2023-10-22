@@ -29,6 +29,11 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
             return;
       }
 
+      if (isRenderingMuzzleFlash)
+      {
+            muzzleFlashAnimIndex += deltaTime * 10;
+      }
+
       // detect player
       double distanceFromPlayer = abs(refToPlayer->GetPosition().x - transform.position.x);
       if (distanceFromPlayer < 700.0 && animState != MachinegunPossessedAnimState::MPAS_Death)
@@ -42,17 +47,30 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
                   fireCounter = FIRE_RATE;
             }
 
-            if (distanceFromPlayer < 250.0)
+            if (distanceFromPlayer < 150.0)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid.png"; // for debug
+                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid.png"; // for debug : add fire anim
+                  fireOffset = glm::vec2(65.0, 190.0);
+            }
+            else if (refToPlayer->GetPosition().x < transform.position.x && distanceFromPlayer < 350.0)
+            {
+                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid_left.png"; // for debug : add fire anim
+                  fireOffset = glm::vec2(30.0, 175.0);
+            }
+            else if (refToPlayer->GetPosition().x > transform.position.x && distanceFromPlayer < 350.0)
+            {
+                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_mid_right.png"; // for debug : add fire anim
+                  fireOffset = glm::vec2(160.0, 160.0);
             }
             else if (refToPlayer->GetPosition().x < transform.position.x)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_left.png"; // for debug
+                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_left.png"; // for debug : add fire anim
+                  fireOffset = glm::vec2(-10.0, 130.0);
             }
             else if (refToPlayer->GetPosition().x > transform.position.x)
             {
-                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_right.png"; // for debug
+                  imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MachinegunPossessed_right.png"; // for debug : add fire anim
+                  fireOffset = glm::vec2(200.0, 125.0);
             }
       }
       else
@@ -79,6 +97,15 @@ void MachinegunPossessed::RenderGameObject(SDL_Renderer *renderer)
       default:
             break;
       }
+      if (isRenderingMuzzleFlash)
+      {
+            RenderAnimation(renderer, muzzleFlashSpritesheet, 3, muzzleFlashRectSize, &muzzleFlashAnimIndex, transform.position + fireOffset, true, false);
+            if (static_cast<int>(muzzleFlashAnimIndex) >= 2)
+            {
+                  muzzleFlashAnimIndex = 0.0;
+                  isRenderingMuzzleFlash = false;
+            }
+      }
 }
 
 void MachinegunPossessed::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
@@ -101,9 +128,10 @@ void MachinegunPossessed::GetDamage(double amount)
 
 void MachinegunPossessed::Fire()
 {
-      glm::vec2 initPoint = transform.position;
-      glm::vec2 initVelocity = glm::normalize(refToPlayer->GetRectMidTop() - initPoint);
-      initVelocity.x *= 500.0;
-      initVelocity.y *= 500.0;
-      refToCurrentLevel->InstantiateGameObject(new MPossessedProjectile(initPoint, initVelocity, 12, refToPlayer));
+      glm::vec2 firePos = transform.position + fireOffset + glm::vec2(muzzleFlashRectSize / 2, muzzleFlashRectSize / 2);
+      glm::vec2 initVelocity = glm::normalize(refToPlayer->GetRectMidTop() - firePos);
+      initVelocity.x *= 700.0;
+      initVelocity.y *= 700.0;
+      refToCurrentLevel->InstantiateGameObject(new MPossessedProjectile(firePos, initVelocity, 12, refToPlayer));
+      isRenderingMuzzleFlash = true;
 }

@@ -3,7 +3,7 @@
 
 MPossessedProjectile::MPossessedProjectile(glm::vec2 pos, glm::vec2 vel, int rSize, Player *p) : GameObject(pos, vel, rSize), refToPlayer{p}
 {
-      Logger::Logg("MachinegunPossessedProjectile Constructor");
+      // Logger::Logg("MachinegunPossessedProjectile Constructor");
 
       imgFilePath = "./assets/sprites/Enemies/MachinegunPossessed/MPossessedProj.png";
       gameObjectTag = "MPossessedProjectile";
@@ -11,7 +11,7 @@ MPossessedProjectile::MPossessedProjectile(glm::vec2 pos, glm::vec2 vel, int rSi
 
 MPossessedProjectile::~MPossessedProjectile()
 {
-      Logger::Logg("MachinegunPossessedProjectile Destructor");
+      // Logger::Logg("MachinegunPossessedProjectile Destructor");
 }
 
 void MPossessedProjectile::InitGameObject()

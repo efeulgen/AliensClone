@@ -24,9 +24,15 @@ private:
 
       int health = 90;
       double fireCounter = 0.0;
+      glm::vec2 fireOffset = glm::vec2(0.0, 0.0);
+      int muzzleFlashRectSize = 64;
 
       // animations
       MachinegunPossessedAnimState animState;
+
+      bool isRenderingMuzzleFlash = false;
+      double muzzleFlashAnimIndex = 0.0;
+      const char *muzzleFlashSpritesheet[3] = {"./assets/sprites/FX/MuzzleFlash/MuzzleFlash_1.png", "./assets/sprites/FX/MuzzleFlash/MuzzleFlash_2.png", "./assets/sprites/FX/MuzzleFlash/MuzzleFlash_3.png"};
 
 public:
       MachinegunPossessed(glm::vec2 pos, int rSize, Player *p, Level *l);

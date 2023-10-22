@@ -74,7 +74,10 @@ void LevelTwo::SetupLevel()
       InstantiateGameObject(new Pickup(glm::vec2(2800, 650), 128, PickupType::PT_TrippleShotAmmoPickup));
 
       // machinegun possessed
-      InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0, 250), 256, player, this));
+      InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0, 150), 256, player, this));
+      // InstantiateGameObject(new MachinegunPossessed(glm::vec2(2400.0, 150), 256, player, this));
+      // InstantiateGameObject(new MachinegunPossessed(glm::vec2(2800.0, 150), 256, player, this));
+      // InstantiateGameObject(new MachinegunPossessed(glm::vec2(3200.0, 150), 256, player, this));
 
       // obstacles
       for (int i = 1; i < 8; i++)

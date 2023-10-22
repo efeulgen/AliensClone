@@ -48,7 +48,7 @@ private:
       // muzzle flash anim
       bool isRenderingMuzzleFlash = false;
       double muzzleFlashAnimIndex = 0.0;
-      const char *muzzleFlashSpritesheet[3] = {"./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_1.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_2.png", "./assets/sprites/Player/MuzzleFlash/PlayerMuzzleFlash_3.png"};
+      const char *muzzleFlashSpritesheet[3] = {"./assets/sprites/FX/MuzzleFlash/MuzzleFlash_1.png", "./assets/sprites/FX/MuzzleFlash/MuzzleFlash_2.png", "./assets/sprites/FX/MuzzleFlash/MuzzleFlash_3.png"};
 
       // walk anims
       const char **walkAnimSpritesheet;

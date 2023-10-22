@@ -17,7 +17,7 @@ private:
       // explosion animation
       bool isRenderingExplosion = false;
       double explosionAnimIndex = 0.0;
-      const char *explosionSpriteSheet[4] = {"./assets/sprites/Explosion/Explosion_1.png", "./assets/sprites/Explosion/Explosion_2.png", "./assets/sprites/Explosion/Explosion_3.png", "./assets/sprites/Explosion/Explosion_4.png"};
+      const char *explosionSpriteSheet[4] = {"./assets/sprites/FX/Explosion/Explosion_1.png", "./assets/sprites/FX/Explosion/Explosion_2.png", "./assets/sprites/FX/Explosion/Explosion_3.png", "./assets/sprites/FX/Explosion/Explosion_4.png"};
 
 public:
       Mine(glm::vec2 pos, int rSize, Level *refToLev);
