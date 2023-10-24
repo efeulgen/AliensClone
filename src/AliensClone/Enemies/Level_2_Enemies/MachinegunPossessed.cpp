@@ -103,7 +103,7 @@ void MachinegunPossessed::RenderGameObject(SDL_Renderer *renderer)
             RenderAnimation(renderer, firingSpriteSheet, 3, rectSize, &firingAnimIndex, transform.position, false, isFlipped);
             break;
       case MachinegunPossessedAnimState::MPAS_Death:
-            // Render death anim
+            // Render death animation
             break;
       default:
             break;

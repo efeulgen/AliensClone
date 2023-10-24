@@ -42,6 +42,7 @@ private:
       const char *leftFiringSpriteSheet[3] = {"./assets/sprites/Enemies/MachinegunPossessed/Firing/MachinegunPossessed_leftFiring_1.png", "./assets/sprites/Enemies/MachinegunPossessed/Firing/MachinegunPossessed_leftFiring_2.png", "./assets/sprites/Enemies/MachinegunPossessed/Firing/MachinegunPossessed_leftFiring_3.png"};
 
       double deathAnimIndex = 0.0;
+      const char **deathSpriteSheet;
 
       bool isRenderingMuzzleFlash = false;
       double muzzleFlashAnimIndex = 0.0;

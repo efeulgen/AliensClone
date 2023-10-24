@@ -13,54 +13,67 @@ LevelManager::~LevelManager()
 
 void LevelManager::LoadNextLevel()
 {
-      levels[activeLevelIndex]->ClearLevelGameObjects();
-      levels[activeLevelIndex]->ClearLevelManagers();
+      currentLevel->level->ClearLevelGameObjects();
+      currentLevel->level->ClearLevelManagers();
 
-      activeLevelIndex++;
-      levels[activeLevelIndex]->SetupLevel();
+      currentLevel = currentLevel->nextLevel;
+      currentLevel->level->SetupLevel();
 }
 
 void LevelManager::LoadMainMenu()
 {
-      levels[activeLevelIndex]->ClearLevelGameObjects();
-      levels[activeLevelIndex]->ClearLevelManagers();
-      for (auto level : levels)
+      currentLevel->level->ClearLevelGameObjects();
+      currentLevel->level->ClearLevelManagers();
+
+      LevelNode *temp = firstLevel;
+      while (temp)
       {
-            level->SetIsLevelComplete(false);
+            temp->level->SetIsLevelComplete(false);
+            temp = temp->nextLevel;
       }
 
-      activeLevelIndex = 0;
-      levels[activeLevelIndex]->SetupLevel();
+      currentLevel = firstLevel;
+      firstLevel->level->SetupLevel();
 }
 
 void LevelManager::RestartLevel()
 {
-      levels[activeLevelIndex]->ClearLevelGameObjects();
-      levels[activeLevelIndex]->ClearLevelManagers();
-      levels[activeLevelIndex]->SetupLevel();
+      currentLevel->level->ClearLevelGameObjects();
+      currentLevel->level->ClearLevelManagers();
+      currentLevel->level->SetupLevel();
 }
 
 void LevelManager::AddLevel(Level *level)
 {
-      levels.push_back(level);
+      LevelNode *newLevel = new LevelNode;
+      newLevel->level = level;
+      newLevel->nextLevel = nullptr;
+
+      if (firstLevel == nullptr)
+      {
+            firstLevel = lastLevel = currentLevel = newLevel;
+      }
+      else
+      {
+            lastLevel->nextLevel = newLevel;
+            lastLevel = newLevel;
+      }
 }
 
 void LevelManager::ClearLevels()
 {
-      if (!levels.empty())
+      LevelNode *temp = firstLevel;
+      while (temp)
       {
-            for (auto level : levels)
+            if (!temp->level->GetIsLevelGameObjectListIsClear())
             {
-                  if (!level)
-                        continue;
-                  if (!level->GetIsLevelGameObjectListIsClear())
-                  {
-                        level->ClearLevelGameObjects();
-                  }
-                  level->ClearLevelManagers();
-                  delete level;
-                  level = nullptr;
+                  temp->level->ClearLevelGameObjects();
             }
-            levels.clear();
+            temp->level->ClearLevelManagers();
+            delete temp->level;
+            temp->level = nullptr;
+
+            temp = temp->nextLevel;
       }
+      firstLevel = lastLevel = currentLevel = nullptr;
 }

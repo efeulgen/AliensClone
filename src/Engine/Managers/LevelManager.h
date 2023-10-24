@@ -7,11 +7,18 @@
 #include "../Logger/Logger.h"
 #include "../Level.h"
 
+struct LevelNode
+{
+      Level *level;
+      LevelNode *nextLevel;
+};
+
 class LevelManager
 {
 private:
-      std::vector<Level *> levels;
-      int activeLevelIndex = 0;
+      LevelNode *firstLevel = nullptr;
+      LevelNode *lastLevel = nullptr;
+      LevelNode *currentLevel = nullptr;
 
 public:
       LevelManager();
@@ -23,9 +30,9 @@ public:
       void AddLevel(Level *level);
       void ClearLevels();
 
-      // getters & setters
-      int GetActiveLevelIndex() const { return activeLevelIndex; }
-      Level *GetCurrentLevel() const { return levels[activeLevelIndex]; }
+      // *************** getters & setters ******************************
+      int GetActiveLevelIndex() const { return currentLevel->level->GetLevelIndex(); }
+      Level *GetCurrentLevel() const { return currentLevel->level; }
 };
 
 #endif
