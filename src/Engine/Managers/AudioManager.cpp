@@ -3,12 +3,12 @@
 
 AudioManager::AudioManager()
 {
-      Logger::Logg("AudioManager Constructor");
+      Logger::Log("AudioManager Constructor");
 }
 
 AudioManager::~AudioManager()
 {
-      Logger::Logg("AudioManager Destructor");
+      Logger::Log("AudioManager Destructor");
 
       ClearSoundEffects();
 }

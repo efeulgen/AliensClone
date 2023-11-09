@@ -3,7 +3,7 @@
 
 LevelOne::LevelOne(int index, int w, int h, int len, GameManager *gManager, bool isFinal) : Level(index, w, h, len, gManager, isFinal)
 {
-      Logger::Logg("LevelOne Constructor");
+      Logger::Log("LevelOne Constructor");
 
       levelBackgroundPath_1 = "./assets/sprites/Background_1_1.png";
       levelBackgroundPath_2 = "./assets/sprites/Background_1_2.png";
@@ -12,7 +12,7 @@ LevelOne::LevelOne(int index, int w, int h, int len, GameManager *gManager, bool
 
 LevelOne::~LevelOne()
 {
-      Logger::Logg("LevelOne Destructor");
+      Logger::Log("LevelOne Destructor");
 }
 
 void LevelOne::SetupLevelSounds()

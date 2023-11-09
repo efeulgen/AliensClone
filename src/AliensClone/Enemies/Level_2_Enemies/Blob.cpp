@@ -3,7 +3,7 @@
 
 Blob::Blob(glm::vec2 pos, glm::vec2 vel, int rSize, Player *p, Level *l) : GameObject(pos, vel, rSize), refToPlayer{p}, refToCurrentLevel{l}
 {
-      Logger::Logg("Blob Constructor");
+      Logger::Log("Blob Constructor");
 
       imgFilePath = "./assets/sprites/Enemies/Blob/Blob.png";
       gameObjectTag = "Blob";
@@ -12,7 +12,7 @@ Blob::Blob(glm::vec2 pos, glm::vec2 vel, int rSize, Player *p, Level *l) : GameO
 
 Blob::~Blob()
 {
-      Logger::Logg("Blob Destructor");
+      Logger::Log("Blob Destructor");
 
       refToPlayer = nullptr;
       refToCurrentLevel = nullptr;

@@ -3,12 +3,12 @@
 
 MainMenu::MainMenu(int index, int w, int h, int len, GameManager *gManager, bool isFinal) : Level(index, w, h, len, gManager, isFinal)
 {
-      Logger::Logg("MainMenu Constructor");
+      Logger::Log("MainMenu Constructor");
 }
 
 MainMenu::~MainMenu()
 {
-      Logger::Logg("MainMenu Destructor");
+      Logger::Log("MainMenu Destructor");
 }
 
 void MainMenu::SetupLevelSounds()

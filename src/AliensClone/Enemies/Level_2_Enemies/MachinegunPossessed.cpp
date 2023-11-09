@@ -3,14 +3,14 @@
 
 MachinegunPossessed::MachinegunPossessed(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, rSize), refToPlayer{p}, refToCurrentLevel{l}
 {
-      Logger::Logg("MachinegunPossessed Constructor");
+      Logger::Log("MachinegunPossessed Constructor");
 
       gameObjectTag = "MachinegunPossessed";
 }
 
 MachinegunPossessed::~MachinegunPossessed()
 {
-      Logger::Logg("MachinegunPossessed Destrcutor");
+      Logger::Log("MachinegunPossessed Destrcutor");
 
       refToPlayer = nullptr;
       refToCurrentLevel = nullptr;

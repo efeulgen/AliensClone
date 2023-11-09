@@ -3,12 +3,12 @@
 
 LevelOneSpawnManager::LevelOneSpawnManager(Player *player, Level *level) : refToPlayer{player}, refToCurrentLevel{level}
 {
-      Logger::Logg("LevelOneSpawnManager Constructor");
+      Logger::Log("LevelOneSpawnManager Constructor");
 }
 
 LevelOneSpawnManager::~LevelOneSpawnManager()
 {
-      Logger::Logg("LevelOneSpawnManager Destructor");
+      Logger::Log("LevelOneSpawnManager Destructor");
 }
 
 void LevelOneSpawnManager::UpdateSpawnManager(double deltaTime)

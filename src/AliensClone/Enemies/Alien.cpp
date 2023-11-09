@@ -3,7 +3,7 @@
 
 Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : GameObject(pos, rSize), refToPlayer{playerRef}, refToCurrentLevel{levelRef}
 {
-      Logger::Logg("Alien Constructor");
+      Logger::Log("Alien Constructor");
 
       animState = AlienAnimState::AAS_Walking;
 
@@ -14,7 +14,7 @@ Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : Gam
 
 Alien::~Alien()
 {
-      Logger::Logg("Alien Destructor");
+      Logger::Log("Alien Destructor");
 
       refToPlayer = nullptr;
       refToCurrentLevel = nullptr;

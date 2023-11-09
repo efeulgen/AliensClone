@@ -3,7 +3,7 @@
 
 NewBorn::NewBorn(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, rSize), refToPlayer{p}, refToLevel{l}
 {
-      Logger::Logg("NewBorn Constructor");
+      Logger::Log("NewBorn Constructor");
 
       imgFilePath = "./assets/sprites/Enemies/NewBorn/NewBorn_1.png";
       gameObjectTag = "NewBorn";
@@ -13,7 +13,7 @@ NewBorn::NewBorn(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos
 
 NewBorn::~NewBorn()
 {
-      Logger::Logg("NewBorn Destructor");
+      Logger::Log("NewBorn Destructor");
 }
 
 void NewBorn::InitGameObject()

@@ -3,7 +3,7 @@
 
 Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int h) : GameObject(pos, vel, rSize), currentLevel{level}, windowWidth{w}, windowHeight{h}
 {
-      Logger::Logg("Player Constructor");
+      Logger::Log("Player Constructor");
 
       imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
       gameObjectTag = "Player";
@@ -18,7 +18,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
 
 Player::~Player()
 {
-      Logger::Logg("Player Destructor");
+      Logger::Log("Player Destructor");
 
       currentLevel = nullptr;
 }
@@ -126,14 +126,30 @@ void Player::UpdateGameObject(double deltaTime)
             }
       }
       // bound checking
-      if (transform.position.y < windowHeight / 2)
+      isOnGroundLevel = transform.position.y + rectSize < windowHeight / upperLevelLowerLimitRatio ? false : true;
+      if (isOnGroundLevel && !canClimb)
       {
-            transform.position.y = windowHeight / 2;
+            if (transform.position.y < windowHeight / groundLevelUpperLimitRatio)
+            {
+                  transform.position.y = windowHeight / groundLevelUpperLimitRatio;
+            }
+            if (transform.position.y > windowHeight - rectSize)
+            {
+                  transform.position.y = windowHeight - rectSize;
+            }
       }
-      if (transform.position.y > windowHeight - rectSize)
+      else if (!isOnGroundLevel && !canClimb)
       {
-            transform.position.y = windowHeight - rectSize;
+            if (transform.position.y < windowHeight / upperLevelUpperLimitRatio)
+            {
+                  transform.position.y = windowHeight / upperLevelUpperLimitRatio;
+            }
+            if (transform.position.y > windowHeight / upperLevelLowerLimitRatio)
+            {
+                  transform.position.y = windowHeight / upperLevelLowerLimitRatio;
+            }
       }
+
       if (transform.position.x < 0)
       {
             transform.position.x = 0;
@@ -180,12 +196,25 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       {
             currentLevel->GetAudioManager()->PlaySFX(2);
       }
+
       if (otherObj->GetGameObjectTag() == "HealthPickup")
       {
             if (health == 100)
                   return;
             currentLevel->GetAudioManager()->PlaySFX(11);
       }
+
+      if (otherObj->GetGameObjectTag() == "Ladder")
+      {
+            canClimb = true;
+            std::cout << "Can climb." << std::endl;
+      }
+}
+
+void Player::CollisionExitCallback()
+{
+      canClimb = false;
+      std::cout << "Cannot climb." << std::endl;
 }
 
 void Player::CalculateColliderRect()

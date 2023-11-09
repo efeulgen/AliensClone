@@ -3,12 +3,12 @@
 
 LevelManager::LevelManager()
 {
-      Logger::Logg("LevelManager Constructor");
+      Logger::Log("LevelManager Constructor");
 }
 
 LevelManager::~LevelManager()
 {
-      Logger::Logg("LevelManager Destructor");
+      Logger::Log("LevelManager Destructor");
 }
 
 void LevelManager::LoadNextLevel()
@@ -73,7 +73,12 @@ void LevelManager::ClearLevels()
             delete temp->level;
             temp->level = nullptr;
 
+            LevelNode *p = temp;
             temp = temp->nextLevel;
+            delete p;
+            p = nullptr;
       }
-      firstLevel = lastLevel = currentLevel = nullptr;
+      firstLevel = nullptr;
+      lastLevel = nullptr;
+      currentLevel = nullptr;
 }

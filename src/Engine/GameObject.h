@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include "Logger/Logger.h"
 #include "Managers/AudioManager.h"
+#include "CollisionStack.h"
 
 struct Transform
 {
@@ -29,6 +30,8 @@ protected:
       bool canBeDestroyed = false;
 
       SDL_Rect colliderRect = {0, 0, 0, 0};
+
+      CollisionStack collisionStack;
 
 private:
       int gameObjectID;
@@ -55,9 +58,10 @@ public:
             delete collisionRect;
       }
 
-      virtual void InitGameObject() {}                                           // = 0;
-      virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) {} //  = 0;
-      virtual void UpdateGameObject(double deltaTime) {}                         // = 0;
+      virtual void InitGameObject() {}
+      virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) {}
+      virtual void CollisionExitCallback() {}
+      virtual void UpdateGameObject(double deltaTime) {}
 
       virtual void RenderGameObject(SDL_Renderer *renderer)
       {
@@ -123,6 +127,17 @@ public:
             {
                   SDL_IntersectRect(&colliderRect, &other, collisionRect);
                   CollisionCallback(otherObj, collisionRect);
+
+                  if (!collisionStack.FindCollisionObjectWithTag(otherObj->GetGameObjectTag()))
+                  {
+                        collisionStack.AddCollisionObject(otherObj->GetGameObjectTag());
+                  }
+            }
+
+            if (!SDL_HasIntersection(&colliderRect, &other) && collisionStack.FindCollisionObjectWithTag(otherObj->GetGameObjectTag()))
+            {
+                  CollisionExitCallback();
+                  collisionStack.DeleteCollisionObject(otherObj->GetGameObjectTag());
             }
       }
 

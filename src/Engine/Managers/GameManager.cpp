@@ -3,7 +3,7 @@
 
 GameManager::GameManager()
 {
-    Logger::Logg("GameManager Constructor");
+    Logger::Log("GameManager Constructor");
 
     isRunning = false;
     isGameStarted = false;
@@ -13,5 +13,5 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-    Logger::Logg("GameManager Destructor");
+    Logger::Log("GameManager Destructor");
 }

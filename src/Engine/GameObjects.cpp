@@ -3,12 +3,12 @@
 
 GameObjects::GameObjects()
 {
-      Logger::Logg("GameObjects ADT Constructor");
+      Logger::Log("GameObjects ADT Constructor");
 }
 
 GameObjects::~GameObjects()
 {
-      Logger::Logg("GameObjects ADT Destructor");
+      Logger::Log("GameObjects ADT Destructor");
 }
 
 // **********************************************************************************************************************************************************************************************

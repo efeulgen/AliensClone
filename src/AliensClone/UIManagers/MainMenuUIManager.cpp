@@ -3,12 +3,12 @@
 
 MainMenuUIManager::MainMenuUIManager(int w, int h) : UIManager(w, h)
 {
-      Logger::Logg("MainMenuUIManager Constructor");
+      Logger::Log("MainMenuUIManager Constructor");
 }
 
 MainMenuUIManager::~MainMenuUIManager()
 {
-      Logger::Logg("MainMenuUIManager Destructor");
+      Logger::Log("MainMenuUIManager Destructor");
 }
 
 void MainMenuUIManager::RenderUI(SDL_Renderer *renderer)

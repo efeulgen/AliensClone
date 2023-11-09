@@ -3,7 +3,7 @@
 
 Facehugger::Facehugger(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, rSize), refToPlayer{p}, refToCurrentLevel{l}
 {
-      Logger::Logg("Facehugger Constructor");
+      Logger::Log("Facehugger Constructor");
 
       gameObjectTag = "Facehugger";
 
@@ -12,7 +12,7 @@ Facehugger::Facehugger(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObje
 
 Facehugger::~Facehugger()
 {
-      Logger::Logg("Facehugger Destructor");
+      Logger::Log("Facehugger Destructor");
 
       refToPlayer = nullptr;
       refToCurrentLevel = nullptr;

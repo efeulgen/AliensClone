@@ -3,7 +3,7 @@
 
 Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t, bool flip) : GameObject(pos, vel, rSize), type{t}
 {
-      // Logger::Logg("Projectile Constructor");
+      // Logger::Log("Projectile Constructor");
 
       isFlipped = flip;
 
@@ -31,7 +31,7 @@ Projectile::Projectile(glm::vec2 pos, glm::vec2 vel, int rSize, ProjectileType t
 
 Projectile::~Projectile()
 {
-      // Logger::Logg("Projectile Destructor");
+      // Logger::Log("Projectile Destructor");
 }
 
 void Projectile::InitGameObject()

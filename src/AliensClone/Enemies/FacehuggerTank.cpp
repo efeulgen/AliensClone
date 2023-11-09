@@ -3,7 +3,7 @@
 
 FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, int imgPathSeed, Player *player, Level *level) : GameObject(pos, rSize), refToPlayer{player}, refToLevel{level}
 {
-      Logger::Logg("FacehuggerTank Constructor");
+      Logger::Log("FacehuggerTank Constructor");
 
       srand(imgPathSeed);
       int randomNum = rand() % 3;
@@ -26,7 +26,7 @@ FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, int imgPathSeed, Player
 
 FacehuggerTank::~FacehuggerTank()
 {
-      Logger::Logg("FacehuggerTank Destructor");
+      Logger::Log("FacehuggerTank Destructor");
 
       refToPlayer = nullptr;
       refToLevel = nullptr;

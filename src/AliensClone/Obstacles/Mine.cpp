@@ -3,7 +3,7 @@
 
 Mine::Mine(glm::vec2 pos, int rSize, Level *refToLev) : GameObject(pos, rSize), refToCurrentLevel{refToLev}
 {
-      Logger::Logg("Mine Constructor");
+      Logger::Log("Mine Constructor");
 
       imgFilePath = "./assets/sprites/Obstacles/Mine.png";
       gameObjectTag = "Mine";
@@ -11,7 +11,7 @@ Mine::Mine(glm::vec2 pos, int rSize, Level *refToLev) : GameObject(pos, rSize), 
 
 Mine::~Mine()
 {
-      Logger::Logg("Mine Destructor");
+      Logger::Log("Mine Destructor");
 
       refToCurrentLevel = nullptr;
 }

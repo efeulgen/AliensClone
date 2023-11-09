@@ -3,12 +3,12 @@
 
 Game::Game()
 {
-      Logger::Logg("Game Constructor");
+      Logger::Log("Game Constructor");
 }
 
 Game::~Game()
 {
-      Logger::Logg("Game Destructor");
+      Logger::Log("Game Destructor");
 }
 
 void Game::Init()

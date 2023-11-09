@@ -3,12 +3,12 @@
 
 LevelThreeSpawnManager::LevelThreeSpawnManager()
 {
-      Logger::Logg("LevelThreeSpawnManager Constructor");
+      Logger::Log("LevelThreeSpawnManager Constructor");
 }
 
 LevelThreeSpawnManager::~LevelThreeSpawnManager()
 {
-      Logger::Logg("LevelThreeSpawnManager Destructor");
+      Logger::Log("LevelThreeSpawnManager Destructor");
 }
 
 void LevelThreeSpawnManager::UpdateSpawnManager(double deltaTime)

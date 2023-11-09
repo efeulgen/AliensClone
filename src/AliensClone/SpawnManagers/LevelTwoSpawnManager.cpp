@@ -3,12 +3,12 @@
 
 LevelTwoSpawnManager::LevelTwoSpawnManager(Player *player, Level *level) : refToPlayer{player}, refToCurrentLevel{level}
 {
-      Logger::Logg("LevelTwoSpawnManager Constructor");
+      Logger::Log("LevelTwoSpawnManager Constructor");
 }
 
 LevelTwoSpawnManager::~LevelTwoSpawnManager()
 {
-      Logger::Logg("LevelTwoSpawnManager Destructor");
+      Logger::Log("LevelTwoSpawnManager Destructor");
 }
 
 void LevelTwoSpawnManager::UpdateSpawnManager(double deltaTime)

@@ -3,12 +3,12 @@
 
 LevelTwoUIManager::LevelTwoUIManager(int w, int h, Player *p, GameManager *gm) : UIManager(w, h), refToPlayer{p}, refToGameManager{gm}
 {
-      Logger::Logg("LevelTwoUIManager Constructor");
+      Logger::Log("LevelTwoUIManager Constructor");
 }
 
 LevelTwoUIManager::~LevelTwoUIManager()
 {
-      Logger::Logg("LevelTwoUIManager Destructor");
+      Logger::Log("LevelTwoUIManager Destructor");
 
       refToPlayer = nullptr;
       refToGameManager = nullptr;

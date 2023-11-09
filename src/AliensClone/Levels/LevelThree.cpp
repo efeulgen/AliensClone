@@ -3,7 +3,7 @@
 
 LevelThree::LevelThree(int index, int w, int h, int len, GameManager *gManager, bool isFinal) : Level(index, w, h, len, gManager, isFinal)
 {
-      Logger::Logg("LevelThree Constructor");
+      Logger::Log("LevelThree Constructor");
 
       levelBackgroundPath_1 = "./assets/sprites/Background_3.png";
       levelBackgroundPath_2 = "./assets/sprites/Background_3.png";
@@ -12,7 +12,7 @@ LevelThree::LevelThree(int index, int w, int h, int len, GameManager *gManager, 
 
 LevelThree::~LevelThree()
 {
-      Logger::Logg("LevelThree Destructor");
+      Logger::Log("LevelThree Destructor");
 }
 
 void LevelThree::SetupLevelSounds()

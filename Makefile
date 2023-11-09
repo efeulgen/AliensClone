@@ -11,7 +11,8 @@ SRC = src/*.cpp \
       src/AliensClone/Obstacles/*.cpp \
       src/AliensClone/Pickups/*.cpp \
       src/AliensClone/SpawnManagers/*.cpp \
-      src/AliensClone/UIManagers/*.cpp
+      src/AliensClone/UIManagers/*.cpp \
+      src/AliensClone/Environment/*.cpp
 
 
 ######################################################################################################

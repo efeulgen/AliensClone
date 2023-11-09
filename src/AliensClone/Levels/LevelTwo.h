@@ -6,6 +6,7 @@
 #include "../Player.h"
 #include "../Pickups/Pickup.h"
 #include "../Obstacles/GooEgg.h"
+#include "../Environment/Ladder.h"
 #include "../SpawnManagers/LevelTwoSpawnManager.h"
 #include "../UIManagers/LevelTwoUIManager.h"
 #include "../Enemies/Level_2_Enemies/MachinegunPossessed.h"

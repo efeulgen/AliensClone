@@ -3,7 +3,7 @@
 
 Possessed::Possessed(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, rSize), refToPlayer{p}, refToLevel{l}
 {
-      Logger::Logg("Possessed Constructor");
+      Logger::Log("Possessed Constructor");
 
       imgFilePath = "./assets/sprites/Enemies/Possessed/Possessed_idle.png";
       gameObjectTag = "Possessed";
@@ -13,7 +13,7 @@ Possessed::Possessed(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject
 
 Possessed::~Possessed()
 {
-      Logger::Logg("Possessed Destructor");
+      Logger::Log("Possessed Destructor");
 }
 
 void Possessed::InitGameObject()

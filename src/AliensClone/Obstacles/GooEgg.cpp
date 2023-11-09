@@ -3,7 +3,7 @@
 
 GooEgg::GooEgg(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, rSize), refToPlayer{p}, refToLevel{l}
 {
-      Logger::Logg("GooEgg Constructor");
+      Logger::Log("GooEgg Constructor");
 
       imgFilePath = "./assets/sprites/Obstacles/GooEgg/GooEgg_unexploded.png";
       gameObjectTag = "GooEgg";
@@ -12,7 +12,7 @@ GooEgg::GooEgg(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, 
 
 GooEgg::~GooEgg()
 {
-      Logger::Logg("GooEgg Destructor");
+      Logger::Log("GooEgg Destructor");
 }
 
 void GooEgg::InitGameObject()

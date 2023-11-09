@@ -3,12 +3,12 @@
 
 LevelOneUIManager::LevelOneUIManager(int w, int h, Player *p, GameManager *gm) : UIManager(w, h), refToPlayer{p}, refToGameManager{gm}
 {
-      Logger::Logg("LevelOneUIManager Constructor");
+      Logger::Log("LevelOneUIManager Constructor");
 }
 
 LevelOneUIManager::~LevelOneUIManager()
 {
-      Logger::Logg("LevelOneUIManager Destructor");
+      Logger::Log("LevelOneUIManager Destructor");
 
       refToPlayer = nullptr;
       refToGameManager = nullptr;

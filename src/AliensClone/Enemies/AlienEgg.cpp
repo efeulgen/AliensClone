@@ -3,7 +3,7 @@
 
 AlienEgg::AlienEgg(glm::vec2 pos, glm::vec2 vel, int rSize, Level *l, Player *p) : GameObject(pos, vel, rSize), refToCurrentLevel{l}, refToPlayer{p}
 {
-      Logger::Logg("AlienEgg Constructor");
+      Logger::Log("AlienEgg Constructor");
 
       imgFilePath = "./assets/sprites/Enemies/AlienEgg/AlienEgg_1.png";
       gameObjectTag = "AlienEgg";
@@ -11,7 +11,7 @@ AlienEgg::AlienEgg(glm::vec2 pos, glm::vec2 vel, int rSize, Level *l, Player *p)
 
 AlienEgg::~AlienEgg()
 {
-      Logger::Logg("AlienEgg Destructor");
+      Logger::Log("AlienEgg Destructor");
 
       refToCurrentLevel = nullptr;
       refToPlayer = nullptr;
