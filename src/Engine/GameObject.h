@@ -60,7 +60,7 @@ public:
 
       virtual void InitGameObject() {}
       virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) {}
-      virtual void CollisionExitCallback() {}
+      virtual void CollisionExitCallback(GameObject *otherObj) {}
       virtual void UpdateGameObject(double deltaTime) {}
 
       virtual void RenderGameObject(SDL_Renderer *renderer)
@@ -136,7 +136,7 @@ public:
 
             if (!SDL_HasIntersection(&colliderRect, &other) && collisionStack.FindCollisionObjectWithTag(otherObj->GetGameObjectTag()))
             {
-                  CollisionExitCallback();
+                  CollisionExitCallback(otherObj);
                   collisionStack.DeleteCollisionObject(otherObj->GetGameObjectTag());
             }
       }

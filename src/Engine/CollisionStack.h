@@ -23,7 +23,7 @@ public:
 
       void AddCollisionObject(std::string colliderTag);
       void DeleteCollisionObject(std::string colliderTag);
-      bool FindCollisionObjectWithTag(std::string tag);
+      bool FindCollisionObjectWithTag(std::string colliderTag);
 };
 
 #endif

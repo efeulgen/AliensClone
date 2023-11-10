@@ -44,7 +44,7 @@ void LevelTwo::SetupLevel()
       SDL_ShowCursor(0);
 
       // environment
-      InstantiateGameObject(new Ladder(glm::vec2(1000.0, 450.0), 256));
+      InstantiateGameObject(new Ladder(glm::vec2(1000.0, 420.0), 256));
 
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
@@ -58,7 +58,6 @@ void LevelTwo::SetupLevel()
 
       uiManager = new LevelTwoUIManager(windowWidth, windowHeight, player, refToGameManager);
 
-      /*
       // pickups
       InstantiateGameObject(new Pickup(glm::vec2(800, 650), 128, PickupType::PT_HealthPickup));
       InstantiateGameObject(new Pickup(glm::vec2(1800, 650), 128, PickupType::PT_HealthPickup));
@@ -77,7 +76,6 @@ void LevelTwo::SetupLevel()
       InstantiateGameObject(new Pickup(glm::vec2(1250, 750), 128, PickupType::PT_TrippleShotAmmoPickup));
       InstantiateGameObject(new Pickup(glm::vec2(2800, 650), 128, PickupType::PT_TrippleShotAmmoPickup));
 
-
       // machinegun possessed
       for (int i = 1; i < 4; i++)
       {
@@ -88,7 +86,6 @@ void LevelTwo::SetupLevel()
                   InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i + 800, 150), 256, player, this));
             }
       }
-      */
 
       // obstacles
       for (int i = 1; i < 8; i++)

@@ -126,7 +126,7 @@ void Player::UpdateGameObject(double deltaTime)
             }
       }
       // bound checking
-      isOnGroundLevel = transform.position.y + rectSize < windowHeight / upperLevelLowerLimitRatio ? false : true;
+      isOnGroundLevel = transform.position.y <= (windowHeight / groundLevelUpperLimitRatio) - 100 ? false : true;
       if (isOnGroundLevel && !canClimb)
       {
             if (transform.position.y < windowHeight / groundLevelUpperLimitRatio)
@@ -207,14 +207,15 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
       if (otherObj->GetGameObjectTag() == "Ladder")
       {
             canClimb = true;
-            std::cout << "Can climb." << std::endl;
       }
 }
 
-void Player::CollisionExitCallback()
+void Player::CollisionExitCallback(GameObject *otherObj)
 {
-      canClimb = false;
-      std::cout << "Cannot climb." << std::endl;
+      if (otherObj->GetGameObjectTag() == "Ladder")
+      {
+            canClimb = false;
+      }
 }
 
 void Player::CalculateColliderRect()

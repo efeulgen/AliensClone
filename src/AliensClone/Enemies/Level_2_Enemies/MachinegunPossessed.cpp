@@ -6,6 +6,8 @@ MachinegunPossessed::MachinegunPossessed(glm::vec2 pos, int rSize, Player *p, Le
       Logger::Log("MachinegunPossessed Constructor");
 
       gameObjectTag = "MachinegunPossessed";
+      firingSpriteSheet = leftFiringSpriteSheet;
+      deathSpriteSheet = leftDeathSpriteSheet;
 }
 
 MachinegunPossessed::~MachinegunPossessed()
@@ -63,26 +65,31 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
             if (distanceFromPlayer < 150.0)
             {
                   firingSpriteSheet = midFiringSpriteSheet;
+                  deathSpriteSheet = midDeathSpriteSheet;
                   fireOffset = glm::vec2(65.0, 190.0);
             }
             else if (refToPlayer->GetPosition().x < transform.position.x && distanceFromPlayer < 350.0)
             {
                   firingSpriteSheet = midLeftFiringSpriteSheet;
+                  deathSpriteSheet = midLeftDeathSpriteSheet;
                   fireOffset = glm::vec2(30.0, 175.0);
             }
             else if (refToPlayer->GetPosition().x > transform.position.x && distanceFromPlayer < 350.0)
             {
                   firingSpriteSheet = midRightFiringSpriteSheet;
+                  deathSpriteSheet = midRightDeathSpriteSheet;
                   fireOffset = glm::vec2(160.0, 160.0);
             }
             else if (refToPlayer->GetPosition().x < transform.position.x)
             {
                   firingSpriteSheet = leftFiringSpriteSheet;
+                  deathSpriteSheet = leftDeathSpriteSheet;
                   fireOffset = glm::vec2(-10.0, 130.0);
             }
             else if (refToPlayer->GetPosition().x > transform.position.x)
             {
                   firingSpriteSheet = rightFiringSpriteSheet;
+                  deathSpriteSheet = rightDeathSpriteSheet;
                   fireOffset = glm::vec2(200.0, 125.0);
             }
       }
@@ -94,6 +101,7 @@ void MachinegunPossessed::UpdateGameObject(double deltaTime)
 
 void MachinegunPossessed::RenderGameObject(SDL_Renderer *renderer)
 {
+      CalculateRect();
       switch (animState)
       {
       case MachinegunPossessedAnimState::MPAS_Searching:
@@ -104,6 +112,7 @@ void MachinegunPossessed::RenderGameObject(SDL_Renderer *renderer)
             break;
       case MachinegunPossessedAnimState::MPAS_Death:
             // Render death animation
+            // RenderAnimation(renderer, deathSpriteSheet, 5, rectSize, &deathAnimIndex, transform.position, false, isFlipped);
             break;
       default:
             break;

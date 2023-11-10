@@ -47,8 +47,8 @@ private:
 
       bool canClimb = false;
       bool isOnGroundLevel = true;
-      int upperLevelUpperLimitRatio = 6;
-      int upperLevelLowerLimitRatio = 4;
+      int upperLevelUpperLimitRatio = 7;
+      int upperLevelLowerLimitRatio = 5;
       int groundLevelUpperLimitRatio = 2;
 
       // muzzle flash anim
@@ -89,7 +89,7 @@ public:
       void UpdateGameObject(double deltaTime) override;
       void RenderGameObject(SDL_Renderer *renderer) override;
       void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
-      void CollisionExitCallback() override;
+      void CollisionExitCallback(GameObject *otherObj) override;
       void CalculateColliderRect() override;
 
       void ProcessPlayerInput(double deltaTime);

@@ -37,16 +37,23 @@ void CollisionStack::DeleteCollisionObject(std::string colliderTag)
             q = p;
             p = p->next;
       }
-      q->next = p->next;
+      if (q)
+      {
+            q->next = p->next;
+      }
+      else
+      {
+            first = last = nullptr;
+      }
       delete p;
 }
 
-bool CollisionStack::FindCollisionObjectWithTag(std::string tag)
+bool CollisionStack::FindCollisionObjectWithTag(std::string colliderTag)
 {
       CollisionStackNode *p = first;
       while (p)
       {
-            if (p->tag == tag)
+            if (p->tag == colliderTag)
             {
                   return true;
             }

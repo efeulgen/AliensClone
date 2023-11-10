@@ -43,6 +43,11 @@ private:
 
       double deathAnimIndex = 0.0;
       const char **deathSpriteSheet;
+      const char *rightDeathSpriteSheet[5];
+      const char *midRightDeathSpriteSheet[5];
+      const char *midDeathSpriteSheet[5];
+      const char *midLeftDeathSpriteSheet[5];
+      const char *leftDeathSpriteSheet[5];
 
       bool isRenderingMuzzleFlash = false;
       double muzzleFlashAnimIndex = 0.0;
