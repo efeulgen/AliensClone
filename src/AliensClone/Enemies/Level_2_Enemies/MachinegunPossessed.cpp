@@ -111,6 +111,7 @@ void MachinegunPossessed::RenderGameObject(SDL_Renderer *renderer)
             RenderAnimation(renderer, firingSpriteSheet, 3, rectSize, &firingAnimIndex, transform.position, false, isFlipped);
             break;
       case MachinegunPossessedAnimState::MPAS_Death:
+            canBeDestroyed = true; // TODO : for testing delete later
             // Render death animation
             /*
             RenderAnimation(renderer, deathSpriteSheet, 5, rectSize, &deathAnimIndex, transform.position, false, isFlipped);
@@ -159,6 +160,6 @@ void MachinegunPossessed::Fire()
       glm::vec2 initVelocity = glm::normalize(refToPlayer->GetRectMidTop() - firePos);
       initVelocity.x *= 700.0;
       initVelocity.y *= 700.0;
-      refToCurrentLevel->InstantiateGameObject(new MPossessedProjectile(firePos, initVelocity, 12, refToPlayer));
+      refToCurrentLevel->InstantiateGameObject(new MPossessedProjectile(firePos, initVelocity, 12));
       isRenderingMuzzleFlash = true;
 }

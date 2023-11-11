@@ -7,6 +7,7 @@ GooEgg::GooEgg(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos, 
 
       imgFilePath = "./assets/sprites/Obstacles/GooEgg/GooEgg_unexploded.png";
       gameObjectTag = "GooEgg";
+      renderPriority = 2;
       animState = GooEggAnimState::GEAS_Unexploded;
 }
 

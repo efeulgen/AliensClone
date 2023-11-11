@@ -3,18 +3,19 @@
 
 CollisionStack::CollisionStack()
 {
-      Logger::Log("CollisionStack Constructor");
+      // Logger::Log("CollisionStack Constructor");
 }
 
 CollisionStack::~CollisionStack()
 {
-      Logger::Log("CollisionStack Destructor");
+      // Logger::Log("CollisionStack Destructor");
 }
 
-void CollisionStack::AddCollisionObject(std::string colliderTag)
+void CollisionStack::AddCollisionObject(int id)
 {
       CollisionStackNode *newCollisionObj = new CollisionStackNode;
-      newCollisionObj->tag = colliderTag;
+      newCollisionObj->id = id;
+
       newCollisionObj->next = nullptr;
 
       if (first == nullptr)
@@ -28,11 +29,11 @@ void CollisionStack::AddCollisionObject(std::string colliderTag)
       }
 }
 
-void CollisionStack::DeleteCollisionObject(std::string colliderTag)
+void CollisionStack::DeleteCollisionObject(int id)
 {
       CollisionStackNode *p = first;
       CollisionStackNode *q = nullptr;
-      while (p->tag != colliderTag)
+      while (p->id != id)
       {
             q = p;
             p = p->next;
@@ -48,12 +49,12 @@ void CollisionStack::DeleteCollisionObject(std::string colliderTag)
       delete p;
 }
 
-bool CollisionStack::FindCollisionObjectWithTag(std::string colliderTag)
+bool CollisionStack::FindCollisionObjectWithID(int id)
 {
       CollisionStackNode *p = first;
       while (p)
       {
-            if (p->tag == colliderTag)
+            if (p->id == id)
             {
                   return true;
             }

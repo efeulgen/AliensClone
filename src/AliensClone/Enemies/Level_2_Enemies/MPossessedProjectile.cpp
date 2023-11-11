@@ -1,7 +1,7 @@
 
 #include "MPossessedProjectile.h"
 
-MPossessedProjectile::MPossessedProjectile(glm::vec2 pos, glm::vec2 vel, int rSize, Player *p) : GameObject(pos, vel, rSize), refToPlayer{p}
+MPossessedProjectile::MPossessedProjectile(glm::vec2 pos, glm::vec2 vel, int rSize) : GameObject(pos, vel, rSize)
 {
       // Logger::Log("MachinegunPossessedProjectile Constructor");
 

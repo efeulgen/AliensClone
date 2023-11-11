@@ -23,6 +23,8 @@ protected:
       Transform transform;
       glm::vec2 velocity = glm::vec2(0.0, 0.0);
       int rectSize = 0;
+      int rectSizeX = 0;
+      int rectSizeY = 0;
       const char *imgFilePath = nullptr;
       std::string gameObjectTag = "Untagged";
       int renderPriority = 0;
@@ -30,28 +32,43 @@ protected:
       bool isFlipped = false;
       bool canBeDestroyed = false;
 
-      SDL_Rect colliderRect = {0, 0, 0, 0};
-
-      CollisionStack collisionStack;
+      SDL_Rect colliderRect = {0, 0, 0, 0}; // collision rect
 
 private:
-      int gameObjectID;
+      int gameObjectID = -1;
 
-      SDL_Rect rect = {0, 0, 0, 0};
-      SDL_Rect *collisionRect = new SDL_Rect;
+      SDL_Rect rect = {0, 0, 0, 0};           // drawing rect
+      SDL_Rect *collisionRect = new SDL_Rect; // intersection with other rect
+      CollisionStack collisionStack;
 
 public:
       GameObject() {}
       GameObject(glm::vec2 pos, int rSize)
       {
             transform.position = pos;
-            rectSize = rSize;
+            rectSize = rectSizeX = rectSizeY = rSize;
       }
+
+      GameObject(glm::vec2 pos, int rSizeX, int rSizeY)
+      {
+            transform.position = pos;
+            rectSizeX = rSizeX;
+            rectSizeY = rSizeY;
+      }
+
       GameObject(glm::vec2 pos, glm::vec2 vel, int rSize)
       {
             transform.position = pos;
             velocity = vel;
-            rectSize = rSize;
+            rectSize = rectSizeX = rectSizeY = rSize;
+      }
+
+      GameObject(glm::vec2 pos, glm::vec2 vel, int rSizeX, int rSizeY)
+      {
+            transform.position = pos;
+            velocity = vel;
+            rectSizeX = rSizeX;
+            rectSizeY = rSizeY;
       }
 
       virtual ~GameObject()
@@ -61,6 +78,7 @@ public:
 
       virtual void InitGameObject() {}
       virtual void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) {}
+      virtual void CollisionEnterCallback(GameObject *otherObj) {}
       virtual void CollisionExitCallback(GameObject *otherObj) {}
       virtual void UpdateGameObject(double deltaTime) {}
 
@@ -86,8 +104,8 @@ public:
       {
             rect = {static_cast<int>(transform.position.x),
                     static_cast<int>(transform.position.y),
-                    static_cast<int>(rectSize * transform.scale.x),
-                    static_cast<int>(rectSize * transform.scale.y)};
+                    static_cast<int>(rectSizeX * transform.scale.x),
+                    static_cast<int>(rectSizeY * transform.scale.y)};
             CalculateColliderRect();
       }
 
@@ -95,8 +113,8 @@ public:
       {
             colliderRect = {static_cast<int>(transform.position.x),
                             static_cast<int>(transform.position.y),
-                            static_cast<int>(rectSize * transform.scale.x),
-                            static_cast<int>(rectSize * transform.scale.y)};
+                            static_cast<int>(rectSizeX * transform.scale.x),
+                            static_cast<int>(rectSizeY * transform.scale.y)};
       }
 
       virtual void RenderAnimation(SDL_Renderer *renderer, const char *spriteSheet[], int spriteSheetSize, int spriteSize, double *sprtieSheetIndex, glm::vec2 pos, bool playOnce, bool flip = false)
@@ -129,16 +147,16 @@ public:
                   SDL_IntersectRect(&colliderRect, &other, collisionRect);
                   CollisionCallback(otherObj, collisionRect);
 
-                  if (!collisionStack.FindCollisionObjectWithTag(otherObj->GetGameObjectTag()))
+                  if (!collisionStack.FindCollisionObjectWithID(otherObj->GetGameObjectID()))
                   {
-                        collisionStack.AddCollisionObject(otherObj->GetGameObjectTag());
+                        CollisionEnterCallback(otherObj);
+                        collisionStack.AddCollisionObject(otherObj->GetGameObjectID());
                   }
             }
-
-            if (!SDL_HasIntersection(&colliderRect, &other) && collisionStack.FindCollisionObjectWithTag(otherObj->GetGameObjectTag()))
+            else if (!SDL_HasIntersection(&colliderRect, &other) && collisionStack.FindCollisionObjectWithID(otherObj->GetGameObjectID()))
             {
                   CollisionExitCallback(otherObj);
-                  collisionStack.DeleteCollisionObject(otherObj->GetGameObjectTag());
+                  collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
             }
       }
 
@@ -166,6 +184,7 @@ public:
 
       std::string GetGameObjectTag() const { return gameObjectTag; }
       int GetGameObjectID() const { return gameObjectID; }
+      void SetGameObjectID(int value) { gameObjectID = value; }
       int GetRenderPriority() const { return renderPriority; }
 };
 

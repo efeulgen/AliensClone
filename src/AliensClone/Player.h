@@ -89,6 +89,7 @@ public:
       void UpdateGameObject(double deltaTime) override;
       void RenderGameObject(SDL_Renderer *renderer) override;
       void CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect) override;
+      void CollisionEnterCallback(GameObject *otherObj) override;
       void CollisionExitCallback(GameObject *otherObj) override;
       void CalculateColliderRect() override;
 

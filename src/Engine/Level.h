@@ -16,6 +16,7 @@ class Level
 {
 private:
       int levelIndex;
+      int gameObjectCount = 0;
 
 protected:
       GameObjectManager gameObjects;
@@ -69,46 +70,26 @@ public:
 
       virtual void UpdateLevel(double deltaTime)
       {
-            for (int i = 0; i < gameObjects.GetLength(); i++)
+            int i, j;
+            for (i = 0; i < gameObjects.GetLength(); i++)
             {
-                  // garbage collection
-                  if (gameObjects.GetGameObjects()[i]->GetCanBeDestroyed())
-                  {
-                        // gameObjects.DestroyGameObject(gameObjects.GetGameObjects()[i]);
-                        continue;
-                  }
-                  // update objects
-                  gameObjects.GetGameObjects()[i]->UpdateGameObject(deltaTime);
+                  GameObject *obj = gameObjects.GetGameObjects()[i];
 
-                  // collision detection
-                  for (int j = 0; j < gameObjects.GetLength(); j++)
-                  {
-                        if (i == j)
-                        {
-                              continue;
-                        }
-                        else
-                        {
-                              gameObjects.GetGameObjects()[i]->CheckCollision(gameObjects.GetGameObjects()[j]->GetColliderRect(), gameObjects.GetGameObjects()[j]);
-                        }
-                  }
-            }
-            /*
-            for (auto obj : gameObjects.GetGameObjects())
-            {
                   // garbage collection
                   if (obj->GetCanBeDestroyed())
                   {
                         gameObjects.DestroyGameObject(obj);
-                        break;
+                        continue;
                   }
                   // update objects
                   obj->UpdateGameObject(deltaTime);
 
                   // collision detection
-                  for (auto collider : gameObjects.GetGameObjects())
+                  for (j = 0; j < gameObjects.GetLength(); j++)
                   {
-                        if (obj == collider)
+                        GameObject *collider = gameObjects.GetGameObjects()[j];
+
+                        if (i == j)
                         {
                               continue;
                         }
@@ -118,7 +99,7 @@ public:
                         }
                   }
             }
-            */
+
             // update SpawnManager
             if (levelIndex != 0)
             {
@@ -218,6 +199,8 @@ public:
 
       void InstantiateGameObject(GameObject *obj)
       {
+            gameObjectCount++;
+            obj->SetGameObjectID(gameObjectCount);
             gameObjects.InstantiateGameObject(obj);
       }
 

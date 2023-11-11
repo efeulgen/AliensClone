@@ -7,11 +7,8 @@
 
 class MPossessedProjectile : public GameObject
 {
-private:
-      Player *refToPlayer;
-
 public:
-      MPossessedProjectile(glm::vec2 pos, glm::vec2 vel, int rSize, Player *p);
+      MPossessedProjectile(glm::vec2 pos, glm::vec2 vel, int rSize);
       ~MPossessedProjectile();
 
       void InitGameObject() override;

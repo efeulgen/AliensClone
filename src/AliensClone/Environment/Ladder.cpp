@@ -1,11 +1,11 @@
 
 #include "Ladder.h"
 
-Ladder::Ladder(glm::vec2 pos, int rSize) : GameObject(pos, rSize)
+Ladder::Ladder(glm::vec2 pos, int rSizeX, int rSizeY) : GameObject(pos, rSizeX, rSizeY)
 {
       Logger::Log("Ladder Constructor");
 
-      imgFilePath = "./assets/sprites/Environment/Ladder.png";
+      imgFilePath = "./assets/sprites/Environment/Ladder_rectangular.png";
       gameObjectTag = "Ladder";
 }
 

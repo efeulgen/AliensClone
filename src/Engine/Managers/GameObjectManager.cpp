@@ -25,11 +25,10 @@ void GameObjectManager::InstantiateGameObject(GameObject *newObj)
       {
             temp[i] = gameObjects[i];
       }
-      temp[i] = newObj;
+      temp[length] = newObj;
 
       delete[] gameObjects;
       gameObjects = temp;
-
       temp = nullptr;
 
       length++;
@@ -78,24 +77,22 @@ void GameObjectManager::DestroyGameObject(GameObject *obj)
       if (!obj)
             return;
 
-      delete obj;
-      obj = nullptr;
-
       GameObject **temp = new GameObject *[length - 1];
 
       int i, j;
       for (i = 0, j = 0; i < length; i++, j++)
       {
-            if (gameObjects[i] == nullptr)
+            if (gameObjects[i] == obj)
             {
-                  i++;
+                  delete gameObjects[i];
+                  gameObjects[i] = nullptr;
+                  j--;
             }
             else
             {
                   temp[j] = gameObjects[i];
             }
       }
-
       delete[] gameObjects;
       gameObjects = temp;
       temp = nullptr;
@@ -124,7 +121,7 @@ void GameObjectManager::SortRenderPriority()
 {
       for (int i = 0; i < length - 1; i++)
       {
-            if (gameObjects[i]->GetRenderPriority() < gameObjects[i + 1]->GetRenderPriority())
+            if (gameObjects[i]->GetRenderPriority() > gameObjects[i + 1]->GetRenderPriority())
             {
                   GameObject *temp = gameObjects[i];
                   gameObjects[i] = gameObjects[i + 1];

@@ -7,7 +7,7 @@
 
 struct CollisionStackNode
 {
-      std::string tag = "";
+      int id = -1;
       CollisionStackNode *next = nullptr;
 };
 
@@ -21,9 +21,9 @@ public:
       CollisionStack();
       ~CollisionStack();
 
-      void AddCollisionObject(std::string colliderTag);
-      void DeleteCollisionObject(std::string colliderTag);
-      bool FindCollisionObjectWithTag(std::string colliderTag);
+      void AddCollisionObject(int id);
+      void DeleteCollisionObject(int id);
+      bool FindCollisionObjectWithID(int id);
 };
 
 #endif

@@ -7,7 +7,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
 
       imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
       gameObjectTag = "Player";
-      renderPriority = -1;
+      renderPriority = 1;
 
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
       animState = PlayerAnimState::PAS_Idle;
@@ -205,8 +205,20 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
             currentLevel->GetAudioManager()->PlaySFX(11);
       }
 
+      /*
       if (otherObj->GetGameObjectTag() == "Ladder")
       {
+            Logger::Warn("Player collides with ladder."); // TODO : for debugging, delete later
+            canClimb = true;
+      }
+      */
+}
+
+void Player::CollisionEnterCallback(GameObject *otherObj)
+{
+      if (otherObj->GetGameObjectTag() == "Ladder")
+      {
+            Logger::Warn("Player collides with ladder."); // TODO : for debugging, delete later
             canClimb = true;
       }
 }
@@ -215,6 +227,7 @@ void Player::CollisionExitCallback(GameObject *otherObj)
 {
       if (otherObj->GetGameObjectTag() == "Ladder")
       {
+            Logger::Warn("Player stops colliding with ladder."); // TODO : for debugging, delete later
             canClimb = false;
       }
 }

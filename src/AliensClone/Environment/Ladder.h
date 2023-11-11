@@ -7,7 +7,7 @@
 class Ladder : public GameObject
 {
 public:
-      Ladder(glm::vec2 pos, int rSize);
+      Ladder(glm::vec2 pos, int rSizeX, int rSizeY);
       ~Ladder();
 };
 
