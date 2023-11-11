@@ -43,12 +43,11 @@ void LevelTwo::SetupLevel()
 {
       SDL_ShowCursor(0);
 
-      // environment
-      InstantiateGameObject(new Ladder(glm::vec2(1000.0, 420.0), 256));
-
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
       InstantiateGameObject(player);
+
+      InstantiateGameObject(new Ladder(glm::vec2(1000.0, 420.0), 256));
 
       // managers
       spawnManager = new LevelTwoSpawnManager(player, this);
@@ -84,6 +83,7 @@ void LevelTwo::SetupLevel()
                   InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i, 150), 256, player, this));
                   InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i + 400, 150), 256, player, this));
                   InstantiateGameObject(new MachinegunPossessed(glm::vec2(2000.0 * i + 800, 150), 256, player, this));
+                  InstantiateGameObject(new Ladder(glm::vec2(2000.0 * i + 1250, 420.0), 256));
             }
       }
 

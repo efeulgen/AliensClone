@@ -25,6 +25,7 @@ protected:
       int rectSize = 0;
       const char *imgFilePath = nullptr;
       std::string gameObjectTag = "Untagged";
+      int renderPriority = 0;
 
       bool isFlipped = false;
       bool canBeDestroyed = false;
@@ -165,6 +166,7 @@ public:
 
       std::string GetGameObjectTag() const { return gameObjectTag; }
       int GetGameObjectID() const { return gameObjectID; }
+      int GetRenderPriority() const { return renderPriority; }
 };
 
 #endif

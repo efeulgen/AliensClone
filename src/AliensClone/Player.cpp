@@ -7,6 +7,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
 
       imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
       gameObjectTag = "Player";
+      renderPriority = -1;
 
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
       animState = PlayerAnimState::PAS_Idle;

@@ -2,7 +2,6 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Logger/Logger.h"
@@ -11,6 +10,7 @@
 #include "Managers/SpawnManager.h"
 #include "Managers/UIManager.h"
 #include "Managers/GameManager.h"
+#include "Managers/GameObjectManager.h"
 
 class Level
 {
@@ -18,8 +18,7 @@ private:
       int levelIndex;
 
 protected:
-      std::vector<GameObject *> gameObjects;
-      int gameObjectCount = 0;
+      GameObjectManager gameObjects;
 
       bool isLevelComplete = false;
       bool isFinalLevel = false;
@@ -37,7 +36,6 @@ protected:
       AudioManager *audioManager = nullptr;
       SpawnManager *spawnManager = nullptr;
       UIManager *uiManager = nullptr;
-
       GameManager *refToGameManager = nullptr;
 
 public:
@@ -61,29 +59,54 @@ public:
             SetupLevelSounds();
 
             // init game objects
-            for (auto obj : gameObjects)
+            for (int i = 0; i < gameObjects.GetLength(); i++)
             {
-                  obj->InitGameObject();
+                  gameObjects.GetGameObjects()[i]->InitGameObject();
             }
+
+            gameObjects.SortRenderPriority();
       }
 
       virtual void UpdateLevel(double deltaTime)
       {
-            for (auto obj : gameObjects)
+            for (int i = 0; i < gameObjects.GetLength(); i++)
+            {
+                  // garbage collection
+                  if (gameObjects.GetGameObjects()[i]->GetCanBeDestroyed())
+                  {
+                        // gameObjects.DestroyGameObject(gameObjects.GetGameObjects()[i]);
+                        continue;
+                  }
+                  // update objects
+                  gameObjects.GetGameObjects()[i]->UpdateGameObject(deltaTime);
+
+                  // collision detection
+                  for (int j = 0; j < gameObjects.GetLength(); j++)
+                  {
+                        if (i == j)
+                        {
+                              continue;
+                        }
+                        else
+                        {
+                              gameObjects.GetGameObjects()[i]->CheckCollision(gameObjects.GetGameObjects()[j]->GetColliderRect(), gameObjects.GetGameObjects()[j]);
+                        }
+                  }
+            }
+            /*
+            for (auto obj : gameObjects.GetGameObjects())
             {
                   // garbage collection
                   if (obj->GetCanBeDestroyed())
                   {
-                        gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), obj), gameObjects.end());
-                        obj->DestroyGameObject();
-                        obj = nullptr;
+                        gameObjects.DestroyGameObject(obj);
                         break;
                   }
                   // update objects
                   obj->UpdateGameObject(deltaTime);
 
                   // collision detection
-                  for (auto collider : gameObjects)
+                  for (auto collider : gameObjects.GetGameObjects())
                   {
                         if (obj == collider)
                         {
@@ -95,6 +118,7 @@ public:
                         }
                   }
             }
+            */
             // update SpawnManager
             if (levelIndex != 0)
             {
@@ -139,9 +163,9 @@ public:
 
             // *****************************************************************************************************************************
             // ************************* render objects ************************************************************************************
-            for (auto obj : gameObjects)
+            for (int i = 0; i < gameObjects.GetLength(); i++)
             {
-                  obj->RenderGameObject(renderer);
+                  gameObjects.GetGameObjects()[i]->RenderGameObject(renderer);
             }
 
             // *****************************************************************************************************************************
@@ -164,12 +188,7 @@ public:
 
       virtual void ClearLevelGameObjects()
       {
-            for (auto obj : gameObjects)
-            {
-                  obj->DestroyGameObject();
-                  obj = nullptr;
-            }
-            gameObjects.clear();
+            gameObjects.ClearGameObjects();
             std::cout << "\033[1;33mLevel " << levelIndex << " GameObject list is cleared.\033[0m" << std::endl;
       }
 
@@ -199,20 +218,19 @@ public:
 
       void InstantiateGameObject(GameObject *obj)
       {
-            gameObjects.push_back(obj);
-            gameObjectCount++;
+            gameObjects.InstantiateGameObject(obj);
       }
 
       void ShifBackground(double shiftValue, double deltaTime)
       {
             backgroundXPosition -= shiftValue * deltaTime;
-            for (auto obj : gameObjects)
+            for (int i = 0; i < gameObjects.GetLength(); i++)
             {
-                  if (obj->GetGameObjectTag() == "Player")
+                  if (gameObjects.GetGameObjects()[i]->GetGameObjectTag() == "Player")
                   {
                         continue;
                   }
-                  obj->ShiftGameObject(shiftValue, deltaTime);
+                  gameObjects.GetGameObjects()[i]->ShiftGameObject(shiftValue, deltaTime);
             }
       }
 
@@ -221,7 +239,7 @@ public:
       void SetIsLevelComplete(bool value) { isLevelComplete = value; }
 
       bool GetIsFinalLevel() const { return isFinalLevel; }
-      bool GetIsLevelGameObjectListIsClear() const { return gameObjects.empty(); }
+      bool GetIsLevelGameObjectListIsClear() const { return gameObjects.isEmpty(); }
       int GetLevelLength() const { return levelLength; }
       int GetLevelIndex() const { return levelIndex; }
 

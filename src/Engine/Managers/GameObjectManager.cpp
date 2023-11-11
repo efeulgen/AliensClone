@@ -1,21 +1,21 @@
 
-#include "GameObjects.h"
+#include "GameObjectManager.h"
 
-GameObjects::GameObjects()
+GameObjectManager::GameObjectManager()
 {
-      Logger::Log("GameObjects ADT Constructor");
+      Logger::Log("GameObjectManager Constructor");
 }
 
-GameObjects::~GameObjects()
+GameObjectManager::~GameObjectManager()
 {
-      Logger::Log("GameObjects ADT Destructor");
+      Logger::Log("GameObjectManager Destructor");
 }
 
 // **********************************************************************************************************************************************************************************************
 // **********************************************************************************************************************************************************************************************
 // **********************************************************************************************************************************************************************************************
 
-void GameObjects::InstantiateGameObject(GameObject *newObj)
+void GameObjectManager::InstantiateGameObject(GameObject *newObj)
 {
       newObj->InitGameObject();
 
@@ -35,7 +35,7 @@ void GameObjects::InstantiateGameObject(GameObject *newObj)
       length++;
 }
 
-GameObject *GameObjects::FindGameObject(GameObject *obj)
+GameObject *GameObjectManager::FindGameObject(GameObject *obj)
 {
       int low, mid, high;
       low = 0;
@@ -61,7 +61,7 @@ GameObject *GameObjects::FindGameObject(GameObject *obj)
       return nullptr;
 }
 
-GameObject *GameObjects::FindGameObjectWithTag(std::string tag)
+GameObject *GameObjectManager::FindGameObjectWithTag(std::string tag)
 {
       for (int i = 0; i < length; i++)
       {
@@ -73,7 +73,7 @@ GameObject *GameObjects::FindGameObjectWithTag(std::string tag)
       return nullptr;
 }
 
-void GameObjects::DestroyGameObject(GameObject *obj)
+void GameObjectManager::DestroyGameObject(GameObject *obj)
 {
       if (!obj)
             return;
@@ -98,18 +98,17 @@ void GameObjects::DestroyGameObject(GameObject *obj)
 
       delete[] gameObjects;
       gameObjects = temp;
-
       temp = nullptr;
 
       length--;
 }
 
-void GameObjects::DestroyGameObjectWithTag(std::string tag)
+void GameObjectManager::DestroyGameObjectWithTag(std::string tag)
 {
       DestroyGameObject(FindGameObjectWithTag(tag));
 }
 
-void GameObjects::ClearGameObjects()
+void GameObjectManager::ClearGameObjects()
 {
       for (int i = 0; i < length; i++)
       {
@@ -118,4 +117,24 @@ void GameObjects::ClearGameObjects()
       }
       delete[] gameObjects;
       gameObjects = nullptr;
+      length = 0;
+}
+
+void GameObjectManager::SortRenderPriority()
+{
+      for (int i = 0; i < length - 1; i++)
+      {
+            if (gameObjects[i]->GetRenderPriority() < gameObjects[i + 1]->GetRenderPriority())
+            {
+                  GameObject *temp = gameObjects[i];
+                  gameObjects[i] = gameObjects[i + 1];
+                  gameObjects[i + 1] = temp;
+                  temp = nullptr;
+            }
+      }
+}
+
+bool GameObjectManager::isEmpty() const
+{
+      return length == 0;
 }

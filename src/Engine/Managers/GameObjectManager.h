@@ -3,23 +3,23 @@
 // ********** GameObjects ADT ******************************************************************************************************************************************************
 // *********************************************************************************************************************************************************************************
 
-#ifndef GAMEOBJECTS_H
-#define GAMEOBJECTS_H
+#ifndef GAMEOBJECTMANAGER_H
+#define GAMEOBJECTMANAGER_H
 
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "Logger/Logger.h"
-#include "GameObject.h"
+#include "../Logger/Logger.h"
+#include "../GameObject.h"
 
-class GameObjects
+class GameObjectManager
 {
 private:
       int length = 0;
       GameObject **gameObjects = nullptr;
 
 public:
-      GameObjects();
-      ~GameObjects();
+      GameObjectManager();
+      ~GameObjectManager();
 
       void InstantiateGameObject(GameObject *newObj);
       GameObject *FindGameObject(GameObject *obj);
@@ -27,6 +27,8 @@ public:
       void DestroyGameObject(GameObject *obj);
       void DestroyGameObjectWithTag(std::string tag);
       void ClearGameObjects();
+      void SortRenderPriority();
+      bool isEmpty() const;
 
       // *************** getters *********************************************
       int GetLength() const { return length; }
