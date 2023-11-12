@@ -7,6 +7,7 @@ Mine::Mine(glm::vec2 pos, int rSize, Level *refToLev) : GameObject(pos, rSize), 
 
       imgFilePath = "./assets/sprites/Obstacles/Mine.png";
       gameObjectTag = "Mine";
+      renderPriority = 1;
 }
 
 Mine::~Mine()

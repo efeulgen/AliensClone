@@ -6,6 +6,7 @@ Facehugger::Facehugger(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObje
       Logger::Log("Facehugger Constructor");
 
       gameObjectTag = "Facehugger";
+      renderPriority = 2;
 
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(facehuggerSpeed, 0.0) : glm::vec2(-facehuggerSpeed, 0.0);
 }

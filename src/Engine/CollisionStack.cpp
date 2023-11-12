@@ -11,10 +11,10 @@ CollisionStack::~CollisionStack()
       // Logger::Log("CollisionStack Destructor");
 }
 
-void CollisionStack::AddCollisionObject(int id)
+void CollisionStack::AddCollisionObject(int objId)
 {
       CollisionStackNode *newCollisionObj = new CollisionStackNode;
-      newCollisionObj->id = id;
+      newCollisionObj->id = objId;
 
       newCollisionObj->next = nullptr;
 
@@ -29,11 +29,11 @@ void CollisionStack::AddCollisionObject(int id)
       }
 }
 
-void CollisionStack::DeleteCollisionObject(int id)
+void CollisionStack::DeleteCollisionObject(int objId)
 {
       CollisionStackNode *p = first;
       CollisionStackNode *q = nullptr;
-      while (p->id != id)
+      while (p->id != objId)
       {
             q = p;
             p = p->next;
@@ -47,18 +47,48 @@ void CollisionStack::DeleteCollisionObject(int id)
             first = last = nullptr;
       }
       delete p;
+      p = nullptr;
 }
 
-bool CollisionStack::FindCollisionObjectWithID(int id)
+bool CollisionStack::FindCollisionObjectWithID(int objId)
 {
       CollisionStackNode *p = first;
       while (p)
       {
-            if (p->id == id)
+            if (p->id == objId)
             {
+                  p = nullptr;
                   return true;
             }
             p = p->next;
       }
+      p = nullptr;
       return false;
+}
+
+void CollisionStack::ClearCollisionStack()
+{
+      CollisionStackNode *p = first;
+      CollisionStackNode *q = nullptr;
+      while (p)
+      {
+            q = p;
+            p = p->next;
+            delete q;
+            q = nullptr;
+      }
+}
+
+void CollisionStack::DisplayCollisionStack(std::string tag)
+{
+      if (!first)
+      {
+            std::cout << "Collision stack of " << tag << " is empty." << std::endl;
+      }
+      CollisionStackNode *p = first;
+      while (p)
+      {
+            std::cout << "Collision stack of " << tag << " : " << p->id << std::endl;
+            p = p->next;
+      }
 }

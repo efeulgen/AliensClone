@@ -6,6 +6,7 @@ MachinegunPossessed::MachinegunPossessed(glm::vec2 pos, int rSize, Player *p, Le
       Logger::Log("MachinegunPossessed Constructor");
 
       gameObjectTag = "MachinegunPossessed";
+      renderPriority = 2;
       firingSpriteSheet = leftFiringSpriteSheet;
       deathSpriteSheet = leftDeathSpriteSheet;
 }

@@ -95,7 +95,7 @@ public:
                         }
                         else
                         {
-                              obj->CheckCollision(collider->GetColliderRect(), collider);
+                              obj->CheckCollision(collider->GetColliderRect(), collider); // TODO : optimize
                         }
                   }
             }
@@ -202,6 +202,7 @@ public:
             gameObjectCount++;
             obj->SetGameObjectID(gameObjectCount);
             gameObjects.InstantiateGameObject(obj);
+            std::cout << obj->GetGameObjectTag() << " has " << obj->GetGameObjectID() << " id." << std::endl; // for debugging, delete later
       }
 
       void ShifBackground(double shiftValue, double deltaTime)

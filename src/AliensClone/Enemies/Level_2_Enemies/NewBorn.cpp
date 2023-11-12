@@ -7,6 +7,7 @@ NewBorn::NewBorn(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject(pos
 
       imgFilePath = "./assets/sprites/Enemies/NewBorn/NewBorn_1.png";
       gameObjectTag = "NewBorn";
+      renderPriority = 2;
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(newBornSpeed, 0.0) : glm::vec2(-newBornSpeed, 0.0);
       animState = NewBornAnimState::NBAS_Crawling;
 }

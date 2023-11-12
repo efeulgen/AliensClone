@@ -9,6 +9,7 @@ Alien::Alien(glm::vec2 pos, int rSize, Player *playerRef, Level *levelRef) : Gam
 
       imgFilePath = "./assets/sprites/Enemies/Alien/Alien.png";
       gameObjectTag = "Alien";
+      renderPriority = 2;
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(ALIENSPEED, 0.0) : glm::vec2(-ALIENSPEED, 0.0);
 }
 

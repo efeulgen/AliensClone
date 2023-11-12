@@ -7,6 +7,7 @@ Blob::Blob(glm::vec2 pos, glm::vec2 vel, int rSize, Player *p, Level *l) : GameO
 
       imgFilePath = "./assets/sprites/Enemies/Blob/Blob.png";
       gameObjectTag = "Blob";
+      renderPriority = 2;
       animState = BlobAnimState::BAS_Blobbing;
 }
 

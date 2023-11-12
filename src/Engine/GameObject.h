@@ -33,13 +33,13 @@ protected:
       bool canBeDestroyed = false;
 
       SDL_Rect colliderRect = {0, 0, 0, 0}; // collision rect
+      CollisionStack collisionStack;
 
 private:
       int gameObjectID = -1;
 
       SDL_Rect rect = {0, 0, 0, 0};           // drawing rect
       SDL_Rect *collisionRect = new SDL_Rect; // intersection with other rect
-      CollisionStack collisionStack;
 
 public:
       GameObject() {}
@@ -73,6 +73,7 @@ public:
 
       virtual ~GameObject()
       {
+            collisionStack.ClearCollisionStack();
             delete collisionRect;
       }
 
@@ -147,16 +148,16 @@ public:
                   SDL_IntersectRect(&colliderRect, &other, collisionRect);
                   CollisionCallback(otherObj, collisionRect);
 
-                  if (!collisionStack.FindCollisionObjectWithID(otherObj->GetGameObjectID()))
+                  if (!collisionStack.FindCollisionObjectWithID(otherObj->GetGameObjectID()) && gameObjectTag == "Player" && otherObj->GetGameObjectTag() == "Ladder") // TODO : find better solution
                   {
-                        CollisionEnterCallback(otherObj);
                         collisionStack.AddCollisionObject(otherObj->GetGameObjectID());
+                        CollisionEnterCallback(otherObj);
                   }
             }
-            else if (!SDL_HasIntersection(&colliderRect, &other) && collisionStack.FindCollisionObjectWithID(otherObj->GetGameObjectID()))
+            else if (!SDL_HasIntersection(&colliderRect, &other) && collisionStack.FindCollisionObjectWithID(otherObj->GetGameObjectID()) && gameObjectTag == "Player" && otherObj->GetGameObjectTag() == "Ladder") // TODO : find better solution
             {
-                  CollisionExitCallback(otherObj);
                   collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
+                  CollisionExitCallback(otherObj);
             }
       }
 

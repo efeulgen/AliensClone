@@ -21,9 +21,11 @@ public:
       CollisionStack();
       ~CollisionStack();
 
-      void AddCollisionObject(int id);
-      void DeleteCollisionObject(int id);
-      bool FindCollisionObjectWithID(int id);
+      void AddCollisionObject(int objId);
+      void DeleteCollisionObject(int objId);
+      bool FindCollisionObjectWithID(int objId);
+      void ClearCollisionStack();
+      void DisplayCollisionStack(std::string tag);
 };
 
 #endif

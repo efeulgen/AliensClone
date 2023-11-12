@@ -7,6 +7,7 @@ AlienEgg::AlienEgg(glm::vec2 pos, glm::vec2 vel, int rSize, Level *l, Player *p)
 
       imgFilePath = "./assets/sprites/Enemies/AlienEgg/AlienEgg_1.png";
       gameObjectTag = "AlienEgg";
+      renderPriority = 2;
 }
 
 AlienEgg::~AlienEgg()

@@ -76,7 +76,7 @@ void LevelTwo::SetupLevel()
       InstantiateGameObject(new Pickup(glm::vec2(2800, 650), 128, PickupType::PT_TrippleShotAmmoPickup));
 
       // machinegun possessed
-      for (int i = 1; i < 4; i++)
+      for (int i = 1; i < 8; i++)
       {
             if (i % 2 != 0)
             {

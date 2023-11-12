@@ -27,7 +27,10 @@ void GameObjectManager::InstantiateGameObject(GameObject *newObj)
       }
       temp[length] = newObj;
 
-      delete[] gameObjects;
+      if (length != 0)
+      {
+            delete[] gameObjects;
+      }
       gameObjects = temp;
       temp = nullptr;
 
@@ -74,7 +77,7 @@ GameObject *GameObjectManager::FindGameObjectWithTag(std::string tag)
 
 void GameObjectManager::DestroyGameObject(GameObject *obj)
 {
-      if (!obj)
+      if (obj == nullptr || length == 0)
             return;
 
       GameObject **temp = new GameObject *[length - 1];
@@ -82,7 +85,7 @@ void GameObjectManager::DestroyGameObject(GameObject *obj)
       int i, j;
       for (i = 0, j = 0; i < length; i++, j++)
       {
-            if (gameObjects[i] == obj)
+            if (gameObjects[i]->GetGameObjectID() == obj->GetGameObjectID())
             {
                   delete gameObjects[i];
                   gameObjects[i] = nullptr;

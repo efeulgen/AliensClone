@@ -7,6 +7,7 @@ Possessed::Possessed(glm::vec2 pos, int rSize, Player *p, Level *l) : GameObject
 
       imgFilePath = "./assets/sprites/Enemies/Possessed/Possessed_idle.png";
       gameObjectTag = "Possessed";
+      renderPriority = 2;
       velocity = refToPlayer->GetTransform().position.x > transform.position.x ? glm::vec2(possessedSpeed, 0.0) : glm::vec2(-possessedSpeed, 0.0);
       animState = PossessedAnimState::POSAS_Walking;
 }

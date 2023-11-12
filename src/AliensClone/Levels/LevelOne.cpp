@@ -40,6 +40,7 @@ void LevelOne::SetupLevel()
 
       // player
       player = new Player(glm::vec2(300, windowHeight * 2 / 3), glm::vec2(600.0, 600.0), 250, this, windowWidth, windowHeight);
+      InstantiateGameObject(player);
 
       // facehugger tanks
       for (int i = 1; i < 8; i++)
@@ -48,8 +49,6 @@ void LevelOne::SetupLevel()
             InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 200, 410), 256, (i + 1) * 5, player, this));
             InstantiateGameObject(new FacehuggerTank(glm::vec2(i * 2000.0 + 400, 410), 256, (i + 2) * 5, player, this));
       }
-
-      InstantiateGameObject(player); // create render layers
 
       // managers
       spawnManager = new LevelOneSpawnManager(player, this);

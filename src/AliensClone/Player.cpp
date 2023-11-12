@@ -7,7 +7,7 @@ Player::Player(glm::vec2 pos, glm::vec2 vel, int rSize, Level *level, int w, int
 
       imgFilePath = "./assets/sprites/Player/PlayerLaserBlaster.png";
       gameObjectTag = "Player";
-      renderPriority = 1;
+      renderPriority = 5;
 
       weaponMode = PlayerWeaponMode::PWM_LaserBlaster;
       animState = PlayerAnimState::PAS_Idle;
@@ -193,9 +193,14 @@ void Player::RenderGameObject(SDL_Renderer *renderer)
 
 void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
 {
+}
+
+void Player::CollisionEnterCallback(GameObject *otherObj)
+{
       if (otherObj->GetGameObjectTag() == "AmmoPickup")
       {
             currentLevel->GetAudioManager()->PlaySFX(2);
+            collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
       }
 
       if (otherObj->GetGameObjectTag() == "HealthPickup")
@@ -203,33 +208,42 @@ void Player::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
             if (health == 100)
                   return;
             currentLevel->GetAudioManager()->PlaySFX(11);
+            collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
       }
 
-      /*
-      if (otherObj->GetGameObjectTag() == "Ladder")
+      if (otherObj->GetGameObjectTag() == "MPossessedProjectile")
       {
-            Logger::Warn("Player collides with ladder."); // TODO : for debugging, delete later
-            canClimb = true;
+            collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
       }
-      */
-}
 
-void Player::CollisionEnterCallback(GameObject *otherObj)
-{
+      if (otherObj->GetGameObjectTag() == "Facehugger")
+      {
+            collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
+      }
+
+      if (otherObj->GetGameObjectTag() == "Mine")
+      {
+            collisionStack.DeleteCollisionObject(otherObj->GetGameObjectID());
+      }
+
       if (otherObj->GetGameObjectTag() == "Ladder")
       {
-            Logger::Warn("Player collides with ladder."); // TODO : for debugging, delete later
             canClimb = true;
       }
+
+      Logger::Err("Enter callback : ");                    // for debugging, delete later
+      collisionStack.DisplayCollisionStack(gameObjectTag); // for debugging, delete later
 }
 
 void Player::CollisionExitCallback(GameObject *otherObj)
 {
       if (otherObj->GetGameObjectTag() == "Ladder")
       {
-            Logger::Warn("Player stops colliding with ladder."); // TODO : for debugging, delete later
             canClimb = false;
       }
+
+      Logger::Err("Exit callback : ");                     // for debugging, delete later
+      collisionStack.DisplayCollisionStack(gameObjectTag); // for debugging, delete later
 }
 
 void Player::CalculateColliderRect()

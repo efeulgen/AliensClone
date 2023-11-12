@@ -24,6 +24,8 @@ Pickup::Pickup(glm::vec2 pos, int rSize, PickupType t) : GameObject(pos, rSize),
       default:
             break;
       }
+
+      renderPriority = 1;
 }
 
 Pickup::~Pickup()
@@ -63,7 +65,6 @@ void Pickup::CollisionCallback(GameObject *otherObj, SDL_Rect *hitRect)
             default:
                   break;
             }
-
             canBeDestroyed = true;
       }
 }

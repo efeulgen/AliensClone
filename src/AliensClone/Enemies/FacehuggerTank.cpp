@@ -22,6 +22,7 @@ FacehuggerTank::FacehuggerTank(glm::vec2 pos, int rSize, int imgPathSeed, Player
             break;
       }
       gameObjectTag = "FacehuggerTank";
+      renderPriority = 1;
 }
 
 FacehuggerTank::~FacehuggerTank()
